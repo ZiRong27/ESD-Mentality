@@ -1,2 +1,2 @@
-# ESD-ClinicAppointmentServices
-ESD 215
+# Notification Microservice
+This microservice uses the Twillio API to help send message notifications.
