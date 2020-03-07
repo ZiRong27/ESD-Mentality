@@ -92,7 +92,7 @@ require_once '../include/protect.php';
   <!-- /.container -->
 
 <!-- Import footer -->
-<?php include 'imports/footer.php';?>
+
 </body>
 
 </html>
