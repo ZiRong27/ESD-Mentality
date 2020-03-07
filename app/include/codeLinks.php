@@ -28,13 +28,25 @@
     integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
     crossorigin="anonymous"></script>
 
-    <!-- tempus dominus bootstrap 4 https://tempusdominus.github.io/bootstrap-4/ -->
-    <!--
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css" />
-    -->
+    <style>
+      /*
+        html 
+        {
+          height: 100%;
+        }
+        body 
+        {
+          background: rgb(0,42,190);
+          background: linear-gradient(171deg, rgba(0,42,190,1) 0%, rgba(50,9,121,1) 35%, rgba(126,0,123,1) 100%);
+          height: 100%;
+          margin: 0;
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+        }
+        */
+
+    </style>
+
 
 </head>
 </html>
