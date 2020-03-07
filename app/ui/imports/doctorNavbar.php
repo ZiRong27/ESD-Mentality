@@ -17,13 +17,10 @@
             <a class="nav-link" href="#">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#"> Medical Information </a>
+            <a class="nav-link" href="#"> View Appointments </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#"> Bookings </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#"> Payments </a>
+            <a class="nav-link" href="#"> Appointments </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="../ui/index.php"> Logout </a>

@@ -58,12 +58,10 @@
                     if(username == "a" && password =="a")  
                     {
                         window.location.href = "patientLanding.php";
-                        console.log(username)
-                        console.log(password)
                     } 
                     else if(username == "b" && password =="b")  
                     {
-                        console.log("incorrect password");
+                        window.location.href = "doctorLanding.php";
                     }             
             });
 
