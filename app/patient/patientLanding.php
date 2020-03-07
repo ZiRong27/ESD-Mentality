@@ -1,14 +1,21 @@
 
+
+<?php
+require_once '../include/common.php';
+
+$accountType = "patient";
+require_once '../include/protect.php';
+?>
 <html>
 <header>
-    <?php include 'imports/codeLinks.php';?>
-    <link rel = "stylesheet" type = "text/css" href = "imports/stylesheet.css" />
+    <?php include '../include/codeLinks.php';?>
+    <link rel = "stylesheet" type = "text/css" href = "../include/stylesheet.css" />
 </header>
 
 
 <body>
 <!-- Import navigation bar -->
-<?php include 'imports/patientNavbar.php';?>
+<?php include '../include/patientNavbar.php';?>
 
 <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
   <ol class="carousel-indicators">
@@ -18,21 +25,21 @@
   </ol>
   <div class="carousel-inner">
     <div class="carousel-item active">
-      <img src="images/carousel-design-1" class="d-block w-100 h-50">
+      <img src="../images/carousel-design-1" class="d-block w-100 h-50">
       <div class="carousel-caption d-none d-md-block">
         <h5>First slide label</h5>
         <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
       </div>
     </div>
     <div class="carousel-item">
-      <img src="images/carousel-design-2" class="d-block w-100 h-50">
+      <img src="../images/carousel-design-2" class="d-block w-100 h-50">
       <div class="carousel-caption d-none d-md-block">
         <h5>Second slide label</h5>
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
       </div>
     </div>
     <div class="carousel-item">
-      <img src="images/carousel-design-3" class="d-block w-100 h-50">
+      <img src="../images/carousel-design-3" class="d-block w-100 h-50">
       <div class="carousel-caption d-none d-md-block">
         <h5>Third slide label</h5>
         <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>

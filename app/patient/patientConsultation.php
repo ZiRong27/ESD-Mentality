@@ -1,14 +1,14 @@
 
 <html>
 <header>
-    <?php include 'imports/codeLinks.php';?>
-    <link rel = "stylesheet" type = "text/css" href = "imports/stylesheet.css" />
+    <?php include '../include/codeLinks.php';?>
+    <link rel = "stylesheet" type = "text/css" href = "include/stylesheet.css" />
 </header>
 
 
 <body>
 <!-- Import navigation bar -->
-<?php include 'imports/patientNavbar.php';?>
+<?php include '../include/patientNavbar.php';?>
 
 
 </br>

@@ -16,6 +16,24 @@ h3{
     font-family:"Open Sans", sans-serif;
 }
 
+.whitetext { 
+  color: white; 
+  font-size: 120%;
+}
+.whitetextbig { 
+  color: white;
+  font-weight: bold; 
+  font-size: 170%;
+}
+.panel-footer {
+  display: flex;
+  justify-content: space-between;
+}
+.index-errormsg
+{
+  color: white;
+  font-size: 140%
+}
 .patientLanding-card
 {
     height: 200px;
@@ -25,3 +43,5 @@ h3{
 {
     height: 100px;
 }
+/* For patientViewAllDoctors.php */
+
