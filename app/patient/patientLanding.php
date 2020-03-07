@@ -44,73 +44,55 @@ require_once '../include/protect.php';
         <h5>Third slide label</h5>
         <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
       </div>
+
+      <div class="col-lg-3 col-md-6 mb-4">
+        <div class="card h-100">
+          <img class="card-img-top" src="images/carousel-design-2.png" height="180" width="250">
+          <div class="card-body">
+            <h4 class="card-title"> Bookings </h4>
+            <p class="card-text">Book or schedule an appomient with our doctors </p>
+          </div>
+          <div class="card-footer">
+            <a href="#" class="btn btn-primary"> Bookings </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-3 col-md-6 mb-4">
+        <div class="card h-100">
+          <img class="card-img-top" src="images/carousel-design-3.png" height="180" width="250">
+          <div class="card-body">
+            <h4 class="card-title"> Payments </h4>
+            <p class="card-text"> Make and organise your payments  </p>
+          </div>
+          <div class="card-footer">
+            <a href="#" class="btn btn-primary"> Payments </a>
+          </div>
+        </div>
+      </div>
+    <!--
+      <div class="col-lg-3 col-md-6 mb-4">
+        <div class="card h-100">
+          <img class="card-img-top" src="http://placehold.it/500x325" alt="">
+          <div class="card-body">
+            <h4 class="card-title">Card title</h4>
+            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo magni sapiente, tempore debitis beatae culpa natus architecto.</p>
+          </div>
+          <div class="card-footer">
+            <a href="#" class="btn btn-primary">Find Out More!</a>
+          </div>
+        </div>
+      </div>
+      -->
+
     </div>
+    <!-- /.row -->
+
   </div>
-  <!-- Left arrow key -->
-  <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="sr-only">Previous</span>
-  </a>
-  <!-- Right arrow key -->
-  <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="sr-only">Next</span>
-  </a>
-</div>
+  <!-- /.container -->
 
-</br>
-
-<div class="container col-12">
-
-    <div class="row d-flex justify-content-center">
-
-      <!-- Card 1 -->
-        <div class="col-4 justify-content-center">
-          <div class="card">
-            <div class="card-body">
-                <div class="patientLanding-card">
-                  <h5 class="card-title"> Consultation </h5>
-                  <p class="card-text"> View and schedule an appointment with our doctors. </p>
-                  <a href="patientConsultation.php" class="btn btn-primary btn-lg"> Consultation </a>
-                </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Card 2 -->
-        <div class="col-4 justify-content-center">
-          <div class="card">
-            <div class="card-body">
-              <div class="patientLanding-card">
-                <h5 class="card-title"> Bookings </h5>
-                <p class="card-text"> View all your booking made with your doctor.</p>
-                <a href="#" class="btn btn-primary btn-lg"> Bookings </a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      <!-- Card 3 -->
-      <div class="col-4 justify-content-center">
-          <div class="card">
-            <div class="card-body">
-              <div class="patientLanding-card">
-                <h5 class="card-title"> Payments </h5>
-                <p class="card-text"> Made your payment through our mentality. </p>
-                <a href="#" class="btn btn-primary btn-lg"> Payments </a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-    </div>
-
-</div>
-
-<script>    
-
-</script>
-
+<!-- Import footer -->
+<?php include 'imports/footer.php';?>
 </body>
 
 </html>
