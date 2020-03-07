@@ -3,6 +3,12 @@
 <header>
     <?php include 'imports/codeLinks.php';?>
     <link rel = "stylesheet" type = "text/css" href = "imports/stylesheet.css" />
+    <style>
+      body {
+        padding-top: 56px;
+        }
+      </style>
+
 </header>
 
 
@@ -10,99 +16,85 @@
 <!-- Import navigation bar -->
 <?php include 'imports/patientNavbar.php';?>
 
-<div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
-  <ol class="carousel-indicators">
-    <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
-    <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
-    <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
-  </ol>
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-      <img src="images/carousel-design-1" class="d-block w-100 h-50">
-      <div class="carousel-caption d-none d-md-block">
-        <h5>First slide label</h5>
-        <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+  <!-- Page Content -->
+  <div class="container">
+
+    <!-- Jumbotron Header -->
+    <header class="jumbotron my-4">
+      <h1 class="display-3"> "Name Here" </h1>
+      <p class="lead"> Welcome to CAS, we hope that you will have a enjoyable experience using this service </p>
+      <a href="#" class="btn btn-primary btn-lg">Call to action!</a>
+    </header>
+
+    <!-- Page Features -->
+    <div class="row text-center">
+
+      <div class="col-lg-3 col-md-6 mb-4">
+        <div class="card h-100">
+          <img class="card-img-top" src="images/carousel-design-1.png" height="180" width="250">
+          <div class="card-body">
+            <h4 class="card-title">Card title</h4>
+            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente esse necessitatibus neque.</p>
+          </div>
+          <div class="card-footer">
+            <a href="#" class="btn btn-primary">Find Out More!</a>
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="carousel-item">
-      <img src="images/carousel-design-2" class="d-block w-100 h-50">
-      <div class="carousel-caption d-none d-md-block">
-        <h5>Second slide label</h5>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+
+      <div class="col-lg-3 col-md-6 mb-4">
+        <div class="card h-100">
+          <img class="card-img-top" src="images/carousel-design-2.png" height="180" width="250">
+          <div class="card-body">
+            <h4 class="card-title">Card title</h4>
+            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo magni sapiente, tempore debitis beatae culpa natus architecto.</p>
+          </div>
+          <div class="card-footer">
+            <a href="#" class="btn btn-primary">Find Out More!</a>
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="carousel-item">
-      <img src="images/carousel-design-3" class="d-block w-100 h-50">
-      <div class="carousel-caption d-none d-md-block">
-        <h5>Third slide label</h5>
-        <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+
+      <div class="col-lg-3 col-md-6 mb-4">
+        <div class="card h-100">
+          <img class="card-img-top" src="images/carousel-design-3.png" height="180" width="250">
+          <div class="card-body">
+            <h4 class="card-title">Card title</h4>
+            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente esse necessitatibus neque.</p>
+          </div>
+          <div class="card-footer">
+            <a href="#" class="btn btn-primary">Find Out More!</a>
+          </div>
+        </div>
       </div>
+    <!--
+      <div class="col-lg-3 col-md-6 mb-4">
+        <div class="card h-100">
+          <img class="card-img-top" src="http://placehold.it/500x325" alt="">
+          <div class="card-body">
+            <h4 class="card-title">Card title</h4>
+            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo magni sapiente, tempore debitis beatae culpa natus architecto.</p>
+          </div>
+          <div class="card-footer">
+            <a href="#" class="btn btn-primary">Find Out More!</a>
+          </div>
+        </div>
+      </div>
+      -->
+
     </div>
+    <!-- /.row -->
+
   </div>
-  <!-- Left arrow key -->
-  <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="sr-only">Previous</span>
-  </a>
-  <!-- Right arrow key -->
-  <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="sr-only">Next</span>
-  </a>
-</div>
+  <!-- /.container -->
 
-</br>
-
-<div class="container col-12">
-
-    <div class="row d-flex justify-content-center">
-
-      <!-- Card 1 -->
-        <div class="col-4 justify-content-center">
-          <div class="card">
-            <div class="card-body">
-                <div class="patientLanding-card">
-                  <h5 class="card-title"> Consultation </h5>
-                  <p class="card-text"> View and schedule an appointment with our doctors. </p>
-                  <a href="patientConsultation.php" class="btn btn-primary btn-lg"> Consultation </a>
-                </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Card 2 -->
-        <div class="col-4 justify-content-center">
-          <div class="card">
-            <div class="card-body">
-              <div class="patientLanding-card">
-                <h5 class="card-title"> Bookings </h5>
-                <p class="card-text"> View all your booking made with your doctor.</p>
-                <a href="#" class="btn btn-primary btn-lg"> Bookings </a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      <!-- Card 3 -->
-      <div class="col-4 justify-content-center">
-          <div class="card">
-            <div class="card-body">
-              <div class="patientLanding-card">
-                <h5 class="card-title"> Payments </h5>
-                <p class="card-text"> Made your payment through our mentality. </p>
-                <a href="#" class="btn btn-primary btn-lg"> Payments </a>
-              </div>
-            </div>
-          </div>
-        </div>
-
+  <!-- Footer -->
+  <footer class="py-5 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">Copyright &copy; Your Website 2019</p>
     </div>
-
-</div>
-
-<script>    
-
-</script>
+    <!-- /.container -->
+  </footer>
 
 </body>
 

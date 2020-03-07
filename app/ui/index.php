@@ -33,10 +33,10 @@
             </br>
 
             <div class="text-right">
-                <button type="button" class="btn btn-primary btn-lg" id="signup"> Sign Up </button>
-                    &nbsp;
-                    &nbsp;
                 <button type="button" class="btn btn-primary btn-lg" id="login"> Login </button>
+                    &nbsp;
+                    &nbsp;
+                <button type="button" class="btn btn-primary btn-lg btn-secondary" id="signup"> Sign Up </button>
             </div>
         </form>
 
@@ -65,6 +65,11 @@
                     {
                         console.log("incorrect password");
                     }             
+            });
+
+            $("#signup").click(function()
+            {
+                window.location.href = "signup.php";
             });
         });
     </script>
