@@ -52,8 +52,41 @@ require_once '../include/protect.php';
         // Display an error on top of the table
         $('.index-errormsg').html(message)
     }
+
+    async function fetchURLs() {
+    try {
+      // Promise.all() lets us coalesce multiple promises into a single super-promise
+      var data = await Promise.all([
+        fetch("http://127.0.0.1:5002/view-all-doctors").then((response) => response.json()),
+        fetch("http://127.0.0.1:5001/view-all-patients").then((response) => response.json())
+      ]);
+      doctor = {}
+      
+        for (var obj of data[0]) {
+            doctor_id = obj["doctor_id"];
+            doctor[doctor_id] = obj["price"];
+        }
+
+      patient = {}
+     
+        for (var obj of data[1]) {
+            patient_id = obj["patient_id"];
+            patient[patient_id] = obj["name"];
+        }
+      
+      console.log(patient);
+      console.log(doctor);
+      return doctor, patient;
+
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
     //This is the form id, not the submit button id!
     $(async() => { 
+        fetchURLs();
+        //fetchURL2();
         var doctor_id = sessionStorage.getItem("doctor_id");
         $('#doctor_id').val(doctor_id); 
         //This is the url found above the get_all function in doctor.py. Basically you are trying to send data(username and password) to that url using post and receive its response
@@ -78,12 +111,14 @@ require_once '../include/protect.php';
                     
                     for (i = 0; i < data.length; i++) { 
                         if (data[i].doctor_id == doctor_id){
+                            patientName = patient[data[i].patient_id];
+                            price = doctor[data[i].doctor_id];
                             Row =
                             "<tr><th scope='row'>" + data[i].appointment_id + "</th>" +
-                            "<td>" + "patientName" + "</td>" +
+                            "<td>" + patientName + "</td>" +
                             "<td>" + data[i].date + "</td>" +
                             "<td>" + data[i].time + "</td>" +
-                            "<td>" + data[i].price + "</td>" +
+                            "<td>" + price + "</td>" +
                             "<td></td></tr>";
                             $('#apptTable').append(Row);
                         } 

@@ -75,6 +75,7 @@
                     //Comment this line if you want to debug the response using console.log(JSON.stringify({ title: title, price: price,availability: availability })) 
                     //Set the session to username so it wont log the user out.
                     sessionStorage.setItem('username', data['username'])
+                    sessionStorage.setItem('doctor_id', data['doctor_id'])
                     window.location.href = "doctorLanding.php";               
                 }
             } catch (error) {
