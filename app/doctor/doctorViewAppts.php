@@ -20,7 +20,7 @@ require_once '../include/protect.php';
 
 <body>
 <!-- Import navigation bar -->
-<?php include '../include/patientNavbar.php';?>
+<?php include '../include/doctorNavbar.php';?>
 </br></br>
 
 <br/>
