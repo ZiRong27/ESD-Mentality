@@ -23,7 +23,7 @@
                 <a class="nav-link" href="#"> Consultation </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#"> Bookings </a>
+                <a class="nav-link" href="../doctor/doctorViewAppts.php"> Appointments </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#"> Payments </a>

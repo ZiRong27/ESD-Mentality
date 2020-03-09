@@ -29,13 +29,10 @@
                 <a class="nav-link" href="../patient/patientConsultation.php"> Consultation </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#"> Bookings </a>
+                <a class="nav-link" href="../appointment/patientUpdateAppts.php"> Appointments </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#"> Payments </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="../appointment/patientUpdateAppts.php"> Appointments </a>
             </li>
         </ul>
         <!--Create another ul with the class ml-auto to align it to the right-->
