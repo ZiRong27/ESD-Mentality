@@ -39,7 +39,7 @@ require_once '../include/protect.php';
         <th scope="col">Date</th>
         <th scope="col">Time</th>
         <th scope="col">Price</th>
-        <th scope="col">Update</th>
+        <th scope="col"></th>
         </tr>
     </thead>
     <tbody>
@@ -85,7 +85,7 @@ require_once '../include/protect.php';
                             "<td>" + data[i].date + "</td>" +
                             "<td>" + data[i].time + "</td>" +
                             "<td>" + data[i].price + "</td>" +
-                            //"<td> <a href='viewDoctor.php?username=" + data[i].username + "'>View profile</a> </td></tr>";
+                            "<td> <button type='submit' class='btn btn-primary btn-sm' id='update'>Update</button></td></tr>"
                             "<td></td></tr>";
                             $('#apptTable').append(Row);
                         } 
