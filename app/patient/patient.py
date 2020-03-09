@@ -103,9 +103,9 @@ def updatePatient():
  
     return jsonify(patient.json()), 201
 
-@app.route("/order_db") #Going to /order_db will redirect you to this order_db.py file
+@app.route("/view-all-patients") 
 def get_all():
-    return {'orders': [order.json() for order in Order.query.all()]}
+    return jsonify([patient.json() for patient in Patient.query.all()])
 #THis is for flask ap
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=5001, debug=True)
