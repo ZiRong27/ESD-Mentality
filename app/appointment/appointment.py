@@ -90,9 +90,10 @@ def create_appointment():
 def updateAppointment():
     #I changed everything to string in sql database as there will be error if you submit a string to a column defined as integer
     data = request.get_json()
+    appointment = Appointment(**data)
     try:
-        setattr(patient, 'date', data["date"])
-        setattr(patient, 'time', data["time"])
+        setattr(appointment, 'date', data["date"])
+        setattr(appointment, 'time', data["time"])
         db.session.commit()
     except:
         return jsonify({"message": "An error occurred updating details of the appointment."}), 500
