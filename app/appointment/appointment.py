@@ -56,6 +56,7 @@ class Appointment(db.Model):
 @app.route("/appointment/<string:doctor_id>")
 def find_by_doctor_id(doctor_id):
     appointment = Appointment.query.filter_by(doctor_id=doctor_id).first()
+    print(appointment)
     if appointment:
         return jsonify(appointment.json())
     return jsonify({"message": "Appointment not found."}), 404

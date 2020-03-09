@@ -38,11 +38,8 @@ require_once '../include/protect.php';
         <th scope="col">Patient</th>
         <th scope="col">Date</th>
         <th scope="col">Time</th>
-        <th scope="col">Price</th>
         </tr>
     </thead>
-    <tbody>
-    </tbody>
     </table>   
 </div>
 <script>    
@@ -83,7 +80,50 @@ require_once '../include/protect.php';
     }
   }
 
+  $(async (event) =>
+  {
+    var doctor_id = sessionStorage.getItem("doctor_id");
+    var serviceURL = "http://127.0.0.1:5003/view-all-appointments";
+
+    try 
+    {
+      const response = await fetch(serviceURL, { method: 'GET' });
+      const data = await response.json(); 
+      console.log(data)
+
+      if (!data || data.message == "Appointment(s) not found.") 
+      {
+        console.log(data['message']);
+      } 
+      else
+      {
+        console.log(Object.values(data))
+        for (i = 0; i < data.length; i++) 
+        { 
+          if(data[i]["doctor_id"] == doctor_id)
+          {
+            console.log("hello")
+            row = 
+            "<tbody><tr>" + 
+              "<td>" + data[i]["appointment_id"] + "</td>" + 
+              "<td>" + data[i]["patient_id"] + "</td>" + 
+              "<td>" + data[i]["date"] + "</td>" + 
+              "<td>" + data[i]["time"] + "</td>" +
+            "</tr></tbody>";
+            $('#apptTable').append(row);
+          }
+          
+        }
+      }
+    }
+    catch(error)
+    {
+      console.log("Error in connecting to Mircoservice!");
+    }
+  });
+
     //This is the form id, not the submit button id!
+    /*
     $(async() => { 
         fetchURLs();
         //fetchURL2();
@@ -132,7 +172,8 @@ require_once '../include/protect.php';
               ('There is a problem retrieving appointments data, please try again later. Tip: Did you forget to run appointment.py? :)<br />'+error);
                
             } 
-    });
+            
+    });*/
 </script>
 </body>
 
