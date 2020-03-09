@@ -34,6 +34,9 @@
             <li class="nav-item">
                 <a class="nav-link" href="#"> Payments </a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../appointment/patientUpdateAppts.php"> Appointments </a>
+            </li>
         </ul>
         <!--Create another ul with the class ml-auto to align it to the right-->
         <ul class="navbar-nav ml-auto">
