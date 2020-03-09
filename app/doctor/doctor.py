@@ -9,7 +9,7 @@ import pika
 app = Flask(__name__)
 #Access the order table in myphpadmin database. (After importing patient.sql files)
 #I AM USING PORT 3308 AND ESD_PATIENT DATABASE!
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root@localhost:3308/esd_doctor'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root@localhost:3306/esd_doctor'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
  
 db = SQLAlchemy(app)
@@ -23,8 +23,10 @@ class Doctor(db.Model):
     dob = db.Column(db.String, nullable=False)
     experience = db.Column(db.String, nullable=False)
     specialisation  = db.Column(db.String, nullable=False)
+    price = db.Column(db.String, nullable=False)
     username = db.Column(db.String, nullable=False)
     password = db.Column(db.String, nullable=False)   
+      
 
     def json(self):
         dto = {
@@ -34,8 +36,9 @@ class Doctor(db.Model):
             'dob' : self.dob ,
             'experience' : self.experience ,
             'specialisation' : self.specialisation ,
+            'price': self.price ,
             'username' : self.username ,
-            'password' : self.password 
+            'password' : self.password
         }
         return dto  
 #Note that post does not have anything in the url. Its all in the body of the request

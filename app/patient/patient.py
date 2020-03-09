@@ -9,7 +9,7 @@ import pika
 app = Flask(__name__)
 #Access the order table in myphpadmin database. (After importing patient.sql files)
 #I AM USIG PORT 3308 AND ESD_PATIENT DATABASE!
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root@localhost:3308/esd_patient'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root@localhost:3306/esd_patient'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
  
 db = SQLAlchemy(app)

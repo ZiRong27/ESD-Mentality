@@ -38,16 +38,28 @@ require_once '../include/protect.php';
     </thead>
     <tbody>
     </tbody>
-    </table>   
+    </table>  
+    <!-- <form id='bookForm'>
+        <div class="text-right">
+            <p style="color: white; font-size: 100%;">Date: <input type='date' name='booking_date' id='booking_date'>
+            <p style="color: white; font-size: 100%;">Time: <input type='text' name='booking_time' id='booking_time'>     
+            <button type='submit' class="btn btn-primary btn-lg" id='booking_submit'>Submit booking</button>
+        </div>
+    </form> -->
+    <form id='bookForm'> 
+        <div class="text-right">    
+            <input type='date' name='booking_date' id='booking_date'>
+            <input type='text' name='booking_time' id='booking_time'>
+            <button type='submit' class="btn btn-primary btn-lg" id='booking_submit'>Submit booking</button>
+        </div>  
+    </form>
 </div>
 <script>    
     // Helper function to display error message
     function showError(message) {
         console.log('Error logged')
-        // Display an error on top of the table
-        $('.index-errormsg').html(message)
+        console.log(message)
     }
-    //This is the form id, not the submit button id!
     $(async() => { 
         //This is the url found above the get_all function in doctor.py. Basically you are trying to send data(username and password) to that url using post and receive its response
         //The response you get is found is sent by the json function of the doctor class in doctor.py
@@ -95,6 +107,8 @@ require_once '../include/protect.php';
                         "<tr><th>Specialisation</th><td>" + data.specialisation + "</td></tr>" +
                         "<th colspan='2'> <a href='#'>Book an appointment</a> </th></tr>";
                     $('#doctorsTable').append(Row);
+                    price = data.price;
+                    doctor_id = data.doctor_id;
                     //Add the t body
                     $('#doctorsTable').append("</tbody>");              
                 }
@@ -105,6 +119,49 @@ require_once '../include/protect.php';
                
             } 
     });
+
+    // onclick "book an appointment", sends doctor_id and patient_id
+    
+        $("#bookForm").submit(async (event) => {
+            event.preventDefault();     
+            var booking_date = $('#booking_date').val();
+            var booking_time = $('#booking_time').val();
+            var patient_id = sessionStorage.getItem("patient_id");
+            $('#patient_id').val(patient_id); 
+            
+            var serviceURL = "http://127.0.0.1:5003/create-appointment";
+            try {
+                console.log(JSON.stringify({ doctor_id: doctor_id,
+                                            patient_id: patient_id,
+                                            date: booking_date,
+                                            time: booking_time}))
+                const response = await fetch(serviceURL,{method: 'POST',
+                                            headers: { "Content-Type": "application/json" },
+                                            body: JSON.stringify
+                                            ({ doctor_id: doctor_id,
+                                               patient_id: patient_id,
+                                               date: booking_date,
+                                               time: booking_time})
+                                            });
+              
+                const data = await response.json();
+                console.log(data)
+                //The error message is stored in the data array sent by patient.py! If there is a message variable, it means there is an error
+                if (data['message']) {
+                    showError(data['message'])
+                } else {
+                    alert("Appointment successfully booked!")
+                }
+            } catch (error) {
+                // Errors when calling the service; such as network error, service offline, etc
+                showError
+              ('There is a problem retrieving appointment data, please try again later. Tip: Did you forget to run appointment.py? :)<br />'+error);
+               
+            } 
+
+       
+    });
+
 </script>
 </body>
 
