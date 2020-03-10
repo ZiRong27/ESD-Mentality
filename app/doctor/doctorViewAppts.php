@@ -38,6 +38,7 @@ require_once '../include/protect.php';
         <th scope="col">Patient</th>
         <th scope="col">Date</th>
         <th scope="col">Time</th>
+        <th scope="col">View profile</th>
         </tr>
     </thead>
     </table>   
@@ -80,6 +81,7 @@ require_once '../include/protect.php';
     }
   }
 
+  // This function here show all appointments by doctor_ID
   $(async (event) =>
   {
     var doctor_id = sessionStorage.getItem("doctor_id");
@@ -104,12 +106,13 @@ require_once '../include/protect.php';
           {
             console.log("hello")
             row = 
-            "<tbody><tr>" + 
-              "<td>" + data[i]["appointment_id"] + "</td>" + 
-              "<td>" + data[i]["patient_id"] + "</td>" + 
-              "<td>" + data[i]["date"] + "</td>" + 
-              "<td>" + data[i]["time"] + "</td>" +
-            "</tr></tbody>";
+              "<tbody><tr>" + 
+                  "<td>" + data[i]["appointment_id"] + "</td>" + 
+                  "<td>" + data[i]["patient_id"] + "</td>" + 
+                  "<td>" + data[i]["date"] + "</td>" + 
+                  "<td>" + data[i]["time"] + "</td>" +
+                  "<td> <a href='viewPatient.php?appointmentid=" + data[i]["appointment_id"] + "&patientid="+ data[i]["patient_id"]+"'> View Patient </a> </td>" +
+              "</tr></tbody>";
             $('#apptTable').append(row);
           }
           
