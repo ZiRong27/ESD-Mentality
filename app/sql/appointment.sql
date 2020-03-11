@@ -6,7 +6,8 @@
 -- Generation Time: Mar 08, 2020 at 06:52 AM
 -- Server version: 5.7.23
 -- PHP Version: 7.2.10
-
+CREATE Database esd_appointment;
+USE esd_appointment;
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
 START TRANSACTION;
