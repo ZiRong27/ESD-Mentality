@@ -78,10 +78,10 @@ $(document).ready(function()
   // FUNCTION: Get appointment and Patient Data from database
   async function fetchURLs(appointment_id, patient_id) 
     {
-        var patientURL = "http://127.0.0.1:5001/patient/";
+        var patientURL = "http://" + sessionStorage.getItem("patientip") + "/patient/";
         patientURL = patientURL + patient_id
 
-        var appointmentURL = "http://127.0.0.1:5003/appointment-by-id/"; 
+        var appointmentURL = "http://" + sessionStorage.getItem("appointmentip") + "/appointment-by-id/"; 
         appointmentURL = appointmentURL + appointment_id
         console.log(appointmentURL);
 

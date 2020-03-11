@@ -46,9 +46,13 @@
 </div>
 <script>    
     //IMPORTANT Set AWS IP address for each microservices here
-    sessionStorage.setItem('patientip', "54.255.222.142:5001")
-    sessionStorage.setItem('doctorip', "54.169.208.175:5002")
-    sessionStorage.setItem('appointmentip', "13.229.251.106:5001")
+    //All these are working! Uncomment to try them, you will NOT need to run any of these microservices yourself
+    //sessionStorage.setItem('patientip', "13.250.127.183:5001")
+    //sessionStorage.setItem('doctorip', "54.169.208.175:5002")
+    //sessionStorage.setItem('appointmentip', "13.229.101.26:5003")
+    sessionStorage.setItem('patientip', "127.0.0.1:5001")
+    sessionStorage.setItem('doctorip', "127.0.0.1:5002")
+    sessionStorage.setItem('appointmentip', "127.0.0.1:5003")   
     //Retrieve with sessionStorage.getItem("patientip")
     // Helper function to display error message
     function showError(message) {
@@ -63,7 +67,7 @@
         var password = $('#password').val();
         //This is the url found above the login function in patient.py. Basically you are trying to send data(username and password) to that url using post and receive its response
         //The response you get is found is sent by the json function of the Patient class in patient.py
-        //var serviceURL = "http://127.0.0.1:5001/login-process";
+        //var serviceURL = "http://" + sessionStorage.getItem("patientip") + "/login-process";
         var serviceURL = "http://" + sessionStorage.getItem("patientip") + "/login-process";
         //var serviceURL = "http://54.255.225.231:5001/login-process";
         try {
