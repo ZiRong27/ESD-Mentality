@@ -18,70 +18,64 @@ $accountType = "doctor";
             Patient Information
     </div> 
 
-    <table class="table table-striped table-light table-hover text-center" id="doctorsTable">
+    <form>
+
+    <table class="table table-striped table-light table-hover text-center" id="appointmentTable">
         <thead>
         </thead>
         <tbody>
         </tbody>
     </table>  
 
+    
+      <div class="form-group">
+        <label for="diagnosisInformation"> Diagnosis </label>
+        <textarea class="form-control" id="diagnosisInformation" rows="2"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="prescriptionInformation"> Prescription </label>
+        <textarea class="form-control" id="prescriptionInformation" rows="2"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="notesInformation"> Notes </label>
+        <textarea class="form-control" id="notesInformation" rows="5"></textarea>
+      </div>
+
+      <button type="submit" class="btn btn-primary" id="registerAppointment"> Submit </button>
+
+    </form> 
+
 </div>
 
 <script>
-    // This function here show all appointments by doctor_ID
+$(document).ready(function() 
+{
+  // FUNCTION: Retrieve patient and appointment details and display.
   $(async (event) =>
   {
-
     let params = new URLSearchParams(location.search);
     var appointment_id = params.get("appointmentid");
     var patient_id = params.get("patientid");
     var doctor_id = sessionStorage.getItem("doctor_id");
     var data = await fetchURLs(appointment_id, patient_id) 
     console.log(data);
+    
     var patient_information = data[0];
     var appointment_information = data[1];
 
-    /*
-    try 
-    {
-      const response = await fetch(serviceURL, { method: 'GET' });
-      const data = await response.json(); 
-      console.log(data)
-
-      if (!data || data.message == "Appointment(s) not found.") 
-      {
-        console.log(data['message']);
-      } 
-      else
-      {
-        console.log(Object.values(data))
-        for (i = 0; i < data.length; i++) 
-        { 
-          if(data[i]["doctor_id"] == doctor_id)
-          {
-            console.log("hello")
-            row = 
-              "<tbody><tr>" + 
-                  "<td>" + data[i]["appointment_id"] + "</td>" + 
-                  "<td>" + data[i]["patient_id"] + "</td>" + 
-                  "<td>" + data[i]["date"] + "</td>" + 
-                  "<td>" + data[i]["time"] + "</td>" +
-                  "<td> <a href='viewPatient.php?appointmentid=" + data[i]["appointment_id"] + "&patientid="+ data[i]["patient_id"]+"'> View Patient </a> </td>" +
-              "</tr></tbody>";
-            $('#apptTable').append(row);
-          }
-          
-        }
-      }
-    }
-    catch(error)
-    {
-      console.log("Error in connecting to Mircoservice!");
-    }
-    */
+    row = 
+        "<tbody>" + 
+            "<tr> <th> Name </th> <td>" + patient_information["salutation"] + ". "+ patient_information["name"] +"</td> </tr>" + 
+            "<tr> <th> Username </th> <td>" + patient_information["username"] + "</td> </tr>" + 
+            "<tr> <th> Date & Time </th> <td>" + appointment_information["date"] + "," + appointment_information["time"] + "</td> </tr>" + 
+        "</tbody>";
+        $('#appointmentTable').append(row);
   });
 
 
+  // FUNCTION: Get appointment and Patient Data from database
   async function fetchURLs(appointment_id, patient_id) 
     {
         var patientURL = "http://127.0.0.1:5001/patient/";
@@ -90,28 +84,89 @@ $accountType = "doctor";
         var appointmentURL = "http://127.0.0.1:5003/appointment-by-id/"; 
         appointmentURL = appointmentURL + appointment_id
         console.log(appointmentURL);
+
+        var consultationURL = "http://127.0.0.1:5004/consultation";
+        console.log(consultationURL);
     try 
     {
       // Promise.all() lets us coalesce multiple promises into a single super-promise
       var data = await Promise.all
       ([
         fetch(patientURL).then((response) => response.json()),
-        fetch(appointmentURL).then((response) => response.json())
+        fetch(appointmentURL).then((response) => response.json()),
+        fetch(consultationURL).then((response) => response.json())
       ]);
-      var patient = data[0]
-      var appointment = data[1]
+      //var patient = data[0]
+      //var appointment = data[1]
+      console.log(data[2]['consultation']);
       return data
-        /*
-      console.log(patient);
-      console.log(appointment);
-      return appointment, patient;
-      */
     } 
     catch (error) 
     {
       console.log(error);
     }
   }
+
+    // FUNCTION: Get appointment and Patient Data from database
+    $("#registerAppointment").click(async(event) =>
+    {
+        event.preventDefault(); 
+        let params = new URLSearchParams(location.search);
+        var appointment_id = params.get("appointmentid");
+        var patient_id = params.get("patientid");
+        var doctor_id = sessionStorage.getItem("doctor_id");
+        var data = await fetchURLs(appointment_id, patient_id); 
+        console.log(data);
+    
+        var patient_information = data[0];
+        var appointment_information = data[1];
+        
+        var consultation_length = data[2]['consultation'].length;
+        consultation_length += 1;
+        var appointment_id = appointment_information["appointment_id"];
+        var doctor_id = doctor_id;
+        var patient_id = patient_information["patient_id"];
+        var diagnosis_information = $("#diagnosisInformation").val(); 
+        var prescription_information = $("#prescriptionInformation").val();
+        var notes_information = $("#notesInformation").val();
+                
+        var serviceURL = "http://127.0.0.1:5004/convert-to-consultation";
+        var requestBody = 
+        {
+            consultation_id: consultation_length,
+            appointment_id: appointment_id,
+            doctor_id: doctor_id,
+            patient_id: patient_id,
+            diagnosis: diagnosis_information,
+            prescription: prescription_information,
+            notes: notes_information
+        }   
+        postData(serviceURL, requestBody) 
+        });
+
+    async function postData(serviceURL, requestBody) 
+    {
+        var requestParam = 
+        {
+            method: 'POST',                
+            headers: { "content-type": "application/json;" },
+            body: JSON.stringify(requestBody)
+        }
+        try 
+        {
+            const response = await fetch(serviceURL, requestParam);
+            data = await response.json();               
+            console.log(data);
+            console.log("hello");
+        }       
+        catch (error) 
+        {
+            console.error(error);
+        }
+    }
+
+
+});
 </script>
 
 </body>

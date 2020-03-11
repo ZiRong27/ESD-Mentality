@@ -116,6 +116,10 @@ def find_by_patientid(patient_id):
         return jsonify(patient.json())
     return jsonify({"message": "Patient not found."}), 404
 
+# --------------------------------- #
+# <!-- Patient Allergies Database -->
+
+
 #THis is for flask ap
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=5001, debug=True)

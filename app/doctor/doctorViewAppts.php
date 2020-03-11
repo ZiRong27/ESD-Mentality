@@ -41,7 +41,7 @@ require_once '../include/protect.php';
         <th scope="col">View profile</th>
         </tr>
     </thead>
-    </table>   
+    </table>  
 </div>
 <script>    
     // Helper function to display error message
