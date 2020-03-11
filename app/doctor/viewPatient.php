@@ -35,11 +35,12 @@ $accountType = "doctor";
     let params = new URLSearchParams(location.search);
     var appointment_id = params.get("appointmentid");
     var patient_id = params.get("patientid");
-    console.log(appointment_id);
-    console.log(patient_id);
     var doctor_id = sessionStorage.getItem("doctor_id");
+    var data = await fetchURLs(appointment_id, patient_id) 
+    console.log(data);
+    var patient_information = data[0];
+    var appointment_information = data[1];
 
-    fetchURLs(appointment_id, patient_id) 
     /*
     try 
     {
@@ -86,10 +87,9 @@ $accountType = "doctor";
         var patientURL = "http://127.0.0.1:5001/patient/";
         patientURL = patientURL + patient_id
 
-        var appointmentURL = "http://127.0.0.1:5003/appointment/"; 
+        var appointmentURL = "http://127.0.0.1:5003/appointment-by-id/"; 
         appointmentURL = appointmentURL + appointment_id
         console.log(appointmentURL);
-
     try 
     {
       // Promise.all() lets us coalesce multiple promises into a single super-promise
@@ -100,26 +100,12 @@ $accountType = "doctor";
       ]);
       var patient = data[0]
       var appointment = data[1]
-
-      /*
-        for (var obj of data[0]) 
-        {
-            doctor_id = obj["doctor_id"];
-            doctor[doctor_id] = obj["price"];
-        }
-
-      patient = {}
-     
-        for (var obj of data[1]) {
-            patient_id = obj["patient_id"];
-            patient[patient_id] = obj["name"];
-        }
-        */
-        console.log(data);
+      return data
+        /*
       console.log(patient);
       console.log(appointment);
-      /*return doctor, patient;*/
-
+      return appointment, patient;
+      */
     } 
     catch (error) 
     {
