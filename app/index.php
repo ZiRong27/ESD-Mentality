@@ -50,9 +50,12 @@
     //sessionStorage.setItem('patientip', "13.250.127.183:5001")
     //sessionStorage.setItem('doctorip', "54.169.208.175:5002")
     //sessionStorage.setItem('appointmentip', "13.229.101.26:5003")
+    //sessionStorage.setItem('consultationip', "13.228.79.15:5004")  
     sessionStorage.setItem('patientip', "127.0.0.1:5001")
     sessionStorage.setItem('doctorip', "127.0.0.1:5002")
     sessionStorage.setItem('appointmentip', "127.0.0.1:5003")   
+    sessionStorage.setItem('consultationip', "127.0.0.1:5004")   
+    
     //Retrieve with sessionStorage.getItem("patientip")
     // Helper function to display error message
     function showError(message) {
