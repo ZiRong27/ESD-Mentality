@@ -58,6 +58,7 @@ $(document).ready(function()
     let params = new URLSearchParams(location.search);
     var appointment_id = params.get("appointmentid");
     var patient_id = params.get("patientid");
+    console.log(patient_id);
     var doctor_id = sessionStorage.getItem("doctor_id");
     var data = await fetchURLs(appointment_id, patient_id) 
     console.log(data);
@@ -80,12 +81,14 @@ $(document).ready(function()
     {
         var patientURL = "http://" + sessionStorage.getItem("patientip") + "/patient/";
         patientURL = patientURL + patient_id
+        console.log(patientURL)
 
         var appointmentURL = "http://" + sessionStorage.getItem("appointmentip") + "/appointment-by-id/"; 
         appointmentURL = appointmentURL + appointment_id
         console.log(appointmentURL);
-
-        var consultationURL = "http://127.0.0.1:5004/consultation";
+        
+        //var consultationURL = "http://127.0.0.1:5004/consultation";
+        var consultationURL = "http://" + sessionStorage.getItem("consultationip") + "/consultation";
         console.log(consultationURL);
     try 
     {
@@ -96,6 +99,7 @@ $(document).ready(function()
         fetch(appointmentURL).then((response) => response.json()),
         fetch(consultationURL).then((response) => response.json())
       ]);
+      console.log(data)
       //var patient = data[0]
       //var appointment = data[1]
       console.log(data[2]['consultation']);
@@ -130,7 +134,8 @@ $(document).ready(function()
         var prescription_information = $("#prescriptionInformation").val();
         var notes_information = $("#notesInformation").val();
                 
-        var serviceURL = "http://127.0.0.1:5004/convert-to-consultation";
+        //var serviceURL = "http://127.0.0.1:5004/convert-to-consultation";
+        var serviceURL = "http://" + sessionStorage.getItem("consultationip") + "/convert-to-consultation";
         var requestBody = 
         {
             consultation_id: consultation_length,
