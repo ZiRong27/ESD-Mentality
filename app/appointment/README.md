@@ -1,2 +1,2 @@
-# ESD-ClinicAppointmentServices
-ESD 2020
+# Appointment Microservice
+This microservice sends appointment details to notification microservice.

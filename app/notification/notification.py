@@ -5,6 +5,7 @@
 import json
 import sys
 import os
+from os import environ
 
 # Communication patterns:
 # Use a message-broker with 'topic' exchange to enable interaction
@@ -12,6 +13,8 @@ import pika
 
 # External API used
 from twilio.rest import Client
+
+
 
 hostname = "localhost" # default hostname
 port = 5672 # default port
@@ -43,12 +46,12 @@ def callback(channel, method, properties, body): # required signature for the ca
 
 
 def processMessageTask(task): # handles task of sending sms notification
-    phone_no = task["phone_no"]
+    phone_no = task["phone"]
     message = append_message_with_mentality_signature(task["message"])
     
     send_sms(message, phone_no)
 
-def append_message_with_mentality_signature(msg):
+def append_message_with_mentality_signature(msg): 
     append_at_start = "[MENTALITY NOTIFICATION SERVICE] "
     return append_at_start + msg
 
