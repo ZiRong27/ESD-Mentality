@@ -76,18 +76,19 @@ def find_by_doctor_id(doctor_id):
 # note -> guys i have to change the name of the route here cus, appointment is used by doctor id
 @app.route("/appointment-by-id/<string:appointment_id>")
 def find_by_appointment_id(appointment_id):
-    appointment = Appointment.query.filter_by(appointment_id=appointment_id).first()
+    appointment = Appointment.query.filter_by(appointment_id=appointment_id)
     if appointment:
         return jsonify(appointment.json())
     return jsonify({"message": "Appointment base on appointment is not found."}), 404
 
 @app.route("/appointment-by-date/<string:date>")
 def find_by_date(date):
-    appointment = Appointment.query.filter_by(date=date)
-    print(appointment)
-    if appointment:
-        return jsonify(appointment.json())
-    return jsonify({"message": "Appointment not found."}), 404
+    #appointment = Appointment.query.filter_by(date=date)
+    #print(appointment)
+    return jsonify([appointment.json() for appointment in Appointment.query.filter_by(date=date)])
+    # if appointment:
+    #     return jsonify(appointment.json() for appt in appointment)
+    # return jsonify({"message": "Appointment not found."}), 404
 
 
 @app.route("/create-appointment", methods=['POST'])
@@ -107,20 +108,20 @@ def create_appointment():
     return jsonify(appointment.json()), 201
    
 
-@app.route("/update-appointment", methods=['POST'])
-#Updates a specific appointment details
-def updateAppointment():
-    #I changed everything to string in sql database as there will be error if you submit a string to a column defined as integer
-    data = request.get_json()
-    appointment = Appointment(**data)
-    try:
-        setattr(appointment, 'date', data["date"])
-        setattr(appointment, 'time', data["time"])
-        db.session.commit()
-    except:
-        return jsonify({"message": "An error occurred updating details of the appointment."}), 500
+# @app.route("/update-appointment", methods=['POST'])
+# #Updates a specific appointment details
+# def updateAppointment():
+#     #I changed everything to string in sql database as there will be error if you submit a string to a column defined as integer
+#     data = request.get_json()
+#     appointment = Appointment(**data)
+#     try:
+#         setattr(appointment, 'date', data["date"])
+#         setattr(appointment, 'time', data["time"])
+#         db.session.commit()
+#     except:
+#         return jsonify({"message": "An error occurred updating details of the appointment."}), 500
  
-    return jsonify(patient.json()), 201
+#     return jsonify(patient.json()), 201
 
 
 # need delete appointment?
