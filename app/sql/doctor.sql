@@ -6,7 +6,7 @@
 -- Generation Time: Mar 08, 2020 at 06:53 AM
 -- Server version: 5.7.23
 -- PHP Version: 7.2.10
-CREATE Database esd_doctor;
+CREATE Database IF NOT EXISTS `esd_doctor`;
 USE esd_doctor;
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -31,7 +31,7 @@ SET time_zone = "+00:00";
 
 DROP TABLE IF EXISTS `doctor`;
 CREATE TABLE IF NOT EXISTS `doctor` (
-  `doctor_id` varchar(11) NOT NULL,
+  `doctor_id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(200) NOT NULL,
   `gender` varchar(10) NOT NULL,
   `dob` varchar(15) NOT NULL,
@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS `doctor` (
   `username` varchar(30) NOT NULL,
   `password` varchar(30) NOT NULL,
   PRIMARY KEY (`doctor_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=13   DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `doctor`

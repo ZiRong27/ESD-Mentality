@@ -6,7 +6,7 @@
 -- Generation Time: Mar 08, 2020 at 06:53 AM
 -- Server version: 5.7.23
 -- PHP Version: 7.2.10
-CREATE Database esd_consultation;
+CREATE Database IF NOT EXISTS `esd_consultation`;
 USE esd_consultation;
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -31,15 +31,15 @@ SET time_zone = "+00:00";
 
 DROP TABLE IF EXISTS `consultation`;
 CREATE TABLE IF NOT EXISTS `consultation` (
-  `consultation_id` int NOT NULL AUTO_INCREMENT,
+  `consultation_id` int(11) NOT NULL AUTO_INCREMENT,
   `appointment_id` varchar(11) NOT NULL,
   `doctor_id` varchar(11) NOT NULL,
   `patient_id` varchar(11) NOT NULL,
-  `diagnosis` varchar(1000) NOT NULL,
-  `prescription` varchar(1000) NOT NULL,
-  `notes` varchar(1000) NOT NULL,
+  `diagnosis` varchar(1000),
+  `prescription` varchar(1000),
+  `notes` varchar(1000),
   PRIMARY KEY (`consultation_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=13  DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `consultation`
