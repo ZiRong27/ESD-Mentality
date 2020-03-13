@@ -20,7 +20,7 @@
                 <a class="nav-link" href="../doctor/doctorLanding.php">Home <span class="sr-only">(current)</span> </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#"> Consultation </a>
+                <a class="nav-link" href="../doctor/doctorConsultation.php"> Consultation </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="../doctor/doctorViewAppts.php"> Appointments </a>

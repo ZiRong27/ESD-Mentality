@@ -160,6 +160,7 @@ $(document).ready(function()
             const response = await fetch(serviceURL, requestParam);
             data = await response.json();               
             console.log("consultation created!:" + data);
+            window.location.replace("doctorConsultation.php");
         }       
         catch (error) 
         {
