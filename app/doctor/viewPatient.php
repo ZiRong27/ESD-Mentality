@@ -99,10 +99,7 @@ $(document).ready(function()
         fetch(appointmentURL).then((response) => response.json()),
         fetch(consultationURL).then((response) => response.json())
       ]);
-      console.log(data)
-      //var patient = data[0]
-      //var appointment = data[1]
-      console.log(data[2]['consultation']);
+      console.log(data);
       return data
     } 
     catch (error) 
@@ -170,7 +167,31 @@ $(document).ready(function()
         }
     }
 
-
+    $(async(event) =>
+    {
+      var doctor_id = sessionStorage.getItem("doctor_id");
+      var serviceURL = "http://127.0.0.1:5004/consultation-by-doctor/" + doctor_id;
+      try 
+      {
+        console.log(serviceURL)
+        const response = await fetch(serviceURL, { method: 'GET' });
+        console.log("here")
+        const doctorConsultation = await response.json();
+        console.log("there")
+        if (!doctorConsultation || doctorConsultation.message == "Error retriving consultation.") 
+        {
+          console.log("error retriving ids");
+        }
+        else
+        {
+          console.log(doctorConsultation);
+        }
+      }
+      catch(error)
+      {
+        console.log("Error in connecting to Mircoservice!");
+      }
+    });
 });
 </script>
 

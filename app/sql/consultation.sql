@@ -31,13 +31,13 @@ SET time_zone = "+00:00";
 
 DROP TABLE IF EXISTS `consultation`;
 CREATE TABLE IF NOT EXISTS `consultation` (
-  `consultation_id` varchar(11) NOT NULL,
+  `consultation_id` int NOT NULL AUTO_INCREMENT,
   `appointment_id` varchar(11) NOT NULL,
   `doctor_id` varchar(11) NOT NULL,
   `patient_id` varchar(11) NOT NULL,
-  `diagnosis` text,
-  `prescription` text,
-  `notes` text,
+  `diagnosis` varchar(1000) NOT NULL,
+  `prescription` varchar(1000) NOT NULL,
+  `notes` varchar(1000) NOT NULL,
   PRIMARY KEY (`consultation_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -46,20 +46,20 @@ CREATE TABLE IF NOT EXISTS `consultation` (
 --
 
 INSERT INTO `consultation` (`consultation_id`, `appointment_id`, `doctor_id`, `patient_id`, `diagnosis`, `prescription`, `notes`) VALUES
-('1', '1', '2', '1', 'Bipolar Disorder, Anxiety', 'Zoloft: 35mg', 'Patient is starting to display worsening symptoms of anxiety'),
-('10', '10', '1', '5', 'Obsessive-Compulsive Disorder', 'Prozac: 60mg', 'Patient is responding well to the new round of medication'),
-('11', '11', '5', '10', 'Depression', 'Prozac: 70mg', '*Self harm risk'),
-('12', '12', '5', '10', 'Depression', 'Prozac: 70mg', 'Patient came in with suicidal thoughts but preventative measures have been taken. \r\n\r\n*Extreme risk patient'),
-('13', '13', '1', '5', 'Obsessive-Compulsive Disorder', 'Zoloft: 30mg', NULL),
-('14', '14', '1', '5', 'Obsessive-Compulsive Disorder', 'Prozac: 50mg', 'Patient\'s symptoms is not improving, will prescribe a different round of medication'),
-('2', '2', '3', '2', 'Anxiety Disorder', 'Xanax: 5mg', NULL),
-('3', '3', '4', '3', 'Anxiety Disorder, Insomnia', 'Xanax: 7mg', 'Patient\'s insomnia is getting worse, started to experience an increase in sleepless nights'),
-('4', '4', '5', '4', 'Obsessive-Compulsive Disorder', 'Prozac: 60mg', 'Patient seems to be improving with the latest prescription of Prozac'),
-('5', '5', '2', '1', 'Bipolar Disorder, Anxiety', 'Zoloft: 35mg', 'Worsening mood swings, will increase dosage of medication'),
-('6', '6', '2', '9', 'Depression, Panic Disorder', 'Xanax: 7mg', 'Patient reacting well to the change in antidepressant from Prozac to Xanax'),
-('7', '7', '3', '8', 'Anxiety Disorder', 'Xanax: 5mg', NULL),
-('8', '8', '3', '7', 'Bipolar Disorder', 'Zoloft: 30mg', NULL),
-('9', '9', '1', '6', 'Anxiety Disorder, Insomnia', 'Xanax: 10mg', 'Patient experienced more anxiety attacks this past week, which was caused by overthinking - will increase medication dosage');
+(1, '1', '2', '1', 'Bipolar Disorder, Anxiety', 'Zoloft: 35mg', 'Patient is starting to display worsening symptoms of anxiety'),
+(10, '10', '1', '5', 'Obsessive-Compulsive Disorder', 'Prozac: 60mg', 'Patient is responding well to the new round of medication'),
+(11, '11', '5', '10', 'Depression', 'Prozac: 70mg', '*Self harm risk'),
+(12, '12', '5', '10', 'Depression', 'Prozac: 70mg', 'Patient came in with suicidal thoughts but preventative measures have been taken. \r\n\r\n*Extreme risk patient'),
+(13, '13', '1', '5', 'Obsessive-Compulsive Disorder', 'Zoloft: 30mg', 'NA'),
+(14, '14', '1', '5', 'Obsessive-Compulsive Disorder', 'Prozac: 50mg', 'Patient\'s symptoms is not improving, will prescribe a different round of medication'),
+(2, '2', '3', '2', 'Anxiety Disorder', 'Xanax: 5mg', 'NA'),
+(3, '3', '4', '3', 'Anxiety Disorder, Insomnia', 'Xanax: 7mg', 'Patient\'s insomnia is getting worse, started to experience an increase in sleepless nights'),
+(4, '4', '5', '4', 'Obsessive-Compulsive Disorder', 'Prozac: 60mg', 'Patient seems to be improving with the latest prescription of Prozac'),
+(5, '5', '2', '1', 'Bipolar Disorder, Anxiety', 'Zoloft: 35mg', 'Worsening mood swings, will increase dosage of medication'),
+(6, '6', '2', '9', 'Depression, Panic Disorder', 'Xanax: 7mg', 'Patient reacting well to the change in antidepressant from Prozac to Xanax'),
+(7, '7', '3', '8', 'Anxiety Disorder', 'Xanax: 5mg', 'NA'),
+(8, '8', '3', '7', 'Bipolar Disorder', 'Zoloft: 30mg', 'NA'),
+(9, '9', '1', '6', 'Anxiety Disorder, Insomnia', 'Xanax: 10mg', 'Patient experienced more anxiety attacks this past week, which was caused by overthinking - will increase medication dosage');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
