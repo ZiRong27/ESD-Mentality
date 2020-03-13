@@ -66,7 +66,8 @@ require_once '../include/protect.php';
         //Get the doctor username from the url
         let params = new URLSearchParams(location.search);
         username = params.get('username')
-        var serviceURL = "http://" + sessionStorage.getItem("doctorip") + "/view-specific-doctor/" + username ;
+        var serviceURL = "http://127.0.0.1:5002/view-specific-doctor/" + username;
+        //var serviceURL = "http://" + sessionStorage.getItem("doctorip") + "/view-specific-doctor/" + username ;
         try {
                 //console.log(JSON.stringify({ username: username, password: password,}))
                 const response =
@@ -129,7 +130,8 @@ require_once '../include/protect.php';
             var patient_id = sessionStorage.getItem("patient_id");
             $('#patient_id').val(patient_id); 
             
-            var serviceURL = "http://" + sessionStorage.getItem("appointmentip") + "/create-appointment";
+            var serviceURL = "http://127.0.0.1:5003/create-appointment";
+            //var serviceURL = "http://" + sessionStorage.getItem("appointmentip") + "/create-appointment";
             try {
                 console.log(JSON.stringify({ doctor_id: doctor_id,
                                             patient_id: patient_id,

@@ -155,7 +155,7 @@ def send_patient_details(patient):
 #     print("This is " + os.path.basename(__file__) + ": sending patient details...")
 #     patient = {
 #             'patient_id': 20, 
-#             'phone' : '+6598515347'
+#             'phone' : '+6591131622'
 #         }
 #     print(patient)
 #     send_patient_details(patient)

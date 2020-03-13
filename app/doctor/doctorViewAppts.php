@@ -55,8 +55,10 @@ require_once '../include/protect.php';
     try {
       // Promise.all() lets us coalesce multiple promises into a single super-promise
       var data = await Promise.all([
-        fetch("http://" + sessionStorage.getItem("doctorip") + "/view-all-doctors").then((response) => response.json()),
-        fetch("http://" + sessionStorage.getItem("patientip") + "/view-all-patients").then((response) => response.json())
+        fetch("http://127.0.0.1:5002/view-all-doctors").then((response) => response.json()),
+        fetch("http://127.0.0.1:5001/view-all-patients").then((response) => response.json())
+        // fetch("http://" + sessionStorage.getItem("doctorip") + "/view-all-doctors").then((response) => response.json()),
+        // fetch("http://" + sessionStorage.getItem("patientip") + "/view-all-patients").then((response) => response.json())
       ]);
       doctor = {}
       
@@ -85,7 +87,8 @@ require_once '../include/protect.php';
   $(async (event) =>
   {
     var doctor_id = sessionStorage.getItem("doctor_id");
-    var serviceURL = "http://" + sessionStorage.getItem("appointmentip") + "/view-all-appointments";
+    var serviceURL = "http://127.0.0.1:5003/view-all-appointments";
+    //var serviceURL = "http://" + sessionStorage.getItem("appointmentip") + "/view-all-appointments";
 
     try 
     {

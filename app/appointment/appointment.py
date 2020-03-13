@@ -81,6 +81,14 @@ def find_by_appointment_id(appointment_id):
         return jsonify(appointment.json())
     return jsonify({"message": "Appointment base on appointment is not found."}), 404
 
+@app.route("/appointment-by-date/<string:date>")
+def find_by_date(date):
+    appointment = Appointment.query.filter_by(date=date)
+    print(appointment)
+    if appointment:
+        return jsonify(appointment.json())
+    return jsonify({"message": "Appointment not found."}), 404
+
 
 @app.route("/create-appointment", methods=['POST'])
 def create_appointment():
