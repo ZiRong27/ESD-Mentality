@@ -99,9 +99,7 @@ $(document).ready(function()
         fetch(consultationURL).then((response) => response.json())
       ]);
       console.log(data);
-      //var patient = data[0]
-      //var appointment = data[1]
-      console.log(data[2]['consultation']);
+      console.log(data[2]);
       return data
     } 
     catch (error) 
@@ -110,7 +108,7 @@ $(document).ready(function()
     }
   }
 
-    // FUNCTION: Get appointment and Patient Data from database
+    // FUNCTION: Get appointment and Patient Data from database to create consultation - Part A 
     $("#registerAppointment").click(async(event) =>
     {
         event.preventDefault(); 
@@ -124,8 +122,10 @@ $(document).ready(function()
         var patient_information = data[0];
         var appointment_information = data[1];
         
-        var consultation_length = data[2]['consultation'].length;
+        // Create consultation ID 
+        var consultation_length = data[2].length;
         consultation_length += 1;
+
         var appointment_id = appointment_information["appointment_id"];
         var doctor_id = doctor_id;
         var patient_id = patient_information["patient_id"];
@@ -146,7 +146,7 @@ $(document).ready(function()
         }   
         postData(serviceURL, requestBody) 
         });
-
+    // FUNCTION: create consultation - Part B
     async function postData(serviceURL, requestBody) 
     {
         var requestParam = 
@@ -159,8 +159,7 @@ $(document).ready(function()
         {
             const response = await fetch(serviceURL, requestParam);
             data = await response.json();               
-            console.log(data);
-            console.log("hello");
+            console.log("consultation created!:" + data);
         }       
         catch (error) 
         {
@@ -176,12 +175,10 @@ $(document).ready(function()
       {
         console.log(serviceURL)
         const response = await fetch(serviceURL, { method: 'GET' });
-        console.log("here")
         const doctorConsultation = await response.json();
-        console.log("there")
         if (!doctorConsultation || doctorConsultation.message == "Error retriving consultation.") 
         {
-          console.log("error retriving ids");
+          console.log("error retrieving ids");
         }
         else
         {
