@@ -59,6 +59,8 @@ $(document).ready(function()
     var appointment_id = params.get("appointmentid");
     var patient_id = params.get("patientid");
     var doctor_id = sessionStorage.getItem("doctor_id");
+    console.log("Appointment id " + appointment_id)
+    console.log("Patient id " + patient_id)
     var data = await fetchURLs(appointment_id, patient_id) 
     console.log(data);
     
@@ -78,16 +80,17 @@ $(document).ready(function()
   // FUNCTION: Get appointment and Patient Data from database
   async function fetchURLs(appointment_id, patient_id) 
     {
-        var patientURL = "http://127.0.0.1:5001/patient/";
-        //var patientURL = "http://" + sessionStorage.getItem("patientip") + "/patient/";
+        //var patientURL = "http://127.0.0.1:5001/patient/";
+        var patientURL = "http://" + sessionStorage.getItem("patientip") + "/patient/";
         patientURL = patientURL + patient_id
         
-        var appointmentURL = "http://127.0.0.1:5003/appointment-by-id/"; 
-        //var appointmentURL = "http://" + sessionStorage.getItem("appointmentip") + "/appointment-by-id/"; 
+        //var appointmentURL = "http://127.0.0.1:5003/appointment-by-id/"; 
+        var appointmentURL = "http://" + sessionStorage.getItem("appointmentip") + "/appointment-by-id/"; 
         appointmentURL = appointmentURL + appointment_id
         console.log(appointmentURL);
 
-        var consultationURL = "http://127.0.0.1:5004/consultation";
+        //var consultationURL = "http://127.0.0.1:5004/consultation";
+        var consultationURL  = "http://" + sessionStorage.getItem("consultationip") + "/consultation";
         console.log(consultationURL);
     try 
     {
@@ -98,8 +101,8 @@ $(document).ready(function()
         fetch(appointmentURL).then((response) => response.json()),
         fetch(consultationURL).then((response) => response.json())
       ]);
-      console.log(data);
-      console.log(data[2]);
+      console.log("data result:" + data);
+      console.log("data[2] result:" +  data[2]);
       return data
     } 
     catch (error) 
@@ -133,7 +136,8 @@ $(document).ready(function()
         var prescription_information = $("#prescriptionInformation").val();
         var notes_information = $("#notesInformation").val();
                 
-        var serviceURL = "http://127.0.0.1:5004/convert-to-consultation";
+        //var serviceURL = "http://127.0.0.1:5004/convert-to-consultation";
+        var serviceURL  = "http://" + sessionStorage.getItem("consultationip") + "/convert-to-consultation";
         var requestBody = 
         {
             consultation_id: consultation_length,
@@ -171,7 +175,8 @@ $(document).ready(function()
     $(async(event) =>
     {
       var doctor_id = sessionStorage.getItem("doctor_id");
-      var serviceURL = "http://127.0.0.1:5004/consultation-by-doctor/" + doctor_id;
+      //var serviceURL = "http://127.0.0.1:5004/consultation-by-doctor/" + doctor_id;
+      var serviceURL  = "http://" + sessionStorage.getItem("consultationip") + "/consultation-by-doctor/"  + doctor_id;
       try 
       {
         console.log(serviceURL)

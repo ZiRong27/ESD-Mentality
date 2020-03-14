@@ -84,6 +84,14 @@ class Consultation(db.Model):
 def get_all():
     return jsonify([consultation.json() for consultation in Consultation.query.all()])
 
+#Function: Get consultation by consultation Id -> For Doctor & Patient to View
+@app.route("/consultation-by-consultationid/<string:consultation_id>")
+def find_by_appointment_id(consultation_id):
+    consultation = Consultation.query.filter_by(consultation_id=consultation_id).first()
+    if consultation:
+        return jsonify(consultation.json())
+    return jsonify({"message": "consultation not found."}), 404
+
 #Function: Get all consultation by Doctor_ID -> For Doctor to view
 @app.route("/consultation-by-doctor/<string:doctor_id>")
 def get_all_consultation_by_doctor(doctor_id):

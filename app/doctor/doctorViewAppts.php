@@ -55,10 +55,10 @@ require_once '../include/protect.php';
     try {
       // Promise.all() lets us coalesce multiple promises into a single super-promise
       var data = await Promise.all([
-        fetch("http://127.0.0.1:5002/view-all-doctors").then((response) => response.json()),
-        fetch("http://127.0.0.1:5001/view-all-patients").then((response) => response.json())
-        // fetch("http://" + sessionStorage.getItem("doctorip") + "/view-all-doctors").then((response) => response.json()),
-        // fetch("http://" + sessionStorage.getItem("patientip") + "/view-all-patients").then((response) => response.json())
+        //fetch("http://127.0.0.1:5002/view-all-doctors").then((response) => response.json()),
+        //fetch("http://127.0.0.1:5001/view-all-patients").then((response) => response.json())
+        fetch("http://" + sessionStorage.getItem("doctorip") + "/view-all-doctors").then((response) => response.json()),
+        fetch("http://" + sessionStorage.getItem("patientip") + "/view-all-patients").then((response) => response.json())
       ]);
       doctor = {}
       
@@ -87,8 +87,8 @@ require_once '../include/protect.php';
   $(async (event) =>
   {
     var doctor_id = sessionStorage.getItem("doctor_id");
-    var serviceURL = "http://127.0.0.1:5003/view-all-appointments";
-    //var serviceURL = "http://" + sessionStorage.getItem("appointmentip") + "/view-all-appointments";
+    //var serviceURL = "http://127.0.0.1:5003/view-all-appointments";
+    var serviceURL = "http://" + sessionStorage.getItem("appointmentip") + "/view-all-appointments";
 
     try 
     {
@@ -128,58 +128,6 @@ require_once '../include/protect.php';
     }
   });
 
-    //This is the form id, not the submit button id!
-    /*
-    $(async() => { 
-        fetchURLs();
-        //fetchURL2();
-        var doctor_id = sessionStorage.getItem("doctor_id");
-        $('#doctor_id').val(doctor_id); 
-        //This is the url found above the get_all function in doctor.py. Basically you are trying to send data(username and password) to that url using post and receive its response
-        //The response you get is found is sent by the json function of the doctor class in doctor.py
-        var serviceURL = "http://" + sessionStorage.getItem("appointmentip") + "/view-all-appointments";
-        try {
-                //console.log(JSON.stringify({ username: username, password: password,}))
-                const response =
-                 await fetch(
-                   serviceURL, { method: 'GET' }
-                );
-                const data = await response.json();
-                console.log(data)
-                //The error message is stored in the data array sent by patient.py! If there is a message variable, it means there is an error
-                if (data['message']) {
-                    showError(data['message'])
-                } else {
-                    // for loop to setup all table rows with obtained doctors data
-                    //data = data["doctors"];
-                    $('#apptTable').append("<tbody>");
-
-                    
-                    for (i = 0; i < data.length; i++) { 
-                        if (data[i].doctor_id == doctor_id){
-                            patientName = patient[data[i].patient_id];
-                            price = doctor[data[i].doctor_id];
-                            Row =
-                            "<tr><th scope='row'>" + data[i].appointment_id + "</th>" +
-                            "<td>" + patientName + "</td>" +
-                            "<td>" + data[i].date + "</td>" +
-                            "<td>" + data[i].time + "</td>" +
-                            "<td>" + price + "</td>" +
-                            "<td></td></tr>";
-                            $('#apptTable').append(Row);
-                        } 
-                    }
-                    //Add the t body
-                    $('#apptTable').append("</tbody>");              
-                }
-            } catch (error) {
-                // Errors when calling the service; such as network error, service offline, etc
-                showError
-              ('There is a problem retrieving appointments data, please try again later. Tip: Did you forget to run appointment.py? :)<br />'+error);
-               
-            } 
-            
-    });*/
 </script>
 </body>
 

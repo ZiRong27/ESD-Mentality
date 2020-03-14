@@ -76,7 +76,7 @@ def find_by_doctor_id(doctor_id):
 # note -> guys i have to change the name of the route here cus, appointment is used by doctor id
 @app.route("/appointment-by-id/<string:appointment_id>")
 def find_by_appointment_id(appointment_id):
-    appointment = Appointment.query.filter_by(appointment_id=appointment_id)
+    appointment = Appointment.query.filter_by(appointment_id=appointment_id).first()
     if appointment:
         return jsonify(appointment.json())
     return jsonify({"message": "Appointment base on appointment is not found."}), 404

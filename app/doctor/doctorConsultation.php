@@ -55,10 +55,10 @@ require_once '../include/protect.php';
   $(async (event) =>
   {
     var doctor_id = sessionStorage.getItem("doctor_id");
-    var serviceURL_consultation = "http://127.0.0.1:5004/consultation-by-doctor/" + doctor_id;
-    //var serviceURL = "http://" + sessionStorage.getItem("appointmentip") + "/consultation-by-doctor/" + doctor_id;
-    var serviceURL_patients = "http://127.0.0.1:5001/view-all-patients";
-    //var serviceURL = "http://" + sessionStorage.getItem("patientip") + "/view-all-patients/";
+    //var serviceURL_consultation = "http://127.0.0.1:5004/consultation-by-doctor/" + doctor_id;
+    var serviceURL_consultation = "http://" + sessionStorage.getItem("consultationip") + "/consultation-by-doctor/" + doctor_id;
+    //var serviceURL_patients = "http://127.0.0.1:5001/view-all-patients";
+    var serviceURL_patients = "http://" + sessionStorage.getItem("patientip") + "/view-all-patients";
     try 
     {
     // retrieve consultation data by doctor
@@ -96,7 +96,7 @@ require_once '../include/protect.php';
                   "<td>" + data_consultation[i]["patient_id"] + "</td>" + 
                   "<td>" + name + "</td>" + 
                   "<td>" + data_consultation[i]["appointment_id"] + "</td>" + 
-                  "<td> <a href='viewPatient.php?consultationtid=" + data_consultation[i]["consultation_id"] + "'> View Consultation </a> </td>" +
+                  "<td> <a href='viewConsultation.php?consultationtid=" + data_consultation[i]["consultation_id"] + "&patientname=" + name +"'> View Consultation </a> </td>" +
               "</tr></tbody>";
             $('#conTable').append(row);
         }
