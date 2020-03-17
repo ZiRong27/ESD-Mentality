@@ -130,6 +130,45 @@ require_once '../include/protect.php';
             } 
     });
     
+    // timeslot table appear
+    $("#update").submit(async (event) => {
+        event.preventDefault();     
+        
+        //var appointment_id = $('#appointment_id').val();
+        //var doctor_name = $('#doctor_name').val();
+        var date = $('#date').val();
+        var time = $('#time').val();
+        //var price = $('#price').val();
+        
+        //This is the url found above the login function in patient.py. Basically you are trying to send data(username and password) to that url using post and receive its response
+        //The response you get is found is sent by the json function of the Patient class in patient.py
+        var serviceURL = "http://" + sessionStorage.getItem("appointmentip") + "/update-appointment";
+    
+        try {
+                //console.log(JSON.stringify({ username: username, password: password,}))
+                const response = await fetch(serviceURL,{method: 'POST',
+                                            headers: { "Content-Type": "application/json" },
+                                            body: JSON.stringify
+                                            ({ date: date, time: time})
+                                            });
+                const data = await response.json();
+                console.log(data)
+                //The error message is stored in the data array sent by patient.py! If there is a message variable, it means there is an error
+                if (data['message']) {
+                    showError(data['message'])
+                } else {
+                    alert("Successfully updated appointment details.")
+                    //Refreshes the page
+                    window.location.href = "patientUpdateAppts.php";               
+                }
+            } catch (error) {
+                // Errors when calling the service; such as network error, service offline, etc
+                showError
+            ('There is a problem updating appointments data, please try again later. Tip: Did you forget to run appointment.py? :)<br />'+error);
+            
+            }
+        
+    });
 
 </script>
 </body>
