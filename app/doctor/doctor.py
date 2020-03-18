@@ -69,12 +69,21 @@ def register():
         return jsonify({"message": "An error occurred creating the doctor."}), 500
  
     return jsonify(doctor.json()), 201
+
 @app.route("/view-specific-doctor/<string:username>") 
 def get_specific_doctor(username):
     doctor = Doctor.query.filter_by(username=username).first()
     if doctor:
         return jsonify(doctor.json())
     return jsonify({"message": "Doctor not found."}), 404
+
+@app.route("/price/<string:username>") 
+def get_price(username):
+    price = Doctor.query.filter_by(username=username).first()
+    if price:
+        return jsonify(price.json()['price'])
+    return jsonify({"message": "Price not found."}), 404
+
 @app.route("/view-all-doctors") 
 def get_all():
     return jsonify([doctor.json() for doctor in Doctor.query.all()])
