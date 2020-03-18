@@ -15,16 +15,18 @@ require_once '../include/protect.php';
 </header>
 
 
-<body>
+<body style="background:#f8f8f8">
 <!-- Import navigation bar -->
 <?php include '../include/patientNavbar.php';?>
 <div id="main-container" class="container">
+        <!-- <div class="text-center">
+            <img src="../images/logo.png" height="200" width="300"> 
+        </div> --> 
+        <br> <br> <br> <br>
+<div id=whole style="border:1px solid #696969; border-radius:20px; padding:10px; box-shadow: 2px 3px #989898; background:white;">
 <div class="row d-flex justify-content-center">
         <form id ="loginForm" class="col-12 justify-content-center" >
-        <div class="text-center">
-            <img src="../images/logo.png" height="200" width="300"> 
-        </div>
-        <div class = "whitetextbig" style="color: white; font-weight: bold; font-size: 200%;">
+        <div class = "whitetextbig" style="color: black; font-weight: bold; font-size: 200%;">
         
             Update account details
         </div>
@@ -40,7 +42,7 @@ require_once '../include/protect.php';
                 <input type="text" class="form-control input-group-lg" id="surname" placeholder="Surname" required>
             </div>
         </div>
-        <div class="whitetext">
+        <div class="whitetext" style="color: gray">
             Gender: 
             <div class="form-check form-check-inline">
                 <input class="form-check-input" type="radio" name="gender" id="gender1" value="female" required>
@@ -88,6 +90,7 @@ require_once '../include/protect.php';
     </form>
     <div class ="index-errormsg"></div>
 
+</div>
 </div>
 </div>
 <script>    

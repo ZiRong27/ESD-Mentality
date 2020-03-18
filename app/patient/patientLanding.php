@@ -12,7 +12,6 @@ require_once '../include/protect.php';
     <link rel = "stylesheet" type = "text/css" href = "../include/stylesheet.css" />
 </header>
 
-
 <body>
 <!-- Import navigation bar -->
 <?php include '../include/patientNavbar.php';?>
@@ -25,67 +24,92 @@ require_once '../include/protect.php';
   </ol>
   <div class="carousel-inner">
     <div class="carousel-item active">
-      <img src="../images/carousel-design-1" class="d-block w-100 h-50">
+      <img src="../images/landing1" class="d-block w-100 h-50">
       <div class="carousel-caption d-none d-md-block">
-        <h5>First slide label</h5>
-        <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+        <h5 style=color:#484848>Here For You</h5>
+        <p style=color:#484848>We are here for you and your needs.</p>
       </div>
     </div>
     <div class="carousel-item">
-      <img src="../images/carousel-design-2" class="d-block w-100 h-50">
+      <img src="../images/landing2" class="d-block w-100 h-50">
       <div class="carousel-caption d-none d-md-block">
-        <h5>Second slide label</h5>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        <h5 style=color:#484848>Providing You Guidance</h5>
+        <p style=color:#484848>We are here to help and guide you.</p>
       </div>
     </div>
     <div class="carousel-item">
-      <img src="../images/carousel-design-3" class="d-block w-100 h-50">
+      <img src="../images/landing3" class="d-block w-100 h-50">
       <div class="carousel-caption d-none d-md-block">
-        <h5>Third slide label</h5>
-        <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+        <h5 style=color:#484848>Caring For You</h5>
+        <p style=color:#484848>We are here to patiently listen to whatever you have in mind.</p>
       </div>
-
-      <div class="col-lg-3 col-md-6 mb-4">
-        <div class="card h-100">
-          <img class="card-img-top" src="images/carousel-design-2.png" height="180" width="250">
-          <div class="card-body">
-            <h4 class="card-title"> Bookings </h4>
-            <p class="card-text">Book or schedule an appomient with our doctors </p>
-          </div>
-          <div class="card-footer">
-            <a href="#" class="btn btn-primary"> Bookings </a>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-lg-3 col-md-6 mb-4">
-        <div class="card h-100">
-          <img class="card-img-top" src="images/carousel-design-3.png" height="180" width="250">
-          <div class="card-body">
-            <h4 class="card-title"> Payments </h4>
-            <p class="card-text"> Make and organise your payments  </p>
-          </div>
-          <div class="card-footer">
-            <a href="#" class="btn btn-primary"> Payments </a>
-          </div>
-        </div>
-      </div>
-    <!--
-      <div class="col-lg-3 col-md-6 mb-4">
-        <div class="card h-100">
-          <img class="card-img-top" src="http://placehold.it/500x325" alt="">
-          <div class="card-body">
-            <h4 class="card-title">Card title</h4>
-            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo magni sapiente, tempore debitis beatae culpa natus architecto.</p>
-          </div>
-          <div class="card-footer">
-            <a href="#" class="btn btn-primary">Find Out More!</a>
-          </div>
-        </div>
-      </div>
-      -->
-
     </div>
+  </div>
+  <!-- Left arrow key -->
+  <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <!-- Right arrow key -->
+  <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+
+<br>
+
+<div class="row justify-content-center">
+  <!-- Card 1--->
+  <div class="col-lg-3 col-md-6 mb-4">
+    <div class="card h-100" style=background-color:$C8C8C8;>
+      <img class="card-img-top" src="../images/book.jpg" height="180" width="250">
+      <div class="card-body" style=background-color:$C8C8C8;>
+        <h4 class="card-title"> Book </h4>
+        <p class="card-text">Make a booking with our range of qualified counsellors. </p>
+      </div>
+      <div class="card-footer">
+        <div class="row justify-content-center">
+        <a href="patientViewAllDoctors.php" class="btn btn-primary"> Make Booking </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!-- Card 2 --->
+<div class="col-lg-3 col-md-6 mb-4">
+  <div class="card h-100" style=background-color:$C8C8C8;>
+    <img class="card-img-top" src="../images/viewappointment.jpg" height="180" width="250">
+    <div class="card-body" style=background-color:$C8C8C8;>
+      <h4 class="card-title"> Appointments </h4>
+      <p class="card-text">View your appointments made.</p>
+    </div>
+    <div class="card-footer">
+    <div class="row justify-content-center">
+      <a href="patientUpdateAppts.php" class="btn btn-primary"> View Appointments </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Card 3 --->
+  <div class="col-lg-3 col-md-6 mb-4">
+    <div class="card h-100" style=background-color:$C8C8C8;>
+      <img class="card-img-top" src="../images/consulthistory.jpg" height="180" width="250">
+      <div class="card-body" style=background-color:$C8C8C8;>
+        <h4 class="card-title"> Consultation History </h4>
+        <p class="card-text"> View your consultation history with us to review your progress.  </p>
+      </div>
+      <div class="card-footer">
+        <div class="row justify-content-center">
+        <a href="patientConsultation.php" class="btn btn-primary"> View Consultation History </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
     <!-- /.row -->
 
   </div>

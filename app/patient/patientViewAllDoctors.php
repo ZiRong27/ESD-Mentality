@@ -5,6 +5,7 @@ $accountType = "patient";
 require_once '../include/protect.php';
 ?>
 <html>
+
 <head>
     <!--Install jquery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -18,20 +19,23 @@ require_once '../include/protect.php';
 </header>
 
 
-<body>
+<body style="background:#f8f8f8">
 <!-- Import navigation bar -->
 <?php include '../include/patientNavbar.php';?>
 </br></br>
 
 <br/>
-<div id="main-container" class="container">
-    <div class = "whitetextbig" style="color: white; font-weight: bold; font-size: 200%;">        
-            Book an appointment
+<div id="main-container" class="container" style="border:1px;">
+    <div id=whole style="border:1px solid #696969; border-radius:20px; padding:10px; box-shadow: 2px 3px #989898; background:white;">
+    <div class = "whitetextbig" style="color: #303030; font-weight: bold; font-size: 200%; font-family: helvetica">        
+        Book an appointment with us
     </div> 
-    <br> 
+    <br>
+    <p style="color: #303030; font-size: 120%; font-family: helvetica"> Select from our range of professional counsellors: </p>
+   
     <div class ="index-errormsg"></div>
-    <br>  
-    <table class="table table-striped table-light table-hover text-center" id="doctorsTable">
+    
+    <table class="table table-striped table-light table-hover text-center" id="doctorsTable" style=border-radius:20px;>
     <thead>
         <tr >
         <th scope="col">#</th>
@@ -46,6 +50,7 @@ require_once '../include/protect.php';
     <tbody>
     </tbody>
     </table>   
+</div>
 </div>
 <script>    
     // Helper function to display error message

@@ -18,18 +18,18 @@ require_once '../include/protect.php';
 </header>
 
 
-<body>
+<body style="background:#f8f8f8;">
 <!-- Import navigation bar -->
 <?php include '../include/patientNavbar.php';?>
 </br></br>
 
 <br/>
 <div id="main-container" class="container">
-    <div class = "whitetextbig" style="color: white; font-weight: bold; font-size: 200%;" id="doctorName">        
-            Book an appointment
-    </div> 
-    <div>
+<div id=whole style="border:1px solid #696969; border-radius:20px; padding:10px; box-shadow: 2px 3px #989898; background:white;">
+    <div style="align:center">
         <img id = "doctorPicture" width = '150px' height = '150px'>
+    </div>
+    <div style="color: #383838; font-weight: bold; font-size: 200%;" id="doctorName">       
     </div>
     <div class ="index-errormsg"></div>
     <br>  
@@ -53,6 +53,7 @@ require_once '../include/protect.php';
             <button type='submit' class="btn btn-primary btn-lg" id='booking_submit'>Submit booking</button>
         </div>  
     </form>
+</div>
 </div>
 <script>    
     // Helper function to display error message

@@ -23,7 +23,7 @@
                 <a class="nav-link" href="../patient/patientUpdateProfile.php"> Profile </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="../patient/patientViewAllDoctors.php"> Book an appointment </a>
+                <a class="nav-link" href="../patient/patientViewAllDoctors.php"> Book </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="../patient/patientConsultation.php"> Consultation </a>
