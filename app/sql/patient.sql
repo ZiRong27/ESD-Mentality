@@ -6,7 +6,7 @@
 -- Generation Time: Mar 08, 2020 at 06:53 AM
 -- Server version: 5.7.23
 -- PHP Version: 7.2.10
-CREATE Database esd_patient;
+CREATE Database IF NOT EXISTS `esd_patient`;
 USE esd_patient;
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -31,7 +31,7 @@ SET time_zone = "+00:00";
 
 DROP TABLE IF EXISTS `patient`;
 CREATE TABLE IF NOT EXISTS `patient` (
-  `patient_id` varchar(11) NOT NULL,
+  `patient_id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(250) NOT NULL,
   `gender` varchar(10) NOT NULL,
   `dob` varchar(15) NOT NULL,
@@ -40,13 +40,25 @@ CREATE TABLE IF NOT EXISTS `patient` (
   `username` varchar(30) NOT NULL,
   `password` varchar(30) NOT NULL,
   PRIMARY KEY (`patient_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=13  DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `patient`
 --
 
 INSERT INTO `patient` (`patient_id`, `name`, `gender`, `dob`, `phone`, `salutation`, `username`, `password`) VALUES
+(1, 'Ng,Sophie', 'Female', '1989-02-10', '91131622', 'Ms', 'sophieng', 'sn1'),
+(2, 'Tan,Zoey', 'Female', '1990-03-12', '98515347', 'Ms', 'zoeytan', 'zt1'),
+(3, 'Santiago,Sam', 'Male', '1992-03-06', '97632174', 'Mr', 'samsantiago', 'ss1'),
+(4, 'Chua,Vincent', 'Male', '1995-08-07', '81689240', 'Mr', 'vincentchua', 'vc1'),
+(5, 'Tan,Jasmine', 'Female', '1996-03-12', '90951589', 'Miss', 'jasminetan', 'jt1'),
+(6, 'Chan,Jerald', 'Male', '1997-03-18', '98761020', 'Mr', 'jeraldchan', 'jc1'),
+(7, 'Chavez,Helena ', 'Female', '1997-07-10', '98082341', 'Miss', 'helenachavez', 'hc1'),
+(8, 'Tan,Kelvin', 'Male', '1990-01-20', '90175437', 'Mr', 'kelvintan', 'kt1'),
+(9, 'Goh,Lilian', 'Female', '1992-03-10', '89021254', 'Ms', 'liliangoh', 'lg1'),
+(10, 'Brown,Dennis', 'male', '1990-05-06', '89832142', 'Mr', 'dennisbrown', 'db1'),
+(11, 'Sim,Sheng Xue', 'male', '1997-02-07', '97632173', 'Mr', 'shengxue', 'password1');
+/*
 ('1', 'Sophie Ng', 'Female', '1989-02-10', '91131622', 'Ms', 'sophieng', 'sn1'),
 ('10', 'Dennis Brown', 'Male', '1990-05-06', '89832145', 'Mr', 'dennisbrown', 'db1'),
 ('2', 'Zoey Tan', 'Female', '1990-03-12', '98515347', 'Ms', 'zoeytan', 'zt1'),
@@ -57,7 +69,7 @@ INSERT INTO `patient` (`patient_id`, `name`, `gender`, `dob`, `phone`, `salutati
 ('7', 'Helena Chavez', 'Female', '1997-07-10', '98082341', 'Miss', 'helenachavez', 'hc1'),
 ('8', 'Kelvin Tan', 'Male', '1990-01-20', '90175437', 'Mr', 'kelvintan', 'kt1'),
 ('9', 'Lilian Goh', 'Female', '1992-03-10', '89021254', 'Ms', 'liliangoh', 'lg1');
-
+*/
 -- --------------------------------------------------------
 
 --

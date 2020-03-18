@@ -29,7 +29,7 @@
                 <a class="nav-link" href="../patient/patientConsultation.php"> Consultation </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="../appointment/patientUpdateAppts.php"> Appointments </a>
+                <a class="nav-link" href="../patient/patientUpdateAppts.php"> Appointments </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#"> Payments </a>

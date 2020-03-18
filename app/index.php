@@ -53,6 +53,7 @@
     sessionStorage.setItem('patientip', "127.0.0.1:5001")
     sessionStorage.setItem('doctorip', "127.0.0.1:5002")
     sessionStorage.setItem('appointmentip', "127.0.0.1:5003")   
+    sessionStorage.setItem('consultationip', "127.0.0.1:5004")   
     //Retrieve with sessionStorage.getItem("patientip")
     // Helper function to display error message
     function showError(message) {
@@ -68,7 +69,8 @@
         //This is the url found above the login function in patient.py. Basically you are trying to send data(username and password) to that url using post and receive its response
         //The response you get is found is sent by the json function of the Patient class in patient.py
         //var serviceURL = "http://" + sessionStorage.getItem("patientip") + "/login-process";
-        var serviceURL = "http://" + sessionStorage.getItem("patientip") + "/login-process";
+        //var serviceURL = "http://" + sessionStorage.getItem("patientip") + "/login-process";
+        var serviceURL = "http://127.0.0.1:5001/login-process";
         //var serviceURL = "http://54.255.225.231:5001/login-process";
         try {
                 //console.log(JSON.stringify({ username: username, password: password,}))

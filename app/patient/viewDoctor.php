@@ -39,20 +39,28 @@ require_once '../include/protect.php';
     <tbody>
     </tbody>
     </table>  
-    <!-- <form id='bookForm'>
-        <div class="text-right">
-            <p style="color: white; font-size: 100%;">Date: <input type='date' name='booking_date' id='booking_date'>
-            <p style="color: white; font-size: 100%;">Time: <input type='text' name='booking_time' id='booking_time'>     
-            <button type='submit' class="btn btn-primary btn-lg" id='booking_submit'>Submit booking</button>
-        </div>
-    </form> -->
-    <form id='bookForm'> 
-        <div class="text-right">    
+    
+    <div>
+    <form id='dateForm'>    
             <input type='date' name='booking_date' id='booking_date'>
-            <input type='text' name='booking_time' id='booking_time'>
-            <button type='submit' class="btn btn-primary btn-lg" id='booking_submit'>Submit booking</button>
-        </div>  
+            <!-- <input type='text' name='booking_time' id='booking_time'> -->
+            <button type='submit' class="btn btn-primary btn-lg" id='date_submit'>Choose Date</button>
     </form>
+    </div>
+    
+    
+    <form id='bookForm'> 
+        <!-- <div class="text-right">     -->
+        
+        <table class="table table-light table-bordered table-hover text-center" id="timeslotTable"> 
+            <thead>
+            </thead>
+        </table>
+            <!-- <input type='date' name='booking_date' id='booking_date'>
+            <input type='text' name='booking_time' id='booking_time'>
+            <button type='submit' class="btn btn-primary btn-lg" id='booking_submit'>Submit booking</button> --> 
+    </form>
+    
 </div>
 </div>
 <script>    
@@ -67,7 +75,8 @@ require_once '../include/protect.php';
         //Get the doctor username from the url
         let params = new URLSearchParams(location.search);
         username = params.get('username')
-        var serviceURL = "http://" + sessionStorage.getItem("doctorip") + "/view-specific-doctor/" + username ;
+        var serviceURL = "http://127.0.0.1:5002/view-specific-doctor/" + username;
+        //var serviceURL = "http://" + sessionStorage.getItem("doctorip") + "/view-specific-doctor/" + username ;
         try {
                 //console.log(JSON.stringify({ username: username, password: password,}))
                 const response =
@@ -105,8 +114,7 @@ require_once '../include/protect.php';
                         "<tr><th>Gender</th><td>" + data.gender + "</td></tr>" +
                         "<tr><th>Age</th><td>" + age + "</td></tr>" +
                         "<tr><th>Experience</th><td>" + data.experience + "</td></tr>" +
-                        "<tr><th>Specialisation</th><td>" + data.specialisation + "</td></tr>" +
-                        "<th colspan='2'> <a href='#'>Book an appointment</a> </th></tr>";
+                        "<tr><th>Specialisation</th><td>" + data.specialisation + "</td></tr>";
                     $('#doctorsTable').append(Row);
                     price = data.price;
                     doctor_id = data.doctor_id;
@@ -121,16 +129,74 @@ require_once '../include/protect.php';
             } 
     });
 
+
+    // timeslot table appear
+    $("#dateForm").submit(async (event) => {
+        event.preventDefault();     
+        var date = String($('#booking_date').val());
+        //This is the url found above the login function in patient.py. Basically you are trying to send data(username and password) to that url using post and receive its response
+        //The response you get is found is sent by the json function of the Patient class in patient.py
+        var serviceURL = "http://127.0.0.1:5003/appointment-by-date/" + date;
+    
+        try {
+                //console.log(JSON.stringify({ username: username, password: password,}))
+                const response = await fetch(
+                   serviceURL, { method: 'GET' }
+                );
+                const data = await response.json();
+
+                timings = [];
+                for (var obj of data) {
+                    time = obj["time"];
+                    timings.push(time);
+                }
+                console.log(timings);
+                
+                //The error message is stored in the data array sent by patient.py! If there is a message variable, it means there is an error
+                if (data['message']) {
+                    showError(data['message'])
+                } else {
+                    //Refreshes the page
+                    //window.location.href = "patientUpdateAppts.php"; 
+                    $('#TimeslotsTable').append("<tbody>"); 
+                    // $('#TimeslotsTable').append("<tr><form id='bookForm'>"); 
+                    timeslots_display = ['09:00 AM - 10:00 AM','10:00 AM - 11:00 AM','11:00 AM - 12:00 PM','12:00 PM - 13:00 PM','13:00 PM - 14:00 PM','14:00 PM - 15:00 PM','15:00 PM - 16:00 PM','16:00 PM - 17:00 PM','17:00 PM - 18:00 PM']
+                    timeslots = ['09:00 AM','10:00 AM','11:00 AM','12:00 PM','13:00 PM','14:00 PM','15:00 PM','16:00 PM','17:00 PM']
+                    //console.log(timeslots.length);
+                    for (i = 0; i < timeslots.length; i++){
+                        //console.log("yo");
+                        if (jQuery.inArray(timeslots[i], timings) == -1){ // if timing is available
+                            //console.log("hey");
+                            Row = "<tr><td class='text-left'>" + timeslots_display[i] + "</td><td class='text-right'>" + 
+                                "<button type='submit' value='" + timeslots[i] + "' class='btn btn-success' id='booking_submit'>Submit booking</button></td></tr>";
+                            $('#timeslotTable').append(Row); 
+                            console.log(Row);
+                        }
+                    }
+                    $('#TimeslotsTable').append("</tbody>"); 
+                    
+                }
+            } catch (error) {
+                // Errors when calling the service; such as network error, service offline, etc
+                showError
+            ('There is a problem retrieving available timeslots, please try again later. Tip: Did you forget to run appointment.py? :)<br />'+error);
+            
+            }
+        
+    });
+    
+
     // onclick "book an appointment", sends doctor_id and patient_id
     
         $("#bookForm").submit(async (event) => {
             event.preventDefault();     
             var booking_date = $('#booking_date').val();
-            var booking_time = $('#booking_time').val();
+            var booking_time = $("#booking_submit").val();
             var patient_id = sessionStorage.getItem("patient_id");
             $('#patient_id').val(patient_id); 
             
-            var serviceURL = "http://" + sessionStorage.getItem("appointmentip") + "/create-appointment";
+            var serviceURL = "http://127.0.0.1:5003/create-appointment";
+            //var serviceURL = "http://" + sessionStorage.getItem("appointmentip") + "/create-appointment";
             try {
                 console.log(JSON.stringify({ doctor_id: doctor_id,
                                             patient_id: patient_id,
