@@ -39,13 +39,7 @@ require_once '../include/protect.php';
     <tbody>
     </tbody>
     </table>  
-    <!-- <form id='bookForm'>
-        <div class="text-right">
-            <p style="color: white; font-size: 100%;">Date: <input type='date' name='booking_date' id='booking_date'>
-            <p style="color: white; font-size: 100%;">Time: <input type='text' name='booking_time' id='booking_time'>     
-            <button type='submit' class="btn btn-primary btn-lg" id='booking_submit'>Submit booking</button>
-        </div>
-    </form> -->
+    
     <div>
     <form id='dateForm'>    
             <input type='date' name='booking_date' id='booking_date'>
@@ -53,28 +47,20 @@ require_once '../include/protect.php';
             <button type='submit' class="btn btn-primary btn-lg" id='date_submit'>Choose Date</button>
     </form>
     </div>
-    <!-- <div>
-    <form id='bookForm'>    
-            <button type='submit' class="btn btn-primary btn-lg" id='booking_submit'>Submit Booking</button>
-    </form>
-    </div> -->
     
     
     <form id='bookForm'> 
         <!-- <div class="text-right">     -->
-        <div id='timeslotTable'>
+        
+        <table class="table table-light table-bordered table-hover text-center" id="timeslotTable"> 
+            <thead>
+            </thead>
+        </table>
             <!-- <input type='date' name='booking_date' id='booking_date'>
             <input type='text' name='booking_time' id='booking_time'>
-            <button type='submit' class="btn btn-primary btn-lg" id='booking_submit'>Submit booking</button> -->
-        </div>  
+            <button type='submit' class="btn btn-primary btn-lg" id='booking_submit'>Submit booking</button> --> 
     </form>
     
-    <!-- <table class="table table-borderless table-hover text-center" id="TimeslotsTable">
-    <thead>
-    </thead>
-    <tbody>
-    </tbody>
-    </table> -->
 </div>
 <script>    
     // Helper function to display error message
@@ -146,14 +132,7 @@ require_once '../include/protect.php';
     // timeslot table appear
     $("#dateForm").submit(async (event) => {
         event.preventDefault();     
-        
-        //var appointment_id = $('#appointment_id').val();
-        //var doctor_name = $('#doctor_name').val();
         var date = String($('#booking_date').val());
-        //console.log(date);
-        //var time = $('#time').val();
-        //var price = $('#price').val();
-        
         //This is the url found above the login function in patient.py. Basically you are trying to send data(username and password) to that url using post and receive its response
         //The response you get is found is sent by the json function of the Patient class in patient.py
         var serviceURL = "http://127.0.0.1:5003/appointment-by-date/" + date;
@@ -178,27 +157,22 @@ require_once '../include/protect.php';
                 } else {
                     //Refreshes the page
                     //window.location.href = "patientUpdateAppts.php"; 
-                    // $('#TimeslotsTable').append("<tbody>"); 
+                    $('#TimeslotsTable').append("<tbody>"); 
                     // $('#TimeslotsTable').append("<tr><form id='bookForm'>"); 
-                    
-                    timeslots = ['09:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00','18:00']
+                    timeslots_display = ['09:00 AM - 10:00 AM','10:00 AM - 11:00 AM','11:00 AM - 12:00 PM','12:00 PM - 13:00 PM','13:00 PM - 14:00 PM','14:00 PM - 15:00 PM','15:00 PM - 16:00 PM','16:00 PM - 17:00 PM','17:00 PM - 18:00 PM']
+                    timeslots = ['09:00 AM','10:00 AM','11:00 AM','12:00 PM','13:00 PM','14:00 PM','15:00 PM','16:00 PM','17:00 PM']
                     //console.log(timeslots.length);
                     for (i = 0; i < timeslots.length; i++){
                         //console.log("yo");
                         if (jQuery.inArray(timeslots[i], timings) == -1){ // if timing is available
                             //console.log("hey");
-                            Row = "<button type='submit' class='btn btn-success btn-sm' name='booking_time' value=" + timeslots[i] + "'>" + timeslots[i] + "</button>";
+                            Row = "<tr><td class='text-left'>" + timeslots_display[i] + "</td><td class='text-right'>" + 
+                                "<button type='submit' value='" + timeslots[i] + "' class='btn btn-success' id='booking_submit'>Submit booking</button></td></tr>";
                             $('#timeslotTable').append(Row); 
                             console.log(Row);
                         }
                     }
-                    //$('#TimeslotsTable').append("</form></tr>"); 
-                    // $('#TimeslotsTable').append("<tr><td>");
-                    // $('#TimeslotsTable').append("<form id='bookForm'><div class='text-right'>");
-                    // $('#TimeslotsTable').append("<button type='submit' class='btn btn-primary btn-lg' id='booking_submit'>Submit Booking</button>");
-                    // $('#TimeslotsTable').append("</form></div>");
-                    // $('#TimeslotsTable').append("</td></tr>"); 
-                    //$('#TimeslotsTable').append("</tbody>"); 
+                    $('#TimeslotsTable').append("</tbody>"); 
                     
                 }
             } catch (error) {
@@ -216,9 +190,7 @@ require_once '../include/protect.php';
         $("#bookForm").submit(async (event) => {
             event.preventDefault();     
             var booking_date = $('#booking_date').val();
-
-            var booking_time = $('#timeslotTable').val();
-            //var booking_time = $('#time').val();
+            var booking_time = $("#booking_submit").val();
             var patient_id = sessionStorage.getItem("patient_id");
             $('#patient_id').val(patient_id); 
             
@@ -257,13 +229,6 @@ require_once '../include/protect.php';
     });
 
 </script>
-
-    <!-- <table class="table table-striped table-light table-hover text-center" id="TimeslotsTable">
-    <thead>
-    </thead>
-    <tbody>
-    </tbody>
-    </table> -->
 </body>
 
 </html>
