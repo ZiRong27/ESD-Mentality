@@ -9,6 +9,8 @@ from os import environ
 
 
 app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:root@localhost:8889/esd_payment'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 # To save key into os environment variable
 pub_key = environ.get('pub_key')
