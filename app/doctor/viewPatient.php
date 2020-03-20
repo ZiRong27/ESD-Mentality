@@ -45,7 +45,41 @@ $accountType = "doctor";
 
       <button type="submit" class="btn btn-primary" id="registerAppointment"> Submit </button>
 
+      <a class="btn btn-info" data-toggle="collapse" href="#viewallergies" role="button" aria-expanded="false" aria-controls="viewallergies">
+        View Allergies
+      </a>
+
+      <a class="btn btn-info" data-toggle="collapse" href="#viewMedicalHistory" role="button" aria-expanded="false" aria-controls="viewallergies">
+        View Medical History
+      </a>
+
     </form> 
+
+<!-- View Patient Allergies-->
+<div class="collapse" id="viewallergies">
+  <div class="card card-body">
+    <table class="table table-striped table-light table-hover text-center" id="viewallergiesTable">
+          <thead>
+          </thead>
+          <tbody>
+          </tbody>
+    </table>  
+  </div>
+</div>
+<!-- -->
+
+<!-- View Patient Medical History -->
+<div class="collapse" id="viewMedicalHistory">
+  <div class="card card-body">
+    <table class="table table-striped table-light table-hover text-center" id="viewMedicalHistoryTable">
+          <thead>
+          </thead>
+          <tbody>
+          </tbody>
+    </table>  
+  </div>
+</div>
+<!-- -->
 
 </div>
 
@@ -74,6 +108,17 @@ $(document).ready(function()
             "<tr> <th> Date & Time </th> <td>" + appointment_information["date"] + "," + appointment_information["time"] + "</td> </tr>" + 
         "</tbody>";
         $('#appointmentTable').append(row);
+
+    // Display patients Allergies
+    var data = await fetchpatientallergiesURLs(patient_id)  
+    console.log("allegise" + data);
+    $('#viewallergiesTable').append(data["allergies"]);
+
+
+    // Display patients Medical History
+    var data = await fetchpatientmedicalhistoryURLs(patient_id)  
+    console.log("medical History" + data);
+    $('#viewMedicalHistoryTable').append(data["medical_history"]);
   });
 
 
@@ -110,6 +155,62 @@ $(document).ready(function()
       console.log(error);
     }
   }
+  // End of Function 
+
+  // FUNCTION: Display Patient's allergises from database
+  async function fetchpatientallergiesURLs(patient_id) 
+  {
+    var patientallergiesURL = "http://" + sessionStorage.getItem("patientip") + "/allergies/";
+    patientallergiesURL = patientallergiesURL + patient_id;
+    try 
+    {
+      const response = await fetch(patientallergiesURL, { method: 'GET' });
+      const data = await response.json(); 
+      console.log(data)
+
+      if (!data || data.message == "allergies data missing error.") 
+      {
+        console.log(data['message']);
+      } 
+      else
+      {
+        return data
+      }
+    }
+    catch (error) 
+    {
+      console.error(error);
+    }
+  };
+  // End of Function 
+
+
+// FUNCTION: Display Patient Medical History
+async function fetchpatientmedicalhistoryURLs(patient_id) 
+  {
+    var medicalhistoryURL = "http://" + sessionStorage.getItem("patientip") + "/history/";
+    medicalhistoryURL = medicalhistoryURL + patient_id;
+    try 
+    {
+      const response = await fetch(medicalhistoryURL, { method: 'GET' });
+      const data = await response.json(); 
+      console.log(data)
+
+      if (!data || data.message == "patient history data missing.") 
+      {
+        console.log(data['message']);
+      } 
+      else
+      {
+        return data
+      }
+    }
+    catch (error) 
+    {
+      console.error(error);
+    }
+  };
+  // End of Function 
 
     // FUNCTION: Get appointment and Patient Data from database to create consultation - Part A 
     $("#registerAppointment").click(async(event) =>
@@ -171,7 +272,9 @@ $(document).ready(function()
             console.error(error);
         }
     }
+    // End of Function 
 
+    /*
     $(async(event) =>
     {
       var doctor_id = sessionStorage.getItem("doctor_id");
@@ -196,6 +299,7 @@ $(document).ready(function()
         console.log("Error in connecting to Mircoservice!");
       }
     });
+    */
 });
 </script>
 
