@@ -133,12 +133,13 @@ def checkout():
     # check data posted
     try:
         data = request.get_json()  
+        print (data)
 
         patient_id = data['patient_id']
         doctor_id = data['doctor_id']
         time = data['time']
         date = data['date']
-        price = data['price'] * 100 # Stripe calculate in cents
+        price = int(data['price']) * 100 # Stripe calculate in cents
 
         # create metadata for later use
         appointment_info = {
