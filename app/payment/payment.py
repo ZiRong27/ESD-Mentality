@@ -131,7 +131,7 @@ def generate_line_item(doctor_id, time, date, price):
 @app.route('/checkout', methods=['POST'])
 def checkout():
     # check data posted
-    try:
+    if request.is_json:
         data = request.get_json()  
         print (data)
 
@@ -162,10 +162,16 @@ def checkout():
 
         checkout_session_id = session.id
         return render_template('checkout.html', pub_key = pub_key,CHECKOUT_SESSION_ID = checkout_session_id, appointment_info = doctor_id)
-    except KeyError:
-        return jsonify({"message": "Invalid data parsed. Check required data needed."}), 400
-    except stripe.error.InvalidRequestError:
-        return jsonify({"message": "Invalid data parsed. Ensure data follow requirements set by Stripe."}), 400
+    # except KeyError:
+    #     return jsonify({"message": "Invalid data parsed. Check required data needed."}), 400
+    # except stripe.error.InvalidRequestError:
+    #     return jsonify({"message": "Invalid data parsed. Ensure data follow requirements set by Stripe."}), 400
+    else:
+        data = request.get_data()
+        print (type(data))
+
+        replymessage = json.dumps({"message": "Data should be in JSON", "data": data}, default=str)
+        return replymessage, 400 
   
 
 if __name__ == '__main__':
