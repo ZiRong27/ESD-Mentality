@@ -12,7 +12,7 @@ require_once '../include/protect.php';
     <link rel = "stylesheet" type = "text/css" href = "../include/stylesheet.css" />
 </header>
 
-<body>
+<body style="background:#f8f8f8;">
 <!-- Import navigation bar -->
 <?php include '../include/patientNavbar.php';?>
 

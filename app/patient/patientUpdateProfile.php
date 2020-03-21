@@ -15,7 +15,7 @@ require_once '../include/protect.php';
 </header>
 
 
-<body style="background:#f8f8f8">
+<body style="background:#f8f8f8;">
 <!-- Import navigation bar -->
 <?php include '../include/patientNavbar.php';?>
 <div id="main-container" class="container">

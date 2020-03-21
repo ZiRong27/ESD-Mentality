@@ -5,16 +5,16 @@
 </header>
 
 
-<body>
+<body style="background:#f8f8f8;">
 
 <div id="main-container" class="container">
     <div class="row d-flex justify-content-center">
             <form id ="loginForm" class="col-12 justify-content-center" >
             <div class="text-center">
-                <img src="images/logo.png" height="200" width="300"> 
+                <img src="images/logo.png" height="200" width="300"> ! chnage logo color !
             </div>
-            <div class = "whitetextbig">     
-                Login (User)
+            <div class = "whitetextbig" style="color:black;">     
+                Patient Login:
             </div>
             <br/>
                 <div class>
@@ -28,17 +28,21 @@
                 </div>
 
                 </br>
-                <a class = "whitetext" href="doctor/doctorLogin.php"> Login as a doctor</a>
-                <div class="text-right">"
-                
-                    <a class = "whitetext" href="patient/register.php"> Sign up now!</a>
-                    
+               <!-- <a class = "whitetext" href="doctor/doctorLogin.php" style="color:#505050;"> Or login as a doctor</a> -->
+                <div class="text-right">
                     <!-- The button type has to be submit for the below async functions to work!-->
                     <!--<button type="button" class="btn btn-primary btn-lg" id="signup"> Sign Up </button>-->
                         &nbsp;
                         &nbsp;
-                        <button type="submit" class="btn btn-primary btn-lg" id="loginBtn"> Login </button>
+                        <button type="submit" class="btn btn-primary btn-lg" id="loginBtn" style="width:180px; height:45px;"> Login </button>
                 </div>
+                <br>
+                <!-- <a class = "whitetext" href="doctor/doctorLogin.php" style="color:black; font-size:15px;"> Login as a doctor</a> -->
+                <div class="text-right">
+                    <a class = "whitetext" href="patient/register.php" style="color:black; font-size:15px;"> No account? Sign up now!</a>
+                    <br>
+                    <a class = "whitetext" href="doctor/doctorLogin.php" style="color:black; font-size:15px; text-align: center;"> OR login as a doctor</a>
+                </div>  
             </form>
             <div class ="index-errormsg"></div>
 

@@ -4,18 +4,21 @@ require_once '../include/protect.php';
 $accountType = "doctor";
 ?>
 <html>
+
 <head>
     <?php include '../include/codeLinks.php';?>
     <link rel = "stylesheet" type = "text/css" href = "include/stylesheet.css" />
 </head>
-<body>
+
+<body style="background:#f8f8f8;">
 <!-- Import navigation bar -->
 <?php include '../include/doctorNavbar.php';?>
 
 <div id="main-container" class="container">
 
-    <div class = "whitetextbig" style="color: white; font-weight: bold; font-size: 200%;" id="doctorName">        
-            Patient Information
+    <div class = "whitetextbig" style="color: black; font-weight: bold; font-size: 180%;" id="doctorName">        
+            <br>
+            Patient Information:
     </div> 
 
     <form>
@@ -29,17 +32,17 @@ $accountType = "doctor";
 
     
       <div class="form-group">
-        <label for="diagnosisInformation"> Diagnosis </label>
+        <label for="diagnosisInformation" style="font-weight: bold;"> Diagnosis: </label>
         <textarea class="form-control" id="diagnosisInformation" rows="2"></textarea>
       </div>
 
       <div class="form-group">
-        <label for="prescriptionInformation"> Prescription </label>
+        <label for="prescriptionInformation" style="font-weight: bold;"> Prescription: </label>
         <textarea class="form-control" id="prescriptionInformation" rows="2"></textarea>
       </div>
 
       <div class="form-group">
-        <label for="notesInformation"> Notes </label>
+        <label for="notesInformation" style="font-weight: bold;"> Notes: </label>
         <textarea class="form-control" id="notesInformation" rows="5"></textarea>
       </div>
 

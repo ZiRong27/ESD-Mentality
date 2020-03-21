@@ -2,7 +2,8 @@ html
 {
   height: 100%;
 }
-body 
+
+/* body 
 {
   background: rgb(0,42,190);
   background: linear-gradient(171deg, rgba(0,42,190,1) 0%, rgba(50,9,121,1) 35%, rgba(126,0,123,1) 100%);
@@ -10,18 +11,19 @@ body
   margin: 0;
   background-repeat: no-repeat;
   background-attachment: fixed;
-}
+} */
+
 h3, h2, h1{
-    color: white;
+    color:black;
     font-family:"Open Sans", sans-serif;
 }
 
 .whitetext { 
-  color: white; 
+  color:black; 
   font-size: 120%;
 }
 .whitetextbig { 
-  color: white;
+  color: black;
   font-weight: bold; 
   font-size: 170%;
 }
@@ -31,7 +33,7 @@ h3, h2, h1{
 }
 .index-errormsg
 {
-  color: white;
+  color: black;
   font-size: 140%
 }
 .patientLanding-card
@@ -43,5 +45,17 @@ h3, h2, h1{
 {
     height: 100px;
 }
+
 /* For patientViewAllDoctors.php */
 
+
+.bigwords {
+  color: black;
+  font-weight: bold; 
+  font-size: 170%;
+}
+
+.smallwords { 
+  color:black; 
+  font-size: 120%;
+}

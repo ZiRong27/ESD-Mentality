@@ -33,7 +33,7 @@
 
   <div class="col-lg-3 col-md-6 mb-4">
     <div class="card h-100">
-      <img class="card-img-top" src="images/carousel-design-1.png" height="180" width="250">
+      <img class="card-img-top" src="images/doc_landing1" height="180" width="250">
       <div class="card-body">
         <h4 class="card-title"> Appoinments </h4>
         <p class="card-text"> Manage your Appoinments </p>

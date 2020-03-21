@@ -3,12 +3,14 @@ require_once '../include/common.php';
 require_once '../include/protect.php';
 $accountType = "doctor";
 ?>
+
 <html>
 <head>
     <?php include '../include/codeLinks.php';?>
     <link rel = "stylesheet" type = "text/css" href = "include/stylesheet.css" />
 </head>
-<body>
+
+<body style="background:#f8f8f8;">
 <!-- Import navigation bar -->
 <?php include '../include/doctorNavbar.php';?>
 

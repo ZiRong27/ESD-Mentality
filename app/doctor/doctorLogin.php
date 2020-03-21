@@ -5,16 +5,16 @@
 </header>
 
 
-<body>
+<body style="background:#f8f8f8;">
 
 <div id="main-container" class="container">
 <div class="row d-flex justify-content-center">
         <form id ="loginForm" class="col-12 justify-content-center" >
         <div class="text-center">
-            <img src="../images/logo.png" height="200" width="300"> 
+            <img src="../images/logo.png" height="200" width="300"> change color
         </div>
-            <div class = "whitetextbig">     
-                Login (Doctor)
+            <div class = "whitetextbig"  style="color:black;">     
+                Doctor Login:
             </div>
             <br/>
             <div class>
@@ -28,7 +28,7 @@
             </div>
 
             </br>
-            <a class = "whitetext" href="../index.php"> Login as a user</a>
+            <!-- <a class = "whitetext" href="../index.php" style="color:#505050;"> Login as a user</a> -->
             <div class="text-right">"
                 
                 
@@ -36,8 +36,12 @@
                 <!--<button type="button" class="btn btn-primary btn-lg" id="signup"> Sign Up </button>-->
                     &nbsp;
                     &nbsp;
-                    <button type="submit" class="btn btn-primary btn-lg" id="loginBtn"> Login </button>
+                    <button type="submit" class="btn btn-primary btn-lg" id="loginBtn" style="width:150px; height:45px;"> Login </button>
             </div>
+            <br>
+            <div class="text-right">
+                    <a class = "whitetext" href="index.php" style="color:black; font-size:15px; text-align: center;"> OR login as a patient</a>
+                </div>  
         </form>
         <div class ="index-errormsg"></div>
 
