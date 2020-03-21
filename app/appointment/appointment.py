@@ -35,23 +35,26 @@ channel = connection.channel()
 exchangename="patient_details"
 channel.exchange_declare(exchange=exchangename, exchange_type='topic')
 
+
+
 class Appointment(db.Model):
     __tablename__ = 'appointment'
  
-    appointment_id = db.Column(db.Integer, primary_key=True)
+    appointment_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     doctor_id = db.Column(db.String,nullable=False)
     patient_id = db.Column(db.String, nullable=False)
     date = db.Column(db.String, nullable=False)
     time = db.Column(db.String, nullable=False)
+    payment_id = db.Column(db.Integer, nullable=False)
     
     
  
-    # def __init__(self, appointment_id, doctor_id, patient_id, date, time):
-    #     self.appointment_id = appointment_id
-    #     self.doctor_id = doctor_id
-    #     self.patient_id = patient_id
-    #     self.date = date
-    #     self.time = time
+    def __init__(self, doctor_id, patient_id, date, time, payment_id):
+        self.doctor_id = doctor_id
+        self.patient_id = patient_id
+        self.date = date
+        self.time = time
+        self.payment_id = payment_id
      
  
     
@@ -62,7 +65,11 @@ class Appointment(db.Model):
                 'patient_id': self.patient_id, 
                 'date': self.date, 
                 'time': self.time, 
+                'payment_id':self.payment_id
                 }
+
+    def print_q(self):
+        print ("pid", self.patient_id, "date", self.date, "did", self.doctor_id, "time", self.time, "paymentid", self.payment_id)
 
 
 @app.route("/appointment/<string:doctor_id>")
@@ -92,7 +99,7 @@ def find_by_date(date):
 
 
 @app.route("/create-appointment", methods=['POST'])
-def create_appointment():
+def create_appointment_http():
     data = request.get_json()
     #Checks if a timeslot is booked already
     if (Appointment.query.filter_by(doctor_id=data["doctor_id"],date=data["date"],time=data["time"]).first()):
@@ -196,6 +203,38 @@ def send_appointment(appointment):
     # close the connection to the broker
     connection.close()
 
+# AMQP 
+# Communicates with payment microservice to create appointment once payment is successful
+def receive_new_appointment():
+
+    # prepare a queue for receiving messages
+    channelqueue = channel.queue_declare(queue="appointment", durable=True) # 'durable' makes the queue survive broker restarts so that the messages in it survive broker restarts too
+    queue_name = channelqueue.method.queue
+    channel.queue_bind(exchange=exchangename, queue=queue_name, routing_key='*.appointment.add') # bind the queue to the exchange via the key
+        # any routing_key with two words and ending with '.message' will be matched
+    
+    # set up a consumer and start to wait for coming messages
+    channel.basic_qos(prefetch_count=1) # The "Quality of Service" setting makes the broker distribute only one message to a consumer if the consumer is available (i.e., having finished processing and acknowledged all previous messages that it receives)
+    channel.basic_consume(queue=queue_name, on_message_callback=callback_add_appt, auto_ack=True) # 'auto_ack=True' acknowledges the reception of a message to the broker automatically, so that the broker can assume the message is received and processed and remove it from the queue
+    channel.start_consuming() # an implicit loop waiting to receive messages; it doesn't exit by default. Use Ctrl+C in the command window to terminate it.
+
+def callback_add_appt(channel, method, properties, body): # required signature for the callback; no return
+    create_appointment(json.loads(body)) # json expected {phone_no, message}
+
+# Create appointment from data parsed
+# And add to database
+def create_appointment(data):
+    try:
+        appointment = Appointment(**data)
+        appointment.print_q()
+        db.session.add(appointment)
+        db.session.commit()
+    except:
+        print("Unexpected error:", sys.exc_info()[0])
+        return "An error occurred creating the appointment."
+ 
+    return "Appointment created successfully."
+
 
 # execute this program for AMQP - talking to notification.py
 # if __name__ == "__main__":  # execute this program only if it is run as a script (not by 'import')
@@ -213,14 +252,18 @@ def send_appointment(appointment):
 #     send_appointment(appointment)
 
 
-
-
 # execute this program for AMQP - talking to patient.py
 # if __name__ == "__main__":  
 #     print("This is " + os.path.basename(__file__) + ": receiving patient details...")
 #     receive_patient_details()
     
 
+
 # # Flask app
 if __name__ == '__main__':
+    # need to figure out how to run flask and listen to queue at the same time
+    # receive_new_appointment()
     app.run(host="0.0.0.0", port=5003, debug=True)
+
+    
+

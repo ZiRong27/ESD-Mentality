@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.exc import SQLAlchemyError
 from flask_cors import CORS
 
 # pip install --upgrade stripe
@@ -8,6 +9,9 @@ import stripe
 import time
 import json
 import datetime
+import pytz
+
+import pika
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:root@localhost:8889/esd_payment'
@@ -21,14 +25,15 @@ CORS(app)
 class Payment(db.Model):
     __tablename__ = 'payment'
     patient_id = db.Column(db.String, nullable=False)
-    date = db.Column(db.Date, nullable = False)
-    payment_id = db.Column(db.Integer, primary_key=True)
+    singapore = pytz.timezone('Asia/Singapore')
+    date = db.Column(db.Date, nullable = False, default=datetime.datetime.now(singapore))
+    payment_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     amount = db.Column(db.Float, nullable=False)
 
-    # def __init__(self, patient_id, amount):
-    #     # sets the properties (of itself when created)
-    #     self.patient_id = patient_id
-    #     self.amount = amount
+    def __init__(self, patient_id, amount):
+        # sets the properties (of itself when created)
+        self.patient_id = patient_id
+        self.amount = amount
   
 
     def json(self):
@@ -39,6 +44,9 @@ class Payment(db.Model):
             'amount' : self.amount
         }
         return dto  
+    
+    def print_q(self):
+        print ("pateitn", self.patient_id, "date", self.date)
 
 
 pub_key = 'pk_test_RTVKG6eUSKaY6R0IJvaK2Yp900zQwhahx5'
@@ -69,44 +77,41 @@ def success(session_id):
             appointment_info = session['metadata']
             amount = session['display_items'][0]['amount']
 
-    # add_to_transaction_history(amount, appointment_info)
-    # add_appointment()
-
     # add_to_transaction_history
-    data = {
-        'patient_id': appointment_info['patient_id'],
-        'amount': float(amount)
-    }
-
-    payment = Payment(**data)
-
-    try:
-        print(db.session.add(payment))
-        print(db.session.commit())
-
-    except:
+    result = add_to_transaction_history(amount, appointment_info)
+    if ( result == 'error'):
         return jsonify({"message": "An error occured creating payment"}), 500
+    else:
+        # add payment id to appointment info
+        appointment_info['payment_id'] = result
+        print (appointment_info)
+    
+    add_appointment(appointment_info)    
 
     return render_template('success.html', pub_key = pub_key)
 
-# def add_to_transaction_history(amount, appointment_info):
+def add_to_transaction_history(amount, appointment_info):
+    data = {
+            'patient_id': appointment_info['patient_id'],
+            'amount': float(amount)
+        }
 
-#     data = {
-#         'patient_id': appointment_info['patient_id'],
-#         'amount': float(amount)
-#     }
-
-#     payment = Payment(**data)
-
-#     try:
-#         db.session.add(payment)
-#         db.session.commit()
-
-#     except:
-#         return jsonify({"message": "An error occured creating payment"}), 500
+    payment = Payment(**data)
+    payment.print_q()
 
 
-# This function generate a line item for checkout to the appropriate format
+    try:
+        db.session.add(payment)
+        db.session.commit()
+        return payment.payment_id
+
+    except SQLAlchemyError as e:
+        error = str(e.__dict__['orig'])
+        print (error)
+        return 'error'
+
+
+# This function generate a line item for stripe checkout to the appropriate format
 # Compulsory parameters: amount, currency, name, quantity
 # Full details here:
 # https://stripe.com/docs/api/checkout/sessions/create#create_checkout_session-line_items
@@ -173,6 +178,35 @@ def checkout():
         replymessage = json.dumps({"message": "Data should be in JSON", "data": data}, default=str)
         return replymessage, 400 
   
+# AMQP
+# Should change this to reply format if have time
+def add_appointment(appointment_info):
+
+    # default username / password to the borker are both 'guest'
+    hostname = "localhost" # default broker hostname. Web management interface default at http://localhost:15672
+    port = 5672 # default messaging port.
+    # connect to the broker and set up a communication channel in the connection
+    connection = pika.BlockingConnection(pika.ConnectionParameters(host=hostname, port=port))
+        # Note: various network firewalls, filters, gateways (e.g., SMU VPN on wifi), may hinder the connections;
+        # If "pika.exceptions.AMQPConnectionError" happens, may try again after disconnecting the wifi and/or disabling firewalls
+    channel = connection.channel()
+
+    # set up the exchange if the exchange doesn't exist
+    exchangename="patient_details"
+    channel.exchange_declare(exchange=exchangename, exchange_type='topic')
+
+    # # prepare the message body content
+    message = json.dumps(appointment_info, default=str) # convert a JSON object to a string
+
+        # prepare the channel and send a message to Shipping
+    channel.queue_declare(queue='appointment', durable=True) # make sure the queue used by Shipping exist and durable
+    channel.queue_bind(exchange=exchangename, queue='appointment', routing_key='*.appointment.add') # make sure the queue is bound to the exchange
+    channel.basic_publish(exchange=exchangename, routing_key="*.appointment.add", body=message,
+        properties=pika.BasicProperties(delivery_mode = 2, # make message persistent within the matching queues until it is received by some receiver (the matching queues have to exist and be durable and bound to the exchange, which are ensured by the previous two api calls)
+        )
+    )
+    # close the connection to the broker
+    connection.close()
 
 if __name__ == '__main__':
     app.run(debug=True, port=5005)
