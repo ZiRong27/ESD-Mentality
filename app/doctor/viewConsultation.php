@@ -14,11 +14,12 @@ $accountType = "doctor";
 <!-- Import navigation bar -->
 <?php include '../include/doctorNavbar.php';?>
 
-<div id="main-container" class="container">
-
-    <div class = "whitetextbig" style="color: white; font-weight: bold; font-size: 200%;" id="doctorName">        
-            Consultation Information
+<br><br><br>
+<div id="main-container" class="container" style="border:1px solid #696969; border-radius:20px; padding:10px; box-shadow: 2px 3px #989898; background:white;">
+    <div class = "whitetextbig" style="color: black; font-weight: bold; font-size: 150%;" id="doctorName">        
+            Consultation Information: 
     </div> 
+    <br>
     <table class="table table-striped table-light table-hover text-center" id="consultationTable">
         <thead>
         </thead>

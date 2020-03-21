@@ -25,13 +25,12 @@ require_once '../include/protect.php';
 
 <br/>
 <div id="main-container" class="container" style="border:1px solid #696969; border-radius:20px; padding:10px; box-shadow: 2px 3px #989898; background:white;">
-    <div class = "whitetextbig" style="color: black; font-weight: bold; font-size: 200%;">        
-            My Consultations
+    <div class = "whitetextbig" style="color: black; font-weight: bold; font-size: 180%;">        
+            My Consultations:
     </div> 
-    <br> 
     <div class ="index-errormsg"></div>
     <br>  
-    <table class="table table-striped table-light table-hover text-center" id="conTable">
+    <table class="table table-striped table-light table-hover text-center" id="conTable" style="border:3px solid #f0f0f0;">
     <thead>
         <tr >
         <th scope="col"># Consultation ID</th>

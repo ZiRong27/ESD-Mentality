@@ -48,6 +48,7 @@ $accountType = "doctor";
 
       <button type="submit" class="btn btn-primary" id="registerAppointment"> Submit </button>
 
+      <!-- ************** in terms of ui,  can we just display these info without having to select the buttons ********************* --> 
       <a class="btn btn-info" data-toggle="collapse" href="#viewallergies" role="button" aria-expanded="false" aria-controls="viewallergies">
         View Allergies
       </a>
