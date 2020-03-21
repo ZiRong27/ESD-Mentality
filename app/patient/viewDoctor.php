@@ -58,7 +58,7 @@ require_once '../include/protect.php';
     </div>
     
     
-    <form id='bookForm'> 
+    <form id='bookForm' action='http://127.0.0.1:5005/checkout' taget="_blank" method='POST'> 
         <!-- <div class="text-right">     -->
         
         <table class="table table-light table-bordered table-hover text-center" id="timeslotTable"> 
@@ -79,7 +79,8 @@ require_once '../include/protect.php';
         console.log(message)
     }
     $(async() => { 
-        //This is the url found above the get_all function in doctor.py. Basically you are trying to send data(username and password) to that url using post and receive its response
+        //This is the url found above the get_all function in doctor.py. 
+        // Basically you are trying to send data(username and password) to that url using post and receive its response
         //The response you get is found is sent by the json function of the doctor class in doctor.py
         //Get the doctor username from the url
         let params = new URLSearchParams(location.search);
@@ -123,7 +124,8 @@ require_once '../include/protect.php';
                         "<tr><th>Gender</th><td>" + data.gender + "</td></tr>" +
                         "<tr><th>Age</th><td>" + age + "</td></tr>" +
                         "<tr><th>Experience</th><td>" + data.experience + "</td></tr>" +
-                        "<tr><th>Specialisation</th><td>" + data.specialisation + "</td></tr>";
+                        "<tr><th>Specialisation</th><td>" + data.specialisation + "</td></tr>" +
+                        "<tr><th>Price</th><td>" + data.price + "</td></tr>";
                     $('#doctorsTable').append(Row);
                     price = data.price;
                     doctor_id = data.doctor_id;
@@ -165,6 +167,11 @@ require_once '../include/protect.php';
                 if (data['message']) {
                     showError(data['message'])
                 } else {
+                    var hidden_input = 
+                            '<input type="hidden" name="doctor_id" value="' + doctor_id + '" />' +
+                            '<input type="hidden" name="price" value="' + price + '" />' +
+                            '<input type="hidden" name="patient_id" value="' + sessionStorage.getItem("patient_id") + '" />';
+                    $('#bookForm').append(hidden_input);
                     //Refreshes the page
                     //window.location.href = "patientUpdateAppts.php"; 
                     $('#TimeslotsTable').append("<tbody>"); 
@@ -177,6 +184,9 @@ require_once '../include/protect.php';
                         if (jQuery.inArray(timeslots[i], timings) == -1){ // if timing is available
                             //console.log("hey");
                             Row = "<tr><td class='text-left'>" + timeslots_display[i] + "</td><td class='text-right'>" + 
+                            //    '<input type="hidden" name="doctor_id" value="' + doctor_id + '" />' +
+                            //     '<input type="hidden" name="price" value="' + price + '" />' +
+                            //     '<input type="hidden" name="patient_id" value="' + sessionStorage.getItem("patient_id") + '" />' +
                                 "<button type='submit' value='" + timeslots[i] + "' class='btn btn-success' id='booking_submit'>Submit booking</button></td></tr>";
                             $('#timeslotTable').append(Row); 
                             console.log(Row);
@@ -198,36 +208,39 @@ require_once '../include/protect.php';
     // onclick "book an appointment", sends doctor_id and patient_id
     
         $("#bookForm").submit(async (event) => {
-            event.preventDefault();     
-            var booking_date = $('#booking_date').val();
-            var booking_time = $("#booking_submit").val();
-            var patient_id = sessionStorage.getItem("patient_id");
-            $('#patient_id').val(patient_id); 
+            // event.preventDefault();     
+            // var booking_date = $('#booking_date').val();
+            // var booking_time = $("#booking_submit").val();
+            // var patient_id = sessionStorage.getItem("patient_id");
+            // $('#patient_id').val(patient_id); 
             
-            var serviceURL = "http://127.0.0.1:5003/create-appointment";
+            // var serviceURL = "http://127.0.0.1:5005/checkout";
             //var serviceURL = "http://" + sessionStorage.getItem("appointmentip") + "/create-appointment";
             try {
-                console.log(JSON.stringify({ doctor_id: doctor_id,
-                                            patient_id: patient_id,
-                                            date: booking_date,
-                                            time: booking_time}))
-                const response = await fetch(serviceURL,{method: 'POST',
-                                            headers: { "Content-Type": "application/json" },
-                                            body: JSON.stringify
-                                            ({ doctor_id: doctor_id,
-                                               patient_id: patient_id,
-                                               date: booking_date,
-                                               time: booking_time})
-                                            });
+            //     console.log(JSON.stringify({ doctor_id: doctor_id,
+            //                                 patient_id: patient_id,
+            //                                 price: price,
+            //                                 date: booking_date,
+            //                                 time: booking_time}))
+            //     const response = await fetch(serviceURL,{method: 'POST',
+            //                                 headers: { "Content-Type": "application/json" },
+            //                                 body: JSON.stringify
+            //                                 ({ doctor_id: doctor_id,
+            //                                    patient_id: patient_id,
+            //                                    price: price,
+            //                                    date: booking_date,
+            //                                    time: booking_time})
+            //                                 });
               
-                const data = await response.json();
-                console.log(data)
-                //The error message is stored in the data array sent by patient.py! If there is a message variable, it means there is an error
-                if (data['message']) {
-                    showError(data['message'])
-                } else {
+                // const data = await response.json();
+                // console.log(data)
+                // The error message is stored in the data array sent by patient.py! If there is a message variable, it means there is an error
+                // if (data['message']) {
+                //     showError(data['message'])
+                // } else {
                     alert("Appointment successfully booked!")
-                }
+                    alert("You will be redirected to payment")
+                // }
             } catch (error) {
                 // Errors when calling the service; such as network error, service offline, etc
                 showError
