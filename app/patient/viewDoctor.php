@@ -10,6 +10,15 @@ require_once '../include/protect.php';
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <style>
         /*.table-bordered th, .table-bordered td { border: 2px solid #ddd!important }*/
+        #doctorPicture {
+            display: block;
+            margin: 0 auto;
+        }
+
+        #doctorName {
+            text-align: center;
+        }
+
     </style>
 </head>
 <header>
