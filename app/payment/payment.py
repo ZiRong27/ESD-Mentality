@@ -52,6 +52,16 @@ class Payment(db.Model):
 pub_key = 'pk_test_RTVKG6eUSKaY6R0IJvaK2Yp900zQwhahx5'
 stripe.api_key = 'sk_test_Jv4rWn5PYDRId7XNFssqQTS600rcH2uAbV'
 
+@app.route('/transactionhistory-by-id/<string:patient_id>')
+def get_all_payment_by_patientid(patient_id):
+    payment = Payment.query.filter_by(patient_id=patient_id)
+    print (payment)
+    if payment:
+        return jsonify({"payment_history": [ea_payment.json() for ea_payment in payment]})
+    else:
+        return jsonify({"message": "No transaction history found"}), 404
+
+
 @app.route('/')
 def index():
     return render_template('index.php', pub_key = pub_key)

@@ -32,7 +32,7 @@
                 <a class="nav-link" href="../patient/patientUpdateAppts.php"> Appointments </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#"> Payments </a>
+                <a class="nav-link" href="../patient/patientPayment.php"> Payments </a>
             </li>
         </ul>
         <!--Create another ul with the class ml-auto to align it to the right-->
