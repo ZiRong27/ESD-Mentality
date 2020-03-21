@@ -98,7 +98,7 @@ def get_all_consultation_by_doctor(doctor_id):
     return jsonify([consultation.json() for consultation in Consultation.query.filter(Consultation.doctor_id.endswith(doctor_id)).all()])
 
 #Function: Get all consultation by Patient_id -> For Patient to view
-@app.route("/consultation-by-doctor/<string:doctor_id>")
+@app.route("/consultation-by-patient/<string:patient_id>")
 def get_all_consultation_by_patient(patient_id):
     return jsonify([consultation.json() for consultation in Consultation.query.filter(Consultation.patient_id.endswith(patient_id)).all()])
 

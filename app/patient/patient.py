@@ -120,7 +120,46 @@ def find_by_patientid(patient_id):
 
 # --------------------------------- #
 # <!-- Patient Allergies Database -->
+class Allergies(db.Model):
+    __tablename__ = 'patient_allergies'
+    patient_id = db.Column(db.Integer, primary_key=True)
+    allergies = db.Column(db.String, primary_key=True)
 
+    def json(self):
+        dto = {
+            'patient_id': self.patient_id, 
+            'allergies': self.allergies,
+        }
+        return dto
+
+@app.route("/allergies/<string:patient_id>")
+def allergies(patient_id):
+    allergies = Allergies.query.filter_by(patient_id=patient_id).first()
+    if allergies:
+        return jsonify(allergies.json())
+    return jsonify({"message": "allergies data missing error."}), 404
+
+
+# --------------------------------- #
+# <!-- Patient Medical History -->
+class History(db.Model):
+    __tablename__ = 'patient_medical_history'
+    patient_id = db.Column(db.Integer, primary_key=True)
+    medical_history = db.Column(db.String, primary_key=True)
+
+    def json(self):
+        dto = {
+            'patient_id': self.patient_id, 
+            'medical_history': self.medical_history,
+        }
+        return dto
+
+@app.route("/history/<string:patient_id>")
+def history(patient_id):
+    history = History.query.filter_by(patient_id=patient_id).first()
+    if history:
+        return jsonify(history.json())
+    return jsonify({"message": "patient history data missing."}), 404
 
 # AMQP
 # send patient details (phone number, name, patient_id) to appointment microservice

@@ -87,6 +87,16 @@ def get_price(username):
 @app.route("/view-all-doctors") 
 def get_all():
     return jsonify([doctor.json() for doctor in Doctor.query.all()])
+
+
+#Function: Get consultation by consultation Id -> For Doctor & Patient to View
+@app.route("/view-specific-doctor-by-id/<string:doctor_id>")
+def find_by_doctor_id(doctor_id):
+    doctor = Doctor.query.filter_by(doctor_id=doctor_id).first()
+    if doctor:
+        return jsonify(doctor.json())
+    return jsonify({"message": "Doctor not found."}), 404
+
 #THis is for flask ap
 #NOTE THAT ALL MICROSERVICES must use different ports if you want to run them simultaneously!
 if __name__ == '__main__':
