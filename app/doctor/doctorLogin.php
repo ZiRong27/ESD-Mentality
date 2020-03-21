@@ -40,7 +40,7 @@
             </div>
             <br>
             <div class="text-right">
-                    <a class = "whitetext" href="index.php" style="color:black; font-size:15px; text-align: center;"> OR login as a patient</a>
+                    <a class = "whitetext" href="../index.php" style="color:black; font-size:15px; text-align: center;"> OR login as a patient</a>
                 </div>  
         </form>
         <div class ="index-errormsg"></div>

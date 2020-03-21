@@ -62,13 +62,13 @@ require_once '../include/protect.php';
 <div class="row justify-content-center">
   <!-- Card 1--->
   <div class="col-lg-3 col-md-6 mb-4">
-    <div class="card h-100" style=background-color:$C8C8C8;>
+    <div class="card h-100">
       <img class="card-img-top" src="../images/book.jpg" height="180" width="250">
-      <div class="card-body" style=background-color:$C8C8C8;>
-        <h4 class="card-title"> Book </h4>
-        <p class="card-text">Make a booking with our range of qualified counsellors. </p>
+      <div class="card-body">
+        <h4 class="card-title" style="text-align:center;"> Book </h4>
+        <p class="card-text" style="text-align:center;">Make a booking with our range of qualified counsellors. </p>
       </div>
-      <div class="card-footer">
+      <div class="card-footer" style="background-color:white;">
         <div class="row justify-content-center">
         <a href="patientViewAllDoctors.php" class="btn btn-primary"> Make Booking </a>
         </div>
@@ -78,13 +78,13 @@ require_once '../include/protect.php';
 
 <!-- Card 2 --->
 <div class="col-lg-3 col-md-6 mb-4">
-  <div class="card h-100" style=background-color:$C8C8C8;>
+  <div class="card h-100">
     <img class="card-img-top" src="../images/viewappointment.jpg" height="180" width="250">
-    <div class="card-body" style=background-color:$C8C8C8;>
-      <h4 class="card-title"> Appointments </h4>
-      <p class="card-text">View your appointments made.</p>
+    <div class="card-body">
+      <h4 class="card-title" style="text-align:center;"> Appointments </h4>
+      <p class="card-text" style="text-align:center;">View all your appointments made.</p>
     </div>
-    <div class="card-footer">
+    <div class="card-footer" style="background-color:white;">
     <div class="row justify-content-center">
       <a href="patientUpdateAppts.php" class="btn btn-primary"> View Appointments </a>
       </div>
@@ -94,13 +94,13 @@ require_once '../include/protect.php';
 
 <!-- Card 3 --->
   <div class="col-lg-3 col-md-6 mb-4">
-    <div class="card h-100" style=background-color:$C8C8C8;>
+    <div class="card h-100">
       <img class="card-img-top" src="../images/consulthistory.jpg" height="180" width="250">
-      <div class="card-body" style=background-color:$C8C8C8;>
-        <h4 class="card-title"> Consultation History </h4>
-        <p class="card-text"> View your consultation history with us to review your progress.  </p>
+      <div class="card-body">
+        <h4 class="card-title" style="text-align:center;"> Consultation History </h4>
+        <p class="card-text" style="text-align:center;"> View your consultation history with us to review your progress.  </p>
       </div>
-      <div class="card-footer">
+      <div class="card-footer" style="background-color:white;">
         <div class="row justify-content-center">
         <a href="patientConsultation.php" class="btn btn-primary"> View Consultation History </a>
         </div>
