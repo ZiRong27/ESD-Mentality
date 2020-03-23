@@ -6,11 +6,12 @@ from os import environ #For docker use
 from datetime import datetime
 import json
 import pika
+import os
 
 app = Flask(__name__)
 #app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root@localhost:3306/esd_patient'
-#app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('dbURL')
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://admin:IloveESMandPaul!<3@esd.cemjatk2jkn2.ap-southeast-1.rds.amazonaws.com/esd_patient'
+app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('dbURL')
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://admin:IloveESMandPaul!<3@esd.cemjatk2jkn2.ap-southeast-1.rds.amazonaws.com/esd_patient'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
  
 db = SQLAlchemy(app)
@@ -117,6 +118,89 @@ def find_by_patientid(patient_id):
         return jsonify(patient.json())
     return jsonify({"message": "Patient not found."}), 404
 
-#THis is for flask ap
+# --------------------------------- #
+# <!-- Patient Allergies Database -->
+class Allergies(db.Model):
+    __tablename__ = 'patient_allergies'
+    patient_id = db.Column(db.Integer, primary_key=True)
+    allergies = db.Column(db.String, primary_key=True)
+
+    def json(self):
+        dto = {
+            'patient_id': self.patient_id, 
+            'allergies': self.allergies,
+        }
+        return dto
+
+@app.route("/allergies/<string:patient_id>")
+def allergies(patient_id):
+    allergies = Allergies.query.filter_by(patient_id=patient_id).first()
+    if allergies:
+        return jsonify(allergies.json())
+    return jsonify({"message": "allergies data missing error."}), 404
+
+
+# --------------------------------- #
+# <!-- Patient Medical History -->
+class History(db.Model):
+    __tablename__ = 'patient_medical_history'
+    patient_id = db.Column(db.Integer, primary_key=True)
+    medical_history = db.Column(db.String, primary_key=True)
+
+    def json(self):
+        dto = {
+            'patient_id': self.patient_id, 
+            'medical_history': self.medical_history,
+        }
+        return dto
+
+@app.route("/history/<string:patient_id>")
+def history(patient_id):
+    history = History.query.filter_by(patient_id=patient_id).first()
+    if history:
+        return jsonify(history.json())
+    return jsonify({"message": "patient history data missing."}), 404
+
+# AMQP
+# send patient details (phone number, name, patient_id) to appointment microservice
+def send_patient_details(patient):
+
+    # default username / password to the borker are both 'guest'
+    hostname = "localhost" # default broker hostname. Web management interface default at http://localhost:15672
+    port = 5672 # default messaging port.
+    # connect to the broker and set up a communication channel in the connection
+    connection = pika.BlockingConnection(pika.ConnectionParameters(host=hostname, port=port))
+        # Note: various network firewalls, filters, gateways (e.g., SMU VPN on wifi), may hinder the connections;
+        # If "pika.exceptions.AMQPConnectionError" happens, may try again after disconnecting the wifi and/or disabling firewalls
+    channel = connection.channel()
+
+    # set up the exchange if the exchange doesn't exist
+    exchangename="patient_details"
+    channel.exchange_declare(exchange=exchangename, exchange_type='topic')
+
+    # prepare the message body content
+    message = json.dumps(patient, default=str) # convert a JSON object to a string
+
+    channel.queue_declare(queue='patient', durable=True) # make sure the queue used by Shipping exist and durable
+    channel.queue_bind(exchange=exchangename, queue='patient', routing_key='*.details') # make sure the queue is bound to the exchange
+    channel.basic_publish(exchange=exchangename, routing_key="patient.details", body=message, properties=pika.BasicProperties(delivery_mode = 2)) # make message persistent within the matching queues until it is received by some receiver (the matching queues have to exist and be durable and bound to the exchange, which are ensured by the previous two api calls)
+        
+    print("Patient details sent to appointment.")
+    # close the connection to the broker
+    connection.close()
+
+# execute this program for AMQP - talking to appointment.py
+# if __name__ == "__main__":  # execute this program only if it is run as a script (not by 'import')
+#     print("This is " + os.path.basename(__file__) + ": sending patient details...")
+#     patient = {
+#             'patient_id': 20, 
+#             'phone' : '+6591131622'
+#         }
+#     print(patient)
+#     send_patient_details(patient)
+   
+
+
+#This is for flask app
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=5001, debug=True)

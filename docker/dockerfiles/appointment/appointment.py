@@ -16,14 +16,24 @@ import pika
 
 
 app = Flask(__name__)
-#app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root@localhost:3306/esd_appointment'
-#app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('dbURL')
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://admin:IloveESMandPaul!<3@esd.cemjatk2jkn2.ap-southeast-1.rds.amazonaws.com/esd_appointment'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root@localhost:3306/esd_appointment'
+# #app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('dbURL')
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://admin:IloveESMandPaul!<3@esd.cemjatk2jkn2.ap-southeast-1.rds.amazonaws.com/esd_appointment'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
  
 db = SQLAlchemy(app)
 CORS(app)
 
+hostname = "localhost" # default hostname
+port = 5672 # default port
+# connect to the broker and set up a communication channel in the connection
+connection = pika.BlockingConnection(pika.ConnectionParameters(host=hostname, port=port))
+    # Note: various network firewalls, filters, gateways (e.g., SMU VPN on wifi), may hinder the connections;
+    # If "pika.exceptions.AMQPConnectionError" happens, may try again after disconnecting the wifi and/or disabling firewalls
+channel = connection.channel()
+# set up the exchange if the exchange doesn't exist
+exchangename="patient_details"
+channel.exchange_declare(exchange=exchangename, exchange_type='topic')
 
 class Appointment(db.Model):
     __tablename__ = 'appointment'
@@ -63,13 +73,22 @@ def find_by_doctor_id(doctor_id):
         return jsonify(appointment.json())
     return jsonify({"message": "Appointment not found."}), 404
 
-
-@app.route("/appointment/<string:appointment_id>")
+# note -> guys i have to change the name of the route here cus, appointment is used by doctor id
+@app.route("/appointment-by-id/<string:appointment_id>")
 def find_by_appointment_id(appointment_id):
     appointment = Appointment.query.filter_by(appointment_id=appointment_id).first()
     if appointment:
         return jsonify(appointment.json())
-    return jsonify({"message": "Appointment not found."}), 404
+    return jsonify({"message": "Appointment base on appointment is not found."}), 404
+
+@app.route("/appointment-by-date/<string:date>")
+def find_by_date(date):
+    #appointment = Appointment.query.filter_by(date=date)
+    #print(appointment)
+    return jsonify([appointment.json() for appointment in Appointment.query.filter_by(date=date)])
+    # if appointment:
+    #     return jsonify(appointment.json() for appt in appointment)
+    # return jsonify({"message": "Appointment not found."}), 404
 
 
 @app.route("/create-appointment", methods=['POST'])
@@ -89,20 +108,20 @@ def create_appointment():
     return jsonify(appointment.json()), 201
    
 
-@app.route("/update-appointment", methods=['POST'])
-#Updates a specific appointment details
-def updateAppointment():
-    #I changed everything to string in sql database as there will be error if you submit a string to a column defined as integer
-    data = request.get_json()
-    appointment = Appointment(**data)
-    try:
-        setattr(appointment, 'date', data["date"])
-        setattr(appointment, 'time', data["time"])
-        db.session.commit()
-    except:
-        return jsonify({"message": "An error occurred updating details of the appointment."}), 500
+# @app.route("/update-appointment", methods=['POST'])
+# #Updates a specific appointment details
+# def updateAppointment():
+#     #I changed everything to string in sql database as there will be error if you submit a string to a column defined as integer
+#     data = request.get_json()
+#     appointment = Appointment(**data)
+#     try:
+#         setattr(appointment, 'date', data["date"])
+#         setattr(appointment, 'time', data["time"])
+#         db.session.commit()
+#     except:
+#         return jsonify({"message": "An error occurred updating details of the appointment."}), 500
  
-    return jsonify(patient.json()), 201
+#     return jsonify(patient.json()), 201
 
 
 # need delete appointment?
@@ -112,12 +131,14 @@ def updateAppointment():
 def get_all():
     return jsonify([appointment.json() for appointment in Appointment.query.all()])
 
+
+# AMQP
 # get phone number from patient microservice
-def getPhoneNumber():
+def receive_patient_details():
     # prepare a queue for receiving messages
-    channelqueue = channel.queue_declare(queue="appointment", durable=True) # 'durable' makes the queue survive broker restarts so that the messages in it survive broker restarts too
+    channelqueue = channel.queue_declare(queue="patient", durable=True) # 'durable' makes the queue survive broker restarts so that the messages in it survive broker restarts too
     queue_name = channelqueue.method.queue
-    channel.queue_bind(exchange=exchangename, queue=queue_name, routing_key='*.message') # bind the queue to the exchange via the key
+    channel.queue_bind(exchange=exchangename, queue=queue_name, routing_key='*.details') # bind the queue to the exchange via the key
         # any routing_key with two words and ending with '.message' will be matched
     
     # set up a consumer and start to wait for coming messages
@@ -126,15 +147,28 @@ def getPhoneNumber():
     channel.start_consuming() # an implicit loop waiting to receive messages; it doesn't exit by default. Use Ctrl+C in the command window to terminate it.
 
 def callback(channel, method, properties, body): # required signature for the callback; no return
-    result = processPhoneNumber(json.loads(body)) # json expected {phone_no, message}
+    print("Received patient details by patient microservice")
+    result = process_patient_details(json.loads(body)) # json expected {phone_no, message}
+    # print processing result; not really needed
+    json.dump(result, sys.stdout, default=str) # convert the JSON object to a string and print out on screen
+    print() # print a new line feed to the previous json dump
+    print() # print another new line as a separator
 
-def processPhoneNumber():
-    send_appointment(appointment)
+def process_patient_details(details):
+    #send_appointment(appointment)
+    print("Processing patient details:")
+    return details
     
     
-@app.route("/send-appointment") 
+# @app.route("/send-appointment") 
 # AMQP: to send to notification microservice
 def send_appointment(appointment):
+    phone = appointment['phone']
+    patient_name = appointment['patient_name']
+    doctor_name = appointment['doctor_name']
+    time = appointment['date']
+    date = appointment['time']
+    
     hostname = "localhost" # default broker hostname. 
     port = 5672 # default messaging port.
     # connect to the broker and set up a communication channel in the connection
@@ -145,26 +179,48 @@ def send_appointment(appointment):
     channel.exchange_declare(exchange=exchangename, exchange_type='topic')
 
     # prepare the message body content
-    message = json.dumps(appointment, default=str) # convert a JSON object to a string
+    #message = json.dumps(appointment, default=str) # convert a JSON object to a string
+    for_patient_message = "Hi " + patient_name + "! This is a reminder that you have an upcoming appointment with Dr " + doctor_name + " at " + time + " tomorrow, " + date + "."
 
-
+    result = {"phone": phone, "message": for_patient_message}
+    message = json.dumps(result, default=str)
+    print(message)
     # inform Notification and exit
     # prepare the channel and send a message to Notification
     channel.queue_declare(queue='notification', durable=True) # make sure the queue used by Notification exist and durable
     channel.queue_bind(exchange=exchangename, queue='notification', routing_key='*.message') # make sure the queue is bound to the exchange
-    channel.basic_publish(exchange=exchangename, routing_key="day1.message", body=message,
-        properties=pika.BasicProperties(delivery_mode = 2, # make message persistent within the matching queues until it is received by some receiver (the matching queues have to exist and be durable and bound to the exchange, which are ensured by the previous two api calls)
-        )
-    )
+    channel.basic_publish(exchange=exchangename, routing_key="notification.message", body=message,
+        properties=pika.BasicProperties(delivery_mode = 2))# make message persistent within the matching queues until it is received by some receiver (the matching queues have to exist and be durable and bound to the exchange, which are ensured by the previous two api calls)
+   
+    
     # close the connection to the broker
     connection.close()
 
 
-
+# execute this program for AMQP - talking to notification.py
 # if __name__ == "__main__":  # execute this program only if it is run as a script (not by 'import')
 #     print("This is " + os.path.basename(__file__))
+#     appointment = {'appointment_id': 20, 
+#                 'doctor_id': '1', 
+#                 'doctor_name': 'Ong',
+#                 'patient_id': '20', 
+#                 'date': '2020-04-01', 
+#                 'time': '10:30:00', 
+#                 'phone' : '+6591131622',
+#                 'patient_name': 'Mandy'
+#                 }
+                 
 #     send_appointment(appointment)
 
-# Flask app
+
+
+
+# execute this program for AMQP - talking to patient.py
+# if __name__ == "__main__":  
+#     print("This is " + os.path.basename(__file__) + ": receiving patient details...")
+#     receive_patient_details()
+    
+
+# # Flask app
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=5003, debug=True)

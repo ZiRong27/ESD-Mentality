@@ -26,31 +26,32 @@ require_once '../include/protect.php';
 
 <br/>
 <div id="main-container" class="container" style="border:1px;">
-    <div id=whole style="border:1px solid #696969; border-radius:20px; padding:10px; box-shadow: 2px 3px #989898; background:white;">
-    <div class = "whitetextbig" style="color: #303030; font-weight: bold; font-size: 200%; font-family: helvetica">        
-        Book an appointment with us
-    </div> 
-    <br>
-    <p style="color: #303030; font-size: 120%; font-family: helvetica"> Select from our range of professional counsellors: </p>
-   
-    <div class ="index-errormsg"></div>
+    <div class="row d-flex justify-content-center">
+        <div id=whole style="border:1px solid #696969; border-radius:20px; padding:10px; box-shadow: 2px 3px #989898; background:white;">
+        <div class = "whitetextbig" style="color: #303030; font-weight: bold; font-size: 200%; font-family: helvetica">        
+            Book an appointment with us
+        </div> 
+        <br>
+        <p style="color: #303030; font-size: 120%; font-family: helvetica"> Select from our range of professional counsellors: </p>
     
-    <table class="table table-striped table-light table-hover text-center" id="doctorsTable" style=border-radius:20px;>
-    <thead>
-        <tr >
-        <th scope="col">#</th>
-        <th scope="col">Name</th>
-        <th scope="col">Gender</th>
-        <th scope="col">Age</th>
-        <th scope="col">Experience</th>
-        <th scope="col">Specialisation</th>
-        <th scope="col">View profile</th>
-        </tr>
-    </thead>
-    <tbody>
-    </tbody>
-    </table>   
-</div>
+        <div class ="index-errormsg"></div>
+        
+        <table class="table table-striped table-light table-hover text-center" id="doctorsTable" style=border-radius:20px;>
+        <thead>
+            <tr >
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Gender</th>
+            <th scope="col">Age</th>
+            <th scope="col">Experience</th>
+            <th scope="col">Specialisation</th>
+            <th scope="col">View profile</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+        </table>   
+    </div>
 </div>
 <script>    
     // Helper function to display error message

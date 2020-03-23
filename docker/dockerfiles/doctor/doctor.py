@@ -8,9 +8,9 @@ import json
 import pika
 
 app = Flask(__name__)
-#app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root@localhost:3306/esd_doctor'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root@localhost:3306/esd_doctor'
 #app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('dbURL')
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://admin:IloveESMandPaul!<3@esd.cemjatk2jkn2.ap-southeast-1.rds.amazonaws.com/esd_doctor'
+#app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://admin:IloveESMandPaul!<3@esd.cemjatk2jkn2.ap-southeast-1.rds.amazonaws.com/esd_doctor'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
  
 db = SQLAlchemy(app)
@@ -69,15 +69,34 @@ def register():
         return jsonify({"message": "An error occurred creating the doctor."}), 500
  
     return jsonify(doctor.json()), 201
+
 @app.route("/view-specific-doctor/<string:username>") 
 def get_specific_doctor(username):
     doctor = Doctor.query.filter_by(username=username).first()
     if doctor:
         return jsonify(doctor.json())
     return jsonify({"message": "Doctor not found."}), 404
+
+@app.route("/price/<string:username>") 
+def get_price(username):
+    price = Doctor.query.filter_by(username=username).first()
+    if price:
+        return jsonify(price.json()['price'])
+    return jsonify({"message": "Price not found."}), 404
+
 @app.route("/view-all-doctors") 
 def get_all():
     return jsonify([doctor.json() for doctor in Doctor.query.all()])
+
+
+#Function: Get consultation by consultation Id -> For Doctor & Patient to View
+@app.route("/view-specific-doctor-by-id/<string:doctor_id>")
+def find_by_doctor_id(doctor_id):
+    doctor = Doctor.query.filter_by(doctor_id=doctor_id).first()
+    if doctor:
+        return jsonify(doctor.json())
+    return jsonify({"message": "Doctor not found."}), 404
+
 #THis is for flask ap
 #NOTE THAT ALL MICROSERVICES must use different ports if you want to run them simultaneously!
 if __name__ == '__main__':

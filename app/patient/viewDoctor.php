@@ -58,7 +58,7 @@ require_once '../include/protect.php';
     </div>
     
     
-    <form id='bookForm' action='http://127.0.0.1:5005/checkout' taget="_blank" method='POST'> 
+    <form id='bookForm' action='' taget="_blank" method='POST'> 
         <!-- <div class="text-right">     -->
         
         <table class="table table-light table-bordered table-hover text-center" id="timeslotTable"> 
