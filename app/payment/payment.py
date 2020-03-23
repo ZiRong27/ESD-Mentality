@@ -46,6 +46,7 @@ class Payment(db.Model):
         return dto  
     
     def print_q(self):
+        # for debugging
         print ("pateitn", self.patient_id, "date", self.date)
 
 
@@ -147,44 +148,44 @@ def generate_line_item(doctor_id, time, date, price):
 def checkout():
     # check data posted
     if request.is_json:
-        data = request.get_json()  
-        print (data)
+        try:
+            data = request.get_json()
 
-        patient_id = data['patient_id']
-        doctor_id = data['doctor_id']
-        time = data['time']
-        date = data['date']
-        price = int(data['price']) * 100 # Stripe calculate in cents
+            patient_id = data['patient_id']
+            doctor_id = data['doctor_id']
+            time = data['time']
+            date = data['date']
+            price = int(data['price']) * 100 # Stripe calculate in cents
 
-        # create metadata for later use
-        appointment_info = {
-            "patient_id": patient_id,
-            "doctor_id": doctor_id,
-            "time": time,
-            "date": date
-        }
+            # create metadata for later use
+            appointment_info = {
+                "patient_id": patient_id,
+                "doctor_id": doctor_id,
+                "time": time,
+                "date": date
+            }
 
-        line_items = generate_line_item(doctor_id, time, date, price)
-        print(line_items)
+            line_items = generate_line_item(doctor_id, time, date, price)
 
-        session = stripe.checkout.Session.create(
-            payment_method_types=['card'],
-            line_items=line_items,
-            success_url='http://127.0.0.1:5005/success/session_id={CHECKOUT_SESSION_ID}',
-            cancel_url='https://example.com/cancel',
-            metadata = appointment_info
-        )
+            session = stripe.checkout.Session.create(
+                payment_method_types=['card'],
+                line_items=line_items,
+                success_url='http://127.0.0.1:5005/success/session_id={CHECKOUT_SESSION_ID}',
+                cancel_url='https://example.com/cancel',
+                metadata = appointment_info
+            )
 
-        checkout_session_id = session.id
-        return render_template('checkout.html', pub_key = pub_key,CHECKOUT_SESSION_ID = checkout_session_id, appointment_info = doctor_id)
-    # except KeyError:
-    #     return jsonify({"message": "Invalid data parsed. Check required data needed."}), 400
-    # except stripe.error.InvalidRequestError:
-    #     return jsonify({"message": "Invalid data parsed. Ensure data follow requirements set by Stripe."}), 400
+            checkout_session_id = session.id
+            
+            return jsonify({'CHECKOUT_SESSION_ID': checkout_session_id, 'pub_key':pub_key  }), 200 
+        # return render_template('checkout.html', pub_key = pub_key,CHECKOUT_SESSION_ID = checkout_session_id)
+        except KeyError:
+            return jsonify({"message": "Invalid data parsed. Check required data needed."}), 400
+        except stripe.error.InvalidRequestError:
+            return jsonify({"message": "Invalid data parsed. Ensure data follow requirements set by Stripe."}), 400
     else:
         data = request.get_data()
         print (type(data))
-
         replymessage = json.dumps({"message": "Data should be in JSON", "data": data}, default=str)
         return replymessage, 400 
   

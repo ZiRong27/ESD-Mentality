@@ -21,19 +21,6 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 CORS(app)
 
-hostname = "localhost" # default hostname
-port = 5672 # default port
-# connect to the broker and set up a communication channel in the connection
-connection = pika.BlockingConnection(pika.ConnectionParameters(host=hostname, port=port))
-    # Note: various network firewalls, filters, gateways (e.g., SMU VPN on wifi), may hinder the connections;
-    # If "pika.exceptions.AMQPConnectionError" happens, may try again after disconnecting the wifi and/or disabling firewalls
-channel = connection.channel()
-# set up the exchange if the exchange doesn't exist
-exchangename="patient_details"
-channel.exchange_declare(exchange=exchangename, exchange_type='topic')
-
-
-
 class Appointment(db.Model):
     __tablename__ = 'appointment'
  
