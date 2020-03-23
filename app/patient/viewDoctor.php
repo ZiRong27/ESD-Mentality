@@ -177,7 +177,7 @@ require_once '../include/protect.php';
                     $('#bookForm').append(hidden_input);
                     //Refreshes the page
                     //window.location.href = "patientUpdateAppts.php"; 
-                    $('#TimeslotsTable').append("<tbody>"); 
+                    $('#timeslotTable').append("<tbody>"); 
                     // $('#TimeslotsTable').append("<tr><form id='bookForm'>"); 
                     timeslots_display = ['09:00 AM - 10:00 AM','10:00 AM - 11:00 AM','11:00 AM - 12:00 PM','12:00 PM - 13:00 PM','13:00 PM - 14:00 PM','14:00 PM - 15:00 PM','15:00 PM - 16:00 PM','16:00 PM - 17:00 PM','17:00 PM - 18:00 PM']
                     timeslots = ['09:00 AM','10:00 AM','11:00 AM','12:00 PM','13:00 PM','14:00 PM','15:00 PM','16:00 PM','17:00 PM']
@@ -195,7 +195,7 @@ require_once '../include/protect.php';
                             console.log(Row);
                         }
                     }
-                    $('#TimeslotsTable').append("</tbody>"); 
+                    $('#timeslotTable').append("</tbody>"); 
                     
                 }
             } catch (error) {
@@ -213,7 +213,8 @@ require_once '../include/protect.php';
         $("#bookForm").submit(async (event) => {
             event.preventDefault();     
             var booking_date = $('#booking_date').val();
-            var booking_time = $("#booking_submit").val();
+            //var booking_time = $("#booking_submit").val();
+            var booking_time = $(document.activeElement).val()
             var doctor_id = $("#doctor_id").val();
             var price = $("#price").val();
             var patient_id = sessionStorage.getItem("patient_id");
