@@ -10,6 +10,7 @@ from os import environ #For docker use
 import json
 import sys
 import os
+import pika
 
 
 app = Flask(__name__)
