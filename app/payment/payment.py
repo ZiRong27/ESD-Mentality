@@ -71,7 +71,7 @@ def index():
 @app.route('/success/<string:session_id>')
 def success(session_id):
 
-    session_id = session_id.split('=')[1]
+    # session_id = session_id.split('=')[1]
 
     # Check if payment is confirmed
     events = stripe.Event.list(
@@ -98,9 +98,11 @@ def success(session_id):
         appointment_info['payment_id'] = result
         print (appointment_info)
     
-    add_appointment(appointment_info)    
+    add_appointment(appointment_info)
 
-    return render_template('success.html', pub_key = pub_key)
+    return jsonify({"appointment": appointment_info}), 200
+        
+    # return render_template('success.html', pub_key = pub_key)
 
 def add_to_transaction_history(amount, appointment_info):
     data = {
@@ -171,7 +173,8 @@ def checkout():
             session = stripe.checkout.Session.create(
                 payment_method_types=['card'],
                 line_items=line_items,
-                success_url='http://127.0.0.1:5005/success/session_id={CHECKOUT_SESSION_ID}',
+                # success_url='http://127.0.0.1:5005/success/session_id={CHECKOUT_SESSION_ID}',
+                success_url = 'http://localhost:8898/ESD-ClinicAppointmentServices/app/patient/patientUpdateAppts.php?session_id={CHECKOUT_SESSION_ID}',
                 cancel_url='https://example.com/cancel',
                 metadata = appointment_info
             )

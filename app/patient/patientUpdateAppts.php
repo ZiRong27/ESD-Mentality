@@ -3,6 +3,11 @@ require_once '../include/common.php';
 
 $accountType = "patient";
 require_once '../include/protect.php';
+
+if (isset($_GET['session_id'])){
+    $session_id = $_GET['session_id'];
+}
+
 ?>
 <html>
 <head>
@@ -25,6 +30,12 @@ require_once '../include/protect.php';
 </br></br>
 
 <br/>
+
+<div id="appointmentSuccess">
+
+</div>
+
+
 <div id="main-container" class="container" style="border:1px solid #696969; border-radius:20px; padding:10px; box-shadow: 2px 3px #989898; background:white;">
     <div class = "whitetextbig" style="color: black; font-weight: bold; font-size: 200%;">        
             My Appointments
@@ -51,9 +62,13 @@ require_once '../include/protect.php';
 <script>    
     // Helper function to display error message
     function showError(message) {
-        console.log('Error logged')
+        console.log('Error logged');
         // Display an error on top of the table
         $('.index-errormsg').html(message)
+    }
+    function showAppointmentAdded(appointment){
+    
+
     }
 
     async function fetchURLs() {
@@ -80,8 +95,40 @@ require_once '../include/protect.php';
     }
   }
 
+
     //This is the form id, not the submit button id!
     $(async() => { 
+
+        var session_id = "<?php if (isset($session_id)) { echo $session_id; } else { echo 'false'; } ?>";
+
+        // Check if this page is accessed from a successful payment event
+        // In which case it will double check payment status
+        // And inform user regarding a successful booking creation
+        if (session_id != "false"){
+                    
+            var serviceURL = "http://127.0.0.1:5005/success/" + session_id;
+
+            const response =
+                await fetch(
+                serviceURL, { method: 'GET' }
+                );
+
+            const data = await response.json();
+            
+            if (data['message']){
+                showError(data['message']);
+            }else{
+                console.log(data['appointment']);
+                $('#appointmentSuccess').append(
+                    '<div class="alert alert-success" role="alert">Appointment added successfully: <b>' +
+                    data['appointment']['date'] + 
+                    ', ' +
+                    data['appointment']['time'] +
+                    '</div>'
+                );
+            }
+        }
+
         fetchURLs();
         var patient_id = sessionStorage.getItem("patient_id");
         $('#patient_id').val(patient_id); 
@@ -130,6 +177,10 @@ require_once '../include/protect.php';
                
             } 
     });
+
+
+
+
     
 
 </script>
