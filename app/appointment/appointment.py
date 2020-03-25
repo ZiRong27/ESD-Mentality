@@ -24,6 +24,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 CORS(app)
 
+
 hostname = "localhost" # default hostname
 port = 5672 # default port
 # connect to the broker and set up a communication channel in the connection
@@ -72,6 +73,10 @@ class Appointment(db.Model):
         print ("pid", self.patient_id, "date", self.date, "did", self.doctor_id, "time", self.time, "paymentid", self.payment_id)
 
 
+@app.route("/appointments-by-doctor/<string:doctor_id>")
+def get_all_appointment_by_doctor(doctor_id):
+    return jsonify([appointment.json() for appointment in Appointment.query.filter(Appointment.doctor_id.endswith(doctor_id)).all()])
+
 @app.route("/appointment/<string:doctor_id>")
 def find_by_doctor_id(doctor_id):
     appointment = Appointment.query.filter_by(doctor_id=doctor_id).first()
@@ -111,6 +116,18 @@ def create_appointment_http():
         db.session.commit()
     except:
         return jsonify({"message": "An error occurred creating the appointment."}), 500
+ 
+    return jsonify(appointment.json()), 201
+
+#FUNCTION: Delete by Appointment
+@app.route("/delete-appointment/<string:appointment_id>", methods=['POST'])
+def delete_appointment(appointment_id):
+    data = Appointment.query.filter_by(appointment_id=appointment_id).first()
+    try:
+        db.session.delete(data)
+        db.session.commit()
+    except:
+        return jsonify({"message": "An error occurred while deleting the appointment."}), 500
  
     return jsonify(appointment.json()), 201
    

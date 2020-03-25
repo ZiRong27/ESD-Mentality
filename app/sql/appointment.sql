@@ -34,7 +34,12 @@ CREATE TABLE `appointment` (
 --
 
 INSERT INTO `appointment` (`appointment_id`, `doctor_id`, `patient_id`, `date`, `time`, `payment_id`) VALUES
-(19, '2', '1', '04-04-20', '4.00 AM', 41);
+(19, '2', '1', '04-04-20', '4.00 AM', 41),
+(20, '3', '2', '04-04-20', '5.00 AM', 30),
+(21, '2', '3', '04-04-20', '6.00 AM', 41),
+(22, '1', '1', '04-04-20', '7.00 AM', 20),
+(23, '2', '2', '04-04-20', '8.00 AM', 41),
+(24, '2', '1', '04-04-20', '9.00 AM', 41);
 
 --
 -- Indexes for dumped tables

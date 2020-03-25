@@ -34,7 +34,7 @@ require_once '../include/protect.php';
     <thead>
         <tr >
         <th scope="col"># Appointment ID</th>
-        <th scope="col">Patient</th>
+        <th scope="col">Patient Name</th>
         <th scope="col">Date</th>
         <th scope="col">Time</th>
         <th scope="col">View profile</th>
@@ -49,81 +49,98 @@ require_once '../include/protect.php';
         // Display an error on top of the table
         $('.index-errormsg').html(message)
     }
+/*
+    async function fetchURLs() 
+    {
+      try 
+      {
+        // Promise.all() lets us coalesce multiple promises into a single super-promise
+        var data = await Promise.all
+        ([
+          //fetch("http://127.0.0.1:5002/view-all-doctors").then((response) => response.json()),
+          //fetch("http://127.0.0.1:5001/view-all-patients").then((response) => response.json())
+          fetch("http://" + sessionStorage.getItem("doctorip") + "/view-all-doctors").then((response) => response.json()),
+          fetch("http://" + sessionStorage.getItem("patientip") + "/view-all-patients").then((response) => response.json())
+        ]);
+        
+        doctor = {}
+        
+          for (var obj of data[0]) 
+          {
+              doctor_id = obj["doctor_id"];
+              doctor[doctor_id] = obj["price"];
+          }
 
-    async function fetchURLs() {
-    try {
-      // Promise.all() lets us coalesce multiple promises into a single super-promise
-      var data = await Promise.all([
-        //fetch("http://127.0.0.1:5002/view-all-doctors").then((response) => response.json()),
-        //fetch("http://127.0.0.1:5001/view-all-patients").then((response) => response.json())
-        fetch("http://" + sessionStorage.getItem("doctorip") + "/view-all-doctors").then((response) => response.json()),
-        fetch("http://" + sessionStorage.getItem("patientip") + "/view-all-patients").then((response) => response.json())
-      ]);
-      doctor = {}
+        patient = {}
       
-        for (var obj of data[0]) {
-            doctor_id = obj["doctor_id"];
-            doctor[doctor_id] = obj["price"];
-        }
+          for (var obj of data[1]) 
+          {
+              patient_id = obj["patient_id"];
+              patient[patient_id] = obj["name"];
+          }
 
-      patient = {}
-     
-        for (var obj of data[1]) {
-            patient_id = obj["patient_id"];
-            patient[patient_id] = obj["name"];
-        }
-      
-      console.log(patient);
-      console.log(doctor);
-      return doctor, patient;
+        var result = [data[0], data[1]]
+        
+        //console.log(patient);
+        //console.log(doctor);
+        return result;
 
-    } catch (error) {
-      console.log(error);
+      } 
+      catch (error) 
+      {
+          console.log(error);
+      }
     }
-  }
+   */ 
 
   // This function here show all appointments by doctor_ID
   $(async (event) =>
   {
     var doctor_id = sessionStorage.getItem("doctor_id");
-    //var serviceURL = "http://127.0.0.1:5003/view-all-appointments";
-    var serviceURL = "http://" + sessionStorage.getItem("appointmentip") + "/view-all-appointments";
+    var appointment_serviceURL = "http://" + sessionStorage.getItem("appointmentip") + "/appointments-by-doctor/" + doctor_id;
 
     try 
     {
-      const response = await fetch(serviceURL, { method: 'GET' });
-      const data = await response.json(); 
-      console.log(data)
+      const appointment_response = await fetch(appointment_serviceURL, { method: 'GET' });
+      const appointment_data = await appointment_response.json(); 
 
-      if (!data || data.message == "Appointment(s) not found.") 
+      console.log(appointment_data)
+
+      if (!appointment_data || appointment_data["message"] == "Appointment not found.") 
       {
         console.log(data['message']);
       } 
       else
       {
-        console.log(Object.values(data))
-        for (i = 0; i < data.length; i++) 
-        { 
-          if(data[i]["doctor_id"] == doctor_id)
-          {
-            console.log("hello")
-            row = 
+        var keys = Object.entries(appointment_data)
+        console.log(keys)
+        for (i = 0; i < keys.length; i++)
+        {
+          var obj = keys[i][1]
+          var patient_id = obj["patient_id"]
+          var patient_serviceURL = "http://" + sessionStorage.getItem("patientip") + "/patient/" + patient_id;
+          try{
+              const patient_response = await fetch(patient_serviceURL, { method: 'GET' });
+              const patient_data = await patient_response.json(); 
+              console.log(patient_data)
+              var row = 
               "<tbody><tr>" + 
-                  "<td>" + data[i]["appointment_id"] + "</td>" + 
-                  "<td>" + data[i]["patient_id"] + "</td>" + 
-                  "<td>" + data[i]["date"] + "</td>" + 
-                  "<td>" + data[i]["time"] + "</td>" +
-                  "<td> <a href='viewPatient.php?appointmentid=" + data[i]["appointment_id"] + "&patientid="+ data[i]["patient_id"]+"'> View Patient </a> </td>" +
+                  "<td>" + obj["appointment_id"] + "</td>" + 
+                  "<td>" + patient_data["name"] + "</td>" + 
+                  "<td>" + obj["date"] + "</td>" + 
+                  "<td>" + obj["time"] + "</td>" +
+                  "<td> <a href='viewPatient.php?appointmentid=" + obj["appointment_id"] + "&patientid="+ obj["patient_id"]+"'> View Patient </a> </td>" +
               "</tr></tbody>";
             $('#apptTable').append(row);
+          }catch(error){
+            console.log("Error in connecting to Patient Mircoservice!");
           }
-          
-        }
-      }
-    }
+        } // end of For loop
+      } // end of else
+    }// end of try
     catch(error)
     {
-      console.log("Error in connecting to Mircoservice!");
+      console.log("Error in connecting to Appointment Mircoservice!");
     }
   });
 

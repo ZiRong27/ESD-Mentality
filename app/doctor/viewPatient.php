@@ -253,10 +253,10 @@ async function fetchpatientmedicalhistoryURLs(patient_id)
             prescription: prescription_information,
             notes: notes_information
         }   
-        postData(serviceURL, requestBody) 
+        postData(serviceURL, requestBody, appointment_id) 
         });
     // FUNCTION: create consultation - Part B
-    async function postData(serviceURL, requestBody) 
+    async function postData(serviceURL, requestBody, appointment_id) 
     {
         var requestParam = 
         {
@@ -264,11 +264,16 @@ async function fetchpatientmedicalhistoryURLs(patient_id)
             headers: { "content-type": "application/json;" },
             body: JSON.stringify(requestBody)
         }
+        var appointment_serviceURL = "http://" + sessionStorage.getItem("appointmentip") + "/delete-appointment/" + appointment_id;
         try 
         {
             const response = await fetch(serviceURL, requestParam);
             data = await response.json();               
             console.log("consultation created!:" + data);
+
+            const appointment_response = await fetch(appointment_serviceURL, { method: 'POST' });
+            const appointment_data = await appointment_response.json(); 
+            
             window.location.replace("doctorConsultation.php");
         }       
         catch (error) 

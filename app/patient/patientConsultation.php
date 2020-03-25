@@ -75,6 +75,9 @@ function showError(message)
           var appointment_id = data_consultation["appointment_id"];
           var doctor_id = data_consultation["doctor_id"];
           var data = fetchData(appointment_id, doctor_id);
+          var data_appointment = data[0];
+          var data_doctor = data[1];
+          console.log(data_consultation, data_appointment, data_doctor)
       } 
     }
     catch(error)
@@ -93,17 +96,19 @@ function showError(message)
             // retrieve appointment by appointment ID
             const response_appointment = await fetch(serviceURL_appointment, { method: 'GET' });
             const data_appointment = await response_appointment.json(); 
-            console.log(data_appointment)
+            //console.log(data_appointment)
 
             // retrieve appointment by appointment ID
             const response_doctor = await fetch(serviceURL_doctorip, { method: 'GET' });
             const data_doctor = await response_doctor.json(); 
-            console.log(data_doctor)
+            //console.log(data_doctor)
         }
         catch(error)
         {
             console.log("Error in connecting to Mircoservice!");
         }
+        var data = [data_appointment,data_doctor];
+        return data;
     }
 
 /*
