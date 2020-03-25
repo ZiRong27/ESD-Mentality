@@ -36,7 +36,7 @@ require_once '../include/protect.php';
         <th scope="col"># Consultation ID</th>
         <th scope="col"> Patient ID </th>
         <th scope="col"> Patient Name </th>
-        <th scope="col"> appointment ID </th>
+        <th scope="col"> Appointment ID </th>
         <th scope="col"> View Consultation </th>
         </tr>
     </thead>

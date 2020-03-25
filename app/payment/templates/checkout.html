@@ -4,9 +4,12 @@
 <head>
 
 <body>
-
+<h1></h1>
 
 <script>
+    console.log('ajdqd');
+    console.log('{{ pub_key }}');
+
     var stripe = Stripe('{{ pub_key }}');
     stripe.redirectToCheckout({
     // Make the id field from the Checkout Session creation API response
@@ -21,6 +24,6 @@
 
 </script>
 
-</body
+</body>
 
 </html>

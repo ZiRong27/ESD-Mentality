@@ -57,8 +57,7 @@ require_once '../include/protect.php';
     </form>
     </div>
     
-    
-    <form id='bookForm' action='http://127.0.0.1:5005/checkout' taget="_blank" method='POST'> 
+    <form id='bookForm'> 
         <!-- <div class="text-right">     -->
         
         <table class="table table-light table-bordered table-hover text-center" id="timeslotTable"> 
@@ -68,6 +67,11 @@ require_once '../include/protect.php';
             <!-- <input type='date' name='booking_date' id='booking_date'>
             <input type='text' name='booking_time' id='booking_time'>
             <button type='submit' class="btn btn-primary btn-lg" id='booking_submit'>Submit booking</button> --> 
+    </form>
+
+
+    <!-- This form will be automatically submitted upon booking-->   
+    <form method="POST" action="checkout.php" id="checkoutForm">
     </form>
     
 </div>
@@ -168,13 +172,12 @@ require_once '../include/protect.php';
                     showError(data['message'])
                 } else {
                     var hidden_input = 
-                            '<input type="hidden" name="doctor_id" value="' + doctor_id + '" />' +
-                            '<input type="hidden" name="price" value="' + price + '" />' +
-                            '<input type="hidden" name="patient_id" value="' + sessionStorage.getItem("patient_id") + '" />';
+                            '<input type="hidden" id="doctor_id" value="' + doctor_id + '" />' +
+                            '<input type="hidden" id="price" value="' + price + '" />';
                     $('#bookForm').append(hidden_input);
                     //Refreshes the page
                     //window.location.href = "patientUpdateAppts.php"; 
-                    $('#TimeslotsTable').append("<tbody>"); 
+                    $('#timeslotTable').append("<tbody>"); 
                     // $('#TimeslotsTable').append("<tr><form id='bookForm'>"); 
                     timeslots_display = ['09:00 AM - 10:00 AM','10:00 AM - 11:00 AM','11:00 AM - 12:00 PM','12:00 PM - 13:00 PM','13:00 PM - 14:00 PM','14:00 PM - 15:00 PM','15:00 PM - 16:00 PM','16:00 PM - 17:00 PM','17:00 PM - 18:00 PM']
                     timeslots = ['09:00 AM','10:00 AM','11:00 AM','12:00 PM','13:00 PM','14:00 PM','15:00 PM','16:00 PM','17:00 PM']
@@ -192,7 +195,7 @@ require_once '../include/protect.php';
                             console.log(Row);
                         }
                     }
-                    $('#TimeslotsTable').append("</tbody>"); 
+                    $('#timeslotTable').append("</tbody>"); 
                     
                 }
             } catch (error) {
@@ -208,39 +211,51 @@ require_once '../include/protect.php';
     // onclick "book an appointment", sends doctor_id and patient_id
     
         $("#bookForm").submit(async (event) => {
-            // event.preventDefault();     
-            // var booking_date = $('#booking_date').val();
-            // var booking_time = $("#booking_submit").val();
-            // var patient_id = sessionStorage.getItem("patient_id");
-            // $('#patient_id').val(patient_id); 
+            event.preventDefault();     
+            var booking_date = $('#booking_date').val();
+            //var booking_time = $("#booking_submit").val();
+            var booking_time = $(document.activeElement).val()
+            var doctor_id = $("#doctor_id").val();
+            var price = $("#price").val();
+            var patient_id = sessionStorage.getItem("patient_id");
+            console.log(booking_date);
+            $('#patient_id').val(patient_id); 
             
-            // var serviceURL = "http://127.0.0.1:5005/checkout";
-            //var serviceURL = "http://" + sessionStorage.getItem("appointmentip") + "/create-appointment";
+            var serviceURL = "http://127.0.0.1:5005/checkout";
+            // var serviceURL = "http://" + sessionStorage.getItem("appointmentip") + "/create-appointment";
             try {
-            //     console.log(JSON.stringify({ doctor_id: doctor_id,
-            //                                 patient_id: patient_id,
-            //                                 price: price,
-            //                                 date: booking_date,
-            //                                 time: booking_time}))
-            //     const response = await fetch(serviceURL,{method: 'POST',
-            //                                 headers: { "Content-Type": "application/json" },
-            //                                 body: JSON.stringify
-            //                                 ({ doctor_id: doctor_id,
-            //                                    patient_id: patient_id,
-            //                                    price: price,
-            //                                    date: booking_date,
-            //                                    time: booking_time})
-            //                                 });
-              
-                // const data = await response.json();
-                // console.log(data)
+                console.log(JSON.stringify({ doctor_id: doctor_id,
+                                            patient_id: patient_id,
+                                            price: price,
+                                            date: booking_date,
+                                            time: booking_time}))
+                const response = await fetch(serviceURL,{method: 'POST',
+                                            headers: { "Content-Type": "application/json" },
+                                            body: JSON.stringify
+                                            ({ doctor_id: doctor_id,
+                                               patient_id: patient_id,
+                                               price: price,
+                                               date: booking_date,
+                                               time: booking_time})
+                                            });
+
+                const data = await response.json();
+                console.log(data)
+
                 // The error message is stored in the data array sent by patient.py! If there is a message variable, it means there is an error
-                // if (data['message']) {
-                //     showError(data['message'])
-                // } else {
-                    alert("Appointment successfully booked!")
+                if (data['message']) {
+                    showError(data['message'])
+                } else {
                     alert("You will be redirected to payment")
-                // }
+
+                    var hidden_input = 
+                            '<input type="hidden" name="CHECKOUT_SESSION_ID" value="' + data['CHECKOUT_SESSION_ID'] + '" />' +
+                            '<input type="hidden" name="pub_key" value="' + data['pub_key'] + '" />';
+                    $('#checkoutForm').append(hidden_input);
+
+                    $('#checkoutForm').submit();
+
+                }
             } catch (error) {
                 // Errors when calling the service; such as network error, service offline, etc
                 showError

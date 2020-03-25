@@ -6,7 +6,8 @@
 -- Generation Time: Mar 21, 2020 at 07:44 PM
 -- Server version: 5.7.25
 -- PHP Version: 7.3.1
-
+CREATE Database IF NOT EXISTS `esd_appointment`;
+USE esd_appointment;
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
