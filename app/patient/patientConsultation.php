@@ -7,10 +7,6 @@
         require_once '../include/protect.php';
     ?>
     <link rel = "stylesheet" type = "text/css" href = "../include/stylesheet.css" />
-    <script>
-        $('#displayMessage').hide();
-        $('#conTable').show();
-    </script>
 </header>
 
 
@@ -44,6 +40,8 @@
 </div>
 
 <script>    
+$( document ).ready(function() 
+{
 // Helper function to display error message
 function showError(message) 
 {
@@ -51,6 +49,7 @@ function showError(message)
     // Display an error on top of the table
     $('.index-errormsg').html(message)
 }
+
 // Function: Get all consultation by patient_ID - Part A
   $(async (event) =>
   {
@@ -66,58 +65,74 @@ function showError(message)
     // If retrieve data failed, result to no data
       if (!data_consultation) 
       {
-        $('#displayMessage').show();
-        $('#conTable').hide();
+            $('#displayMessage').show();
+            $('#conTable').hide();
       } 
       // else display
       else
       {
-          var appointment_id = data_consultation["appointment_id"];
-          var doctor_id = data_consultation["doctor_id"];
-          var data = fetchData(appointment_id, doctor_id);
-          var data_appointment = data[0];
-          var data_doctor = data[1];
-          console.log(data_consultation, data_appointment, data_doctor)
-      } 
-    }
+            $('#displayMessage').hide();
+            $('#conTable').show();
+            var keys = Object.entries(data_consultation)
+            for (var ele in keys)
+            {
+                var obj = data_consultation[ele];
+                console.log(obj);
+                var doctorName = await fetchData(obj["doctor_id"]);
+                //var data = await fetchData(obj["doctor_id"], obj["appointment_id"]);
+                //var doctorName = data[0];
+                //var dateTime = data[1];
+                console.log(doctorName);
+                var row =
+                "<tbody><tr>" + 
+                    "<td>" + obj["consultation_id"] + "</td>" + 
+                    "<td>" + doctorName + "</td>" + 
+                    "<td>" + "Consulataion needs to capture data and time :( " + "</td>" + 
+                    "<td> <a href='viewConsultation.php?consultationid=" + obj["consultation_id"] + "&doctorname="+ doctorName +"'> View Consultation </a> </td>" +
+                "</tr></tbody>";
+                $('#conTable').append(row);
+            } // End of for loop
+        } // End of else
+    } // end of try 
     catch(error)
     {
-      console.log("Error in connecting to Mircoservice!");
+      console.log("Error in connecting to Consultation Mircoservice!");
     }
+}); // End of Function - Part A
 
 // Function: Get appointment and doctor information - Part B
-    async function fetchData(appointment_id, doctor_id) 
+    async function fetchData(doctor_id,appointment_id) 
     {
-        var data = [];
-        var serviceURL_appointment = "http://" + sessionStorage.getItem("appointmentip") + "/appointment-by-id/" + appointment_id;
+        //var data = [];
+        //var serviceURL_appointment = "http://" + sessionStorage.getItem("appointmentip") + "/appointment-by-id/" + appointment_id;
         var serviceURL_doctor = "http://" + sessionStorage.getItem("doctorip") + "/view-specific-doctor-by-id/" + doctor_id;
+
+        //console.log(serviceURL_appointment)
+        console.log(serviceURL_doctor)
+
         try 
         {
             // retrieve appointment by appointment ID
-            const response_appointment = await fetch(serviceURL_appointment, { method: 'GET' });
-            const data_appointment = await response_appointment.json(); 
-            //console.log(data_appointment)
-
-            // retrieve appointment by appointment ID
-            const response_doctor = await fetch(serviceURL_doctorip, { method: 'GET' });
+            const response_doctor = await fetch(serviceURL_doctor, { method: 'GET' });
             const data_doctor = await response_doctor.json(); 
-            //console.log(data_doctor)
+            const doctorName = data_doctor["name"];
+            console.log(doctorName);
+
+            //const response_appointment = await fetch(serviceURL_appointment, { method: 'GET' });
+            //const data_appointment = await response_appointment.json(); 
+            //console.log(data_appointment)
+            //const datetime = data_appointment["date"];
+            //console.log(datetime);
+
+            return doctorName;
         }
         catch(error)
         {
             console.log("Error in connecting to Mircoservice!");
         }
-        var data = [data_appointment,data_doctor];
-        return data;
-    }
+    } // End of function -Part B
 
-/*
-    sessionStorage.setItem('patientip', "127.0.0.1:5001")
-    sessionStorage.setItem('doctorip', "127.0.0.1:5002")
-    sessionStorage.setItem('appointmentip', "127.0.0.1:5003")   
-    sessionStorage.setItem('consultationip', "127.0.0.1:5004")   
-*/
-  });
+}); // End of Document ready
 </script>
 
 
