@@ -103,13 +103,19 @@ def find_by_date(date):
 
 
 @app.route("/create-appointment", methods=['POST'])
-def create_appointment_http():
+def create_appointment():
+    print('hi')
     data = request.get_json()
-    #Checks if a timeslot is booked already
-    if (Appointment.query.filter_by(doctor_id=data["doctor_id"],date=data["date"],time=data["time"]).first()):
-        return jsonify({"message": "The timeslot already exists."}), 400
-    #We use **data to retrieve all the info in the data array, which includes username, password, salutation, name, dob etc
+    print (data)
     appointment = Appointment(**data)
+
+    #Checks if a timeslot is booked already by another user
+    if (Appointment.query.filter_by(doctor_id=data["doctor_id"],date=data["date"],time=data["time"]).first()):
+        return jsonify({"message": "The timeslot is already booked by another user."}), 400
+    #Ensures that duplicate appointment is not created given a payment id
+    elif (Appointment.query.filter_by(doctor_id=data["doctor_id"],date=data["date"],time=data["time"], payment_id=data["payment_id"]).first()):
+        return jsonify(appointment.json()), 201
+    
     try:
         db.session.add(appointment)
         db.session.commit()
