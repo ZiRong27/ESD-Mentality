@@ -54,7 +54,7 @@ function showError(message)
   $(async (event) =>
   {
     var patient_id = sessionStorage.getItem("patient_id");
-    var serviceURL_consultation = "http://" + sessionStorage.getItem("consultationip") + "/consultation-by-patient/" + patient_id;
+    var serviceURL_consultation = "http://" + consultationip + "/consultation-by-patient/" + patient_id;
     try 
     {
     // retrieve consultation data by patient
@@ -104,8 +104,8 @@ function showError(message)
     async function fetchData(doctor_id,appointment_id) 
     {
         //var data = [];
-        //var serviceURL_appointment = "http://" + sessionStorage.getItem("appointmentip") + "/appointment-by-id/" + appointment_id;
-        var serviceURL_doctor = "http://" + sessionStorage.getItem("doctorip") + "/view-specific-doctor-by-id/" + doctor_id;
+        //var serviceURL_appointment = "http://" + appointmentip + "/appointment-by-id/" + appointment_id;
+        var serviceURL_doctor = "http://" + doctorip + "/view-specific-doctor-by-id/" + doctor_id;
 
         //console.log(serviceURL_appointment)
         console.log(serviceURL_doctor)

@@ -43,6 +43,7 @@ def receiveMessageTask():
 
 def callback(channel, method, properties, body): # required signature for the callback; no return
     result = processMessageTask(json.loads(body)) # json expected {phone_no, message}
+    print(result)
 
 
 def processMessageTask(task): # handles task of sending sms notification

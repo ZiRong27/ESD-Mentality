@@ -99,7 +99,7 @@
         var password = $('#password').val();
         //This is the url found above the login function in patient.py. Basically you are trying to send data(username and password) to that url using post and receive its response
         //The response you get is found is sent by the json function of the Patient class in patient.py
-        var serviceURL = "http://" + sessionStorage.getItem("patientip") + "/register-process";
+        var serviceURL = "http://" + patientip + "/register-process";
         try {
                 //console.log(JSON.stringify({ username: username, password: password,}))
                 const response = await fetch(serviceURL,{method: 'POST',

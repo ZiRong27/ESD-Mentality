@@ -75,10 +75,10 @@ if (isset($_GET['session_id'])){
     try {
       // Promise.all() lets us coalesce multiple promises into a single super-promise
       var data = await Promise.all([
-        fetch("http://127.0.0.1:5002/view-all-doctors").then((response) => response.json())
-        // fetch("http://" + sessionStorage.getItem("appointmentip") + "/view-all-appointments").then(
+        fetch("http://" + doctorip + "/view-all-doctors").then((response) => response.json())
+        // fetch("http://" + appointmentip + "/view-all-appointments").then(
         //     (response) => response.json()),// parse each response as json
-        //fetch("http://" + sessionStorage.getItem("doctorip") + "/view-all-doctors").then((response) => response.json())
+        //fetch("http://" + doctorip + "/view-all-doctors").then((response) => response.json())
       ]);
       doctor = {}
       
@@ -134,8 +134,8 @@ if (isset($_GET['session_id'])){
         $('#patient_id').val(patient_id); 
         //This is the url found above the get_all function in doctor.py. Basically you are trying to send data(username and password) to that url using post and receive its response
         //The response you get is found is sent by the json function of the doctor class in doctor.py
-        //var serviceURL = "http://" + sessionStorage.getItem("appointmentip") + "/view-all-appointments";
-        var serviceURL = "http://127.0.0.1:5003/view-all-appointments";
+        //var serviceURL = "http://" + appointmentip + "/view-all-appointments";
+        var serviceURL = "http://" + appointmentip + "/view-all-appointments";
         try {
                 //console.log(JSON.stringify({ username: username, password: password,}))
                 const response =
@@ -144,6 +144,7 @@ if (isset($_GET['session_id'])){
                 );
                 const data = await response.json();
                 console.log(data)
+                console.log(patient_id)
                 //The error message is stored in the data array sent by patient.py! If there is a message variable, it means there is an error
                 if (data['message']) {
                     showError(data['message'])

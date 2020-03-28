@@ -55,8 +55,7 @@ $(document).ready(function()
   // FUNCTION: Get consultation by consultation id and return data from database
   async function fetchURLs(consultationt_id) 
     {
-    // var serviceURL_consultation = "http://127.0.0.1:5004/consultation-by-consultationid/" + consultationt_id;
-    var serviceURL_consultation  = "http://" + sessionStorage.getItem("consultationip") + "/consultation-by-consultationid/" + consultationt_id;
+    var serviceURL_consultation  = "http://" + consultationip + "/consultation-by-consultationid/" + consultationt_id;
     try 
     {
     // retrieve consultation data by consultationt id

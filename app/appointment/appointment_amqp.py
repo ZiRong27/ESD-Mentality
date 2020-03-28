@@ -123,7 +123,7 @@ def send_appointment(appointment):
 
     result = {"phone": phone, "message": for_patient_message}
     message = json.dumps(result, default=str)
-    print(message)
+    print("Sent message to notification.py:" , message)
     # inform Notification and exit
     # prepare the channel and send a message to Notification
     channel.queue_declare(queue='notification', durable=True) # make sure the queue used by Notification exist and durable
@@ -193,6 +193,7 @@ def create_appointment(data):
 
 # Start consuming when running
 if __name__ == '__main__':
-    receive_new_appointment()
+    send_appointment({'phone': '999', 'patient_name': 'yo', 'doctor_name': "mrdoctor", "date": "11", "time": "123"})
+    #receive_new_appointment()
 
     

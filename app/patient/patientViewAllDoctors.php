@@ -64,8 +64,8 @@ require_once '../include/protect.php';
     $(async() => { 
         //This is the url found above the get_all function in doctor.py. Basically you are trying to send data(username and password) to that url using post and receive its response
         //The response you get is found is sent by the json function of the doctor class in doctor.py
-        var serviceURL = "http://127.0.0.1:5002/view-all-doctors";
-        //var serviceURL = "http://" + sessionStorage.getItem("doctorip") + "/view-all-doctors";
+        var serviceURL = "http://" + doctorip + "/view-all-doctors";
+        //var serviceURL = "http://" + doctorip + "/view-all-doctors";
         try {
                 //console.log(JSON.stringify({ username: username, password: password,}))
                 const response =

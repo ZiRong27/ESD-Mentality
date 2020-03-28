@@ -20,7 +20,6 @@ CORS(app)
 class Patient(db.Model):
     __tablename__ = 'patient'
     patient_id = db.Column(db.Integer, primary_key=True)
-    patient_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String, nullable=False)
     gender = db.Column(db.String, nullable=False)
     dob = db.Column(db.String, nullable=False)

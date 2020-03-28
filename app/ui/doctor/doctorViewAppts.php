@@ -59,8 +59,8 @@ require_once '../include/protect.php';
         ([
           //fetch("http://127.0.0.1:5002/view-all-doctors").then((response) => response.json()),
           //fetch("http://127.0.0.1:5001/view-all-patients").then((response) => response.json())
-          fetch("http://" + sessionStorage.getItem("doctorip") + "/view-all-doctors").then((response) => response.json()),
-          fetch("http://" + sessionStorage.getItem("patientip") + "/view-all-patients").then((response) => response.json())
+          fetch("http://" + doctorip + "/view-all-doctors").then((response) => response.json()),
+          fetch("http://" + patientip + "/view-all-patients").then((response) => response.json())
         ]);
         
         doctor = {}
@@ -97,7 +97,7 @@ require_once '../include/protect.php';
   $(async (event) =>
   {
     var doctor_id = sessionStorage.getItem("doctor_id");
-    var appointment_serviceURL = "http://" + sessionStorage.getItem("appointmentip") + "/appointments-by-doctor/" + doctor_id;
+    var appointment_serviceURL = "http://" + appointmentip + "/appointments-by-doctor/" + doctor_id;
 
     try 
     {
@@ -118,7 +118,7 @@ require_once '../include/protect.php';
         {
           var obj = keys[i][1]
           var patient_id = obj["patient_id"]
-          var patient_serviceURL = "http://" + sessionStorage.getItem("patientip") + "/patient/" + patient_id;
+          var patient_serviceURL = "http://" + patientip + "/patient/" + patient_id;
           try{
               const patient_response = await fetch(patient_serviceURL, { method: 'GET' });
               const patient_data = await patient_response.json(); 

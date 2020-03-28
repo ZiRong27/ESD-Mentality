@@ -10,8 +10,8 @@ import os
 
 app = Flask(__name__)
 #app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root@localhost:3306/esd_patient'
-app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('dbURL')
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://admin:IloveESMandPaul!<3@esd.cemjatk2jkn2.ap-southeast-1.rds.amazonaws.com/esd_patient'
+#app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('dbURL')
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://admin:IloveESMandPaul!<3@esd.cemjatk2jkn2.ap-southeast-1.rds.amazonaws.com/esd_patient'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
  
 db = SQLAlchemy(app)
@@ -20,6 +20,7 @@ CORS(app)
 class Patient(db.Model):
     __tablename__ = 'patient'
     patient_id = db.Column(db.Integer, primary_key=True)
+    patient_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String, nullable=False)
     gender = db.Column(db.String, nullable=False)
     dob = db.Column(db.String, nullable=False)
@@ -30,7 +31,6 @@ class Patient(db.Model):
 
     def json(self):
         dto = {
-            'patient_id': self.patient_id, 
             'name': self.name,
             'gender' : self.gender ,
             'dob' : self.dob ,

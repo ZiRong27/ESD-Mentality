@@ -27,7 +27,15 @@
     src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
     integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
     crossorigin="anonymous"></script>
-
+    <script>
+      //Sets the IP addresses of ALL microservices here!!
+      //IMPORTANT Set AWS IP address for each microservices here
+      //All these are working! Uncomment to try them, you will NOT need to run any of these microservices yourself
+      patientip = "54.254.155.190:5001";
+      doctorip = "13.229.63.17:5002";
+      appointmentip = "13.250.25.187:5003";
+      consultationip = "18.141.146.207:5004";
+    </script>
     <!-- tempus dominus bootstrap 4 https://tempusdominus.github.io/bootstrap-4/ -->
     <!--
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>

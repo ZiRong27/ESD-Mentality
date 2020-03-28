@@ -45,7 +45,7 @@ $( document ).ready(function()
     let params = new URLSearchParams(location.search);
     var consultationt_id = params.get("consultationid");
     var doctor_name = params.get("doctorname");
-    var serviceURL_consultation = "http://" + sessionStorage.getItem("consultationip") + "/consultation-by-consultationid/" + consultationt_id;
+    var serviceURL_consultation = "http://" + consultationip + "/consultation-by-consultationid/" + consultationt_id;
 
     try 
     {

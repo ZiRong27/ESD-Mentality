@@ -129,17 +129,14 @@ $(document).ready(function()
   // FUNCTION: Get appointment and Patient Data from database
   async function fetchURLs(appointment_id, patient_id) 
     {
-        //var patientURL = "http://127.0.0.1:5001/patient/";
-        var patientURL = "http://" + sessionStorage.getItem("patientip") + "/patient/";
+        var patientURL = "http://" + patientip + "/patient/";
         patientURL = patientURL + patient_id
         
-        //var appointmentURL = "http://127.0.0.1:5003/appointment-by-id/"; 
-        var appointmentURL = "http://" + sessionStorage.getItem("appointmentip") + "/appointment-by-id/"; 
+        var appointmentURL = "http://" + appointmentip + "/appointment-by-id/"; 
         appointmentURL = appointmentURL + appointment_id
         console.log(appointmentURL);
 
-        //var consultationURL = "http://127.0.0.1:5004/consultation";
-        var consultationURL  = "http://" + sessionStorage.getItem("consultationip") + "/consultation";
+        var consultationURL  = "http://" + consultationip + "/consultation";
         console.log(consultationURL);
     try 
     {
@@ -164,7 +161,7 @@ $(document).ready(function()
   // FUNCTION: Display Patient's allergises from database
   async function fetchpatientallergiesURLs(patient_id) 
   {
-    var patientallergiesURL = "http://" + sessionStorage.getItem("patientip") + "/allergies/";
+    var patientallergiesURL = "http://" + patientip + "/allergies/";
     patientallergiesURL = patientallergiesURL + patient_id;
     try 
     {
@@ -192,7 +189,7 @@ $(document).ready(function()
 // FUNCTION: Display Patient Medical History
 async function fetchpatientmedicalhistoryURLs(patient_id) 
   {
-    var medicalhistoryURL = "http://" + sessionStorage.getItem("patientip") + "/history/";
+    var medicalhistoryURL = "http://" + patientip + "/history/";
     medicalhistoryURL = medicalhistoryURL + patient_id;
     try 
     {
@@ -241,8 +238,7 @@ async function fetchpatientmedicalhistoryURLs(patient_id)
         var prescription_information = $("#prescriptionInformation").val();
         var notes_information = $("#notesInformation").val();
                 
-        //var serviceURL = "http://127.0.0.1:5004/convert-to-consultation";
-        var serviceURL  = "http://" + sessionStorage.getItem("consultationip") + "/convert-to-consultation";
+        var serviceURL  = "http://" + consultationip + "/convert-to-consultation";
         var requestBody = 
         {
             consultation_id: consultation_length,
@@ -264,7 +260,7 @@ async function fetchpatientmedicalhistoryURLs(patient_id)
             headers: { "content-type": "application/json;" },
             body: JSON.stringify(requestBody)
         }
-        var appointment_serviceURL = "http://" + sessionStorage.getItem("appointmentip") + "/delete-appointment/" + appointment_id;
+        var appointment_serviceURL = "http://" + appointmentip + "/delete-appointment/" + appointment_id;
         try 
         {
             const response = await fetch(serviceURL, requestParam);
@@ -288,7 +284,7 @@ async function fetchpatientmedicalhistoryURLs(patient_id)
     {
       var doctor_id = sessionStorage.getItem("doctor_id");
       //var serviceURL = "http://127.0.0.1:5004/consultation-by-doctor/" + doctor_id;
-      var serviceURL  = "http://" + sessionStorage.getItem("consultationip") + "/consultation-by-doctor/"  + doctor_id;
+      var serviceURL  = "http://" + consultationip + "/consultation-by-doctor/"  + doctor_id;
       try 
       {
         console.log(serviceURL)
