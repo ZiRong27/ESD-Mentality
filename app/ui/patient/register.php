@@ -33,8 +33,8 @@
                   <label for="surname">Surname</label>
                 </div>
                 <div class="form-label-group">
-                  <input id="dob" class="form-control" placeholder="Date of birth" required autofocus>
-                  <label for="dob">Date of birth</label>
+                  <input id="dob" class="form-control" placeholder="Date of birth (yyyy-mm-dd)" required autofocus>
+                  <label for="dob">Date of birth (yyyy-mm-dd)</label>
                 </div>
                 <div class="form-label-group">
                   <input id="phone" class="form-control" placeholder="Phone" required autofocus>
