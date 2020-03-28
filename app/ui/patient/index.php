@@ -83,7 +83,7 @@
                     //Set the session to username so it wont log the user out.
                     sessionStorage.setItem('username', data['username']);
                     sessionStorage.setItem('patient_id', data['patient_id']);
-                    window.location.href = "patient/patientLanding.php";               
+                    window.location.href = "patientLanding.php";               
                 }
             } catch (error) {
                 // Errors when calling the service; such as network error, service offline, etc
