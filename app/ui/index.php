@@ -29,6 +29,10 @@
                   <br> 
                   <a class="medium font-weight-bold .text-secondary" href="patient/register.php">Register new account</a></div>
               </form>
+              <div class='text-center'>
+                <div class ="index-errormsg" style="background-color: #f8d7da; color: #8b3f46;">
+                </div>
+              </div>
             </div>
           </div>
         </div>
