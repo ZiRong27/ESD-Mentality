@@ -29,9 +29,9 @@ require_once '../include/protect.php';
 <div class="container">
 
 <!-- Page Heading -->
-<h1 class="my-4">Book an Appointment
-  <!-- <small>with our therapists</small> -->
-</h1>
+<h1 class="my-4">Book an Appointment</h1>
+<h5 class="my-4"> Select from our wide ranging qualified therapists and book an appointment with us</h5>
+<hr>
 <br>
 
 <!-- List of Doctors (to be appended) -->
