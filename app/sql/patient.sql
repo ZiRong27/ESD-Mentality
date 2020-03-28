@@ -137,8 +137,8 @@ COMMIT;
 --
 -- Indexes for table `patient`
 --
-ALTER TABLE `patient`
-  ADD PRIMARY KEY (`patient_id`);
+-- ALTER TABLE `patient`
+--  ADD PRIMARY KEY (`patient_id`);
 
 --
 -- AUTO_INCREMENT for dumped tables

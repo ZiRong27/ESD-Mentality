@@ -64,6 +64,7 @@
         var serviceURL = "http://" + patientip + "/login-process";
 
         try {
+                //console.log("PO")
                 //console.log(JSON.stringify({ username: username, password: password,}))
                 const response = await fetch(serviceURL,{method: 'POST',
                                             headers: { "Content-Type": "application/json" },

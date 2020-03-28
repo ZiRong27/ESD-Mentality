@@ -14,6 +14,10 @@ import pika
 # External API used
 from twilio.rest import Client
 
+# Access the CLODUAMQP_URL environment variable and parse it (fallback to localhost)
+url = 'amqp://xhnawuvi:znFCiYKqjzNmdGBNLdzTJ07R25lNOCr_@vulture.rmq.cloudamqp.com/xhnawuvi'
+params = pika.URLParameters(url)
+#connection = pika.BlockingConnection(params)
 
 
 hostname = "localhost" # default hostname
@@ -57,19 +61,23 @@ def append_message_with_mentality_signature(msg):
     return append_at_start + msg
 
 def send_sms (message, to_phone_no):
-    account_sid = os.environ.get('TWILIO_ACCOUNT_SID')
-    auth_token = os.environ.get('TWILIO_AUTH_TOKEN')
+    #account_sid = os.environ.get('TWILIO_ACCOUNT_SID')
+    #auth_token = os.environ.get('TWILIO_AUTH_TOKEN')
+    account_sid = "ACfab1bfc1ce6dcc55d394818c7810c1d8"
+    auth_token = "7ff29283f2032a9411f05424f79d1af7"
     client = Client(account_sid, auth_token)
 
     from_phone_no = '+13018613110'
     message = client.messages \
-        .create(
-            body=message,
-            from_= from_phone_no,
-            to=to_phone_no
-        )
+          .create(
+             body=message,
+             from_= from_phone_no,
+             to=to_phone_no
+         ) 
+    #print("Sent message:", message)
     print ('message sent, message sid:', message.sid)
 
 if __name__ == "__main__":  # execute this program only if it is run as a script (not by 'import')
     print("This is " + os.path.basename(__file__))
+    print("Currently waiting for incoming appointments")
     receiveMessageTask()

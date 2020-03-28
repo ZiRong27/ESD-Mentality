@@ -178,7 +178,8 @@ def checkout():
                 payment_method_types=['card'],
                 line_items=line_items,
                 # success_url='http://127.0.0.1:5005/success/session_id={CHECKOUT_SESSION_ID}',
-                success_url = 'http://localhost:8898/ESD-ClinicAppointmentServices/app/patient/patientUpdateAppts.php?session_id={CHECKOUT_SESSION_ID}',
+                success_url = 'http://localhost:80/ESD-ClinicAppointmentServices/app/patient/patientUpdateAppts.php?session_id={CHECKOUT_SESSION_ID}',
+                #success_url = 'http://localhost:8898/ESD-ClinicAppointmentServices/app/patient/patientUpdateAppts.php?session_id={CHECKOUT_SESSION_ID}',
                 cancel_url='https://example.com/cancel',
                 metadata = appointment_info
             )

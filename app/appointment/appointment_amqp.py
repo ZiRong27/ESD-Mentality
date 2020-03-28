@@ -10,7 +10,7 @@ from os import environ #For docker use
 import json
 import sys
 import os
-import pika
+import pika, os
 
 
 app = Flask(__name__)
@@ -22,6 +22,10 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
  
 db = SQLAlchemy(app)
 CORS(app)
+# Access the CLODUAMQP_URL environment variable and parse it (fallback to localhost)
+url = 'amqp://xhnawuvi:znFCiYKqjzNmdGBNLdzTJ07R25lNOCr_@vulture.rmq.cloudamqp.com/xhnawuvi'
+params = pika.URLParameters(url)
+#connection = pika.BlockingConnection(params)
 
 hostname = "localhost" # default hostname
 port = 5672 # default port
@@ -193,7 +197,7 @@ def create_appointment(data):
 
 # Start consuming when running
 if __name__ == '__main__':
-    send_appointment({'phone': '999', 'patient_name': 'yo', 'doctor_name': "mrdoctor", "date": "11", "time": "123"})
+    send_appointment({'phone': '+6597632174', 'patient_name': 'yo', 'doctor_name': "mrdoctor", "date": "11", "time": "123"})
     #receive_new_appointment()
 
     
