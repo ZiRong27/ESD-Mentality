@@ -105,13 +105,6 @@ require_once '../include/protect.php';
                             '</div>' +
                             '</div>' +
                             '<hr>';
-                            // "<tr><th scope='row'>" + data[i].doctor_id + "</th>" +
-                            // "<td>" + data[i].name + "</td>" +
-                            // "<td>" + data[i].gender + "</td>" +
-                            // "<td>" + age + "</td>" +
-                            // "<td>" + data[i].experience + "</td>" +
-                            // "<td>" + data[i].specialisation + "</td>" +
-                            // "<td> <a href='viewDoctor.php?username=" + data[i].username + "'>View profile</a> </td></tr>";
                         $('#doctor-list').append(Row);
                     }
                     //Add the t body
