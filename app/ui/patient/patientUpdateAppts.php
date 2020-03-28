@@ -106,7 +106,7 @@ if (isset($_GET['session_id'])){
         // And inform user regarding a successful booking creation
         if (session_id != "false"){
                     
-            var serviceURL = "http://127.0.0.1:5005/success/" + session_id;
+            var serviceURL = "http://" + paymentip + "/success/" + session_id;
 
             const response =
                 await fetch(
