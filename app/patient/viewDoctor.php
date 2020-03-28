@@ -221,7 +221,7 @@ require_once '../include/protect.php';
             console.log(booking_date);
             $('#patient_id').val(patient_id); 
             
-            var serviceURL = "http://127.0.0.1:5005/checkout";
+            var serviceURL = "http://" + paymentip + "/checkout";
             // var serviceURL = "http://" + appointmentip + "/create-appointment";
             try {
                 console.log(JSON.stringify({ doctor_id: doctor_id,

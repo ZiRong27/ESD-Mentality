@@ -80,7 +80,7 @@ channel.basic_consume('notification',
                       callback,
                       auto_ack=True)
 
-print(' [*] This is notification.py waiting for messages:')
+print(' [*] Waiting for messages:')
 channel.start_consuming()
 connection.close()
 

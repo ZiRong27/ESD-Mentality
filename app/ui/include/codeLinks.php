@@ -34,6 +34,7 @@
       //doctorip = "13.229.63.17:5002";
       //appointmentip = "13.250.25.187:5003";
       //consultationip = "18.141.146.207:5004";
+      paymentip = "127.0.0.1:5700";
       patientip = "127.0.0.1:5001";
       doctorip = "127.0.0.1:5002";
       appointmentip = "127.0.0.1:5003";

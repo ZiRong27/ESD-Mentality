@@ -56,7 +56,7 @@ require_once '../include/protect.php';
         var patient_id = sessionStorage.getItem("patient_id");
         $('#patient_id').val(patient_id); 
 
-        var serviceURL = "http://127.0.0.1:5005/transactionhistory-by-id/" + patient_id;
+        var serviceURL = "http://" + paymentip + "/transactionhistory-by-id/" + patient_id;
 
         try {
                 const response =
