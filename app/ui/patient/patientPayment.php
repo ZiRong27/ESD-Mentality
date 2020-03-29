@@ -16,18 +16,21 @@ require_once '../include/protect.php';
 </head>
 <header>
     <?php include '../include/codeLinks.php';?>
-    <link rel = "stylesheet" type = "text/css" href = "include/stylesheet.css" />
+    <link rel = "stylesheet" type = "text/css" href = "include/stylesheet.css"/>
 </header>
 
 
-<body>
+<body style="background:#f8f8f8;">
 <!-- Import navigation bar -->
 <?php include '../include/patientNavbar.php';?>
 
 
 </br>
-<div id="main-container" class="container">
-    <div class = "whitetextbig" style="color: white; font-weight: bold; font-size: 200%;">        
+<br><br><br>
+<div class="row d-flex justify-content-center">
+<div id="main-container" class="container" style="border:1px;">
+    <div id=whole style="border:1px solid #696969; border-radius:20px; padding:10px; box-shadow: 2px 3px #989898; background:white;">
+    <div class = "whitetextbig" style="color: #303030; font-weight: bold; font-size: 200%; font-family: helvetica">        
             Transaction History
     </div> 
     <br> 
@@ -36,12 +39,14 @@ require_once '../include/protect.php';
     <table class="table table-striped table-light table-hover text-center" id="paymentHistoryTable">
     <thead>
         <tr >
-        <th scope="col">#</th>
+        <th scope="col">Payment ID</th>
         <th scope="col">Timestamp</th>
         <th scope="col">Amount</th>
         </tr>
     </thead>
     </table>   
+</div>
+</div>
 </div>
 
 <script>    

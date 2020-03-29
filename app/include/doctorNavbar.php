@@ -1,6 +1,6 @@
 <html>
 <?php include 'codeLinks.php';?>
-<link rel = "stylesheet" type = "text/css" href = "stylesheet.css" />
+<link rel = "stylesheet" type = "text/css" href = "stylesheet.css"/>
 <head>
 </head>
 <body>

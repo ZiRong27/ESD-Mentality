@@ -9,7 +9,7 @@ require_once '../include/protect.php';
 <html>
 <header>
     <?php include '../include/codeLinks.php';?>
-    <link rel = "stylesheet" type = "text/css" href = "../include/stylesheet.css" />
+    <link rel = "stylesheet" type = "text/css" href = "../include/stylesheet.css"/>
 </header>
 
 
@@ -61,7 +61,7 @@ require_once '../include/protect.php';
 <br>
 
 <div class="row justify-content-center">
-  <!-- Card 1--->
+  <!--
   <div class="col-lg-3 col-md-6 mb-4">
     <div class="card h-100">
       <img class="card-img-top" src="../images/docwithpatient.jpg" height="180" width="250">
@@ -76,7 +76,7 @@ require_once '../include/protect.php';
       </div>
     </div>
   </div>
-
+  -->
 <!-- Card 2 --->
 <div class="col-lg-3 col-md-6 mb-4">
   <div class="card h-100">

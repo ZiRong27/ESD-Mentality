@@ -6,7 +6,7 @@
         $accountType = "patient";
         require_once '../include/protect.php';
     ?>
-    <link rel = "stylesheet" type = "text/css" href = "../include/stylesheet.css" />
+    <link rel = "stylesheet" type = "text/css" href = "../include/stylesheet.css"/>
 </header>
 
 

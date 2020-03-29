@@ -7,7 +7,7 @@ $accountType = "doctor";
 
 <head>
     <?php include '../include/codeLinks.php';?>
-    <link rel = "stylesheet" type = "text/css" href = "include/stylesheet.css" />
+    <link rel = "stylesheet" type = "text/css" href = "include/stylesheet.css"/>
 </head>
 
 <body style="background:#f8f8f8;">
@@ -30,7 +30,31 @@ $accountType = "doctor";
         </tbody>
     </table>  
 
+    <hr>
+    <div style="font-weight:bold;">Allergies:</div>
+    <div style="border:1px solid #e8e8e8; border-radius:3px;">
+    <div class="text-center" id="viewallergiesTable" style="background-color:white;">
+          <thead>
+          </thead>
+          <tbody>
+          </tbody>
+    </div> 
+    </div>
     
+    <br>
+
+    <div style="font-weight:bold;">Medical History:</div>
+    <div style="border:1px solid #e8e8e8; border-radius:3px;">
+    <div class="text-center" id="viewMedicalHistoryTable" style="background-color:white;">
+          <thead>
+          </thead>
+          <tbody>
+          </tbody>
+    </div> 
+    </div>
+
+    <br><hr>
+
       <div class="form-group">
         <label for="diagnosisInformation" style="font-weight: bold;"> Diagnosis: </label>
         <textarea class="form-control" id="diagnosisInformation" rows="2"></textarea>
@@ -45,10 +69,13 @@ $accountType = "doctor";
         <label for="notesInformation" style="font-weight: bold;"> Notes: </label>
         <textarea class="form-control" id="notesInformation" rows="5"></textarea>
       </div>
-
+      
+      <div class="text-right">
       <button type="submit" class="btn btn-primary" id="registerAppointment"> Submit </button>
+      </div>
 
-      <!-- ************** in terms of ui,  can we just display these info without having to select the buttons ********************* --> 
+<!--
+       ************** in terms of ui,  can we just display these info without having to select the buttons ********************* 
       <a class="btn btn-info" data-toggle="collapse" href="#viewallergies" role="button" aria-expanded="false" aria-controls="viewallergies">
         View Allergies
       </a>
@@ -59,7 +86,7 @@ $accountType = "doctor";
 
     </form> 
 
-<!-- View Patient Allergies-->
+ ### View Patient Allergies
 <div class="collapse" id="viewallergies">
   <div class="card card-body">
     <table class="table table-striped table-light table-hover text-center" id="viewallergiesTable">
@@ -70,9 +97,9 @@ $accountType = "doctor";
     </table>  
   </div>
 </div>
-<!-- -->
 
-<!-- View Patient Medical History -->
+
+### View Patient Medical History 
 <div class="collapse" id="viewMedicalHistory">
   <div class="card card-body">
     <table class="table table-striped table-light table-hover text-center" id="viewMedicalHistoryTable">
@@ -83,8 +110,7 @@ $accountType = "doctor";
     </table>  
   </div>
 </div>
-<!-- -->
-
+-->
 </div>
 
 <script>

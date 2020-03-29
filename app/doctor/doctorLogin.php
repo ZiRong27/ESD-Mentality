@@ -1,7 +1,7 @@
 <html>
 <header>
     <?php include '../include/codeLinks.php';?>
-    <link rel = "stylesheet" type = "text/css" href = "../include/stylesheet.css" />
+    <link rel = "stylesheet" type = "text/css" href = "../include/stylesheet.css"/>
 </header>
 
 
@@ -61,7 +61,7 @@
         var password = $('#password').val();
         //This is the url found above the login function in patient.py. Basically you are trying to send data(username and password) to that url using post and receive its response
         //The response you get is found is sent by the json function of the Patient class in patient.py
-        var serviceURL = "http://" + sessionStorage.getItem("doctorip") + "/login-process-doctor";
+        var serviceURL = "http://" + doctorip + "/login-process-doctor";
         //var serviceURL = "http://54.169.208.175:5002/login-process-doctor";
         try {
                 //console.log(JSON.stringify({ username: username, password: password,}))

@@ -1,7 +1,7 @@
 <html>
 <header>
     <?php include 'imports/codeLinks.php';?>
-    <link rel = "stylesheet" type = "text/css" href = "imports/stylesheet.css" />
+    <link rel = "stylesheet" type = "text/css" href = "imports/stylesheet.css"/>
     <style>
     body 
     {

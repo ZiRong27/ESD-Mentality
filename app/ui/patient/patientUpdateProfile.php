@@ -11,100 +11,90 @@ require_once '../include/protect.php';
 </head>
 <header>
     <?php include '../include/codeLinks.php';?>
-    <link rel = "stylesheet" type = "text/css" href = "../include/stylesheet.css" />
+    <link rel = "stylesheet" type = "text/css" href = "../include/stylesheet.css"/>
 </header>
+
 
 <body style="background:#f8f8f8;">
 <!-- Import navigation bar -->
 <?php include '../include/patientNavbar.php';?>
-</br></br>
+<div id="main-container" class="container">
+        <!-- <div class="text-center">
+            <img src="../images/logo.png" height="200" width="300"> 
+        </div> --> 
+        <br> <br> 
+<!-- <div id=whole style="border:1px solid #696969; border-radius:20px; padding:20px; box-shadow: 2px 3px #989898; background:white;"> -->
+<div class="row d-flex justify-content-center">
+        <form id ="loginForm" class="col-12 justify-content-center" >
+        <div class="my-2">
+            <h1>Update account details</h1>
+            <hr>
+        </div>
+        <br/>
+        <div class = "row">
+            <div class = "col-2">
+                <input type="text" class="form-control input-group-lg" id="salutation" placeholder="Salutation" required>
+            </div>
+            <div class = "col-5">
+                <input type="text" class="form-control input-group-lg" id="firstname" placeholder="First name" required>
+            </div>
+            <div class = "col-5">
+                <input type="text" class="form-control input-group-lg" id="surname" placeholder="Surname" required>
+            </div>
+        </div>
+        <br>
+        <div class="whitetext" style="color: gray">
+            Gender: 
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="gender" id="gender1" value="female" required>
+                <label class="form-check-label" for="gender1">Female</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="gender" id="gender2" value="male" required>
+                <label class="form-check-label" for="gender2">Male</label>
+            </div>         
+        </div>
+        <br>
+        <div class = "row">
+            <div class = "col-6">
+                <input type="text" class="form-control input-group-lg" id="dob" placeholder="Date of birth" required>
+            </div>
+            <div class = "col-6">
+                <input type="text" class="form-control input-group-lg" id="phone" placeholder="Phone" required>
+            </div>
+        </div>
+        </br>
+        <div class = "row">
+            <div class = "col-6">
+                <input type="text" class="form-control input-group-lg" id="username" placeholder="Username" required>
+            </div>
+            <div class = "col-6">
+                <input type="password" class="form-control input-group-lg" id="password" placeholder="Original password" required>
+            </div>
+            </div>
+        </div>
+        <div class = "row">
+            <div class = "col-6">
+                <input type="password" class="form-control input-group-lg" id="newpassword" placeholder="New Password (Optional)" >
+            </div>
+            <div class = "col-6">
+                <input type="password" class="form-control input-group-lg" id="newpasswordconfirm" placeholder="Confirm password (Optional)" >
+            </div>
+        </div>
+        </br>
+        <div class="text-right">               
+            <!-- The button type has to be submit for the below async functions to work!-->
+            <!--<button type="button" class="btn btn-primary btn-lg" id="signup"> Sign Up </button>-->
+                &nbsp;
+                &nbsp;
+                <button type="submit" class="btn btn-primary btn-lg" id="registerBtn" style="height:40px; width:160px; padding:1px;"> Update details </button>
+        </div>
+    </form>
+    <div class ="index-errormsg"></div>
 
-<br/>
-
-<!-- Page Content -->
-<div class="container">
-  <!-- Page Heading -->
-  <h1 class="my-4">Edit Profile</h1>
-  <h5 class="my-4">Update your phone number or password. <h5>
-  <hr>
-  <br>
-
-	<div class="row">
-
-    <!-- edit form column -->
-    <div class="col-md-9 personal-info">
-      <div id="add_alert">
-      </div>        
-      <form id="loginForm" class="form-horizontal" role="form">
-        <div class="form-group">
-          <label class="col-lg-3 control-label">Salutation:</label>
-          <div class="col-lg-8">
-            <input class="form-control" type="text" id="salutation" required readonly>
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-lg-3 control-label">Name:</label>
-          <div class="col-lg-8">
-            <input class="form-control" type="text" id="name" required readonly>
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-lg-3 control-label">Date Of Birth:</label>
-          <div class="col-lg-8">
-            <input class="form-control" type="text" id="dob" required readonly> 
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-lg-3 control-label">Phone:</label>
-          <div class="col-lg-8">
-            <input class="form-control" type="text" id="phone" required> 
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-lg-3 control-label">Gender:</label>
-          <div class="col-lg-8">
-            <input class="form-control" type="text" id="gender" required readonly> 
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-lg-3 control-label">Username:</label>
-          <div class="col-lg-8">
-            <input class="form-control" type="text" id="username" required> 
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-lg-3 control-label">Old Password:</label>
-          <div class="col-lg-8">
-            <input class="form-control" type="password" id="password" required>
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-lg-3 control-label">New Password:</label>
-          <div class="col-lg-8">
-            <input class="form-control" type="password" id="newpassword">
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-lg-3 control-label">Confirm Password:</label>
-          <div class="col-lg-8">
-            <input class="form-control" type="password" id="newpasswordconfirm"> 
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-md-3 control-label"></label>
-          <div class="col-md-8">
-            <input type="submit" class="btn btn-primary" id="registerBtn" value="Save Changes">
-            <span></span>
-          </div>
-        </div>
-      </form>
-    </div>
-  </div>
 </div>
-<hr>
-
-<div class ="index-errormsg"></div>
-
+</div>
+</div>
 <script>    
     // Helper function to display error message
     function showError(message) {
@@ -121,8 +111,8 @@ require_once '../include/protect.php';
         
         //This is the url found above the login function in patient.py. Basically you are trying to send data(username and password) to that url using post and receive its response
         //The response you get is found is sent by the json function of the Patient class in patient.py
-        var serviceURL = "http://" + patientip + "/update-profile-process";
-        //var serviceURL = "http://" + patientip + "/update-profile-process";
+        var serviceURL = "http://127.0.0.1:5001/update-profile-process";
+        //var serviceURL = "http://" + sessionStorage.getItem("patientip") + "/update-profile-process";
         try {
                 //console.log(JSON.stringify({ username: username, password: password,}))
                 const response = await fetch(serviceURL,{method: 'POST',
@@ -137,15 +127,17 @@ require_once '../include/protect.php';
                     showError(data['message'])
                 } else {
                     //Fills in the patient details
-                    $('#name').val(data['name']);
+                    var namearr= data['name'].split(",");
+                    $('#surname').val(namearr[0]);
+                    $('#firstname').val(namearr[1]);
                     $('#dob').val(data['dob']);
                     $('#phone').val(data['phone']);
                     $('#salutation').val(data['salutation']);
                     if (data['gender'] == "female") {
-                        $('#gender').val("Female");  
+                        $('#gender1').attr("checked", true);  
                     }
                     else {
-                      $('#gender').val("Male");  
+                        $('#gender2').attr("checked", true); 
                     }
                 }
             } catch (error) {
@@ -156,31 +148,12 @@ require_once '../include/protect.php';
             }
     });
 
-    function add_alert(message, color){
-
-      if (color == "green"){
-        var type = "alert-success";
-      } else{
-        var type = "alert-danger";
-      }
-      var alert_value = 
-          '<div class="alert ' + type +' alert-dismissable">' +
-          '<a class="panel-close close" data-dismiss="alert">×</a>' + 
-          '<i class="fa fa-coffee"></i>' + 
-          message + 
-          '</div>';
-
-      $('#add_alert').empty();
-      $('#add_alert').append(alert_value);
-
-    }
-
     //This is the form id, not the submit button id!
     $("#loginForm").submit(async (event) => {
         event.preventDefault();     
-        var name = $('#name').val();
+        var name = $('#surname').val() + "," + $('#firstname').val();
         //Need to use checked to select radio buttons in jquery
-        var gender = $("#gender").val();
+        var gender = $("input[name='gender']:checked").val();
         var dob = $('#dob').val();
         var phone = $('#phone').val();
         var salutation = $('#salutation').val();
@@ -190,10 +163,10 @@ require_once '../include/protect.php';
         var newpasswordconfirm = $('#newpasswordconfirm').val();
         //This is the url found above the login function in patient.py. Basically you are trying to send data(username and password) to that url using post and receive its response
         //The response you get is found is sent by the json function of the Patient class in patient.py
-        var serviceURL = "http://" + patientip + "/update-profile-update";
-        //var serviceURL = "http://" + patientip + "/update-profile-update";
+        var serviceURL = "http://127.0.0.1:5001/update-profile-update";
+        //var serviceURL = "http://" + sessionStorage.getItem("patientip") + "/update-profile-update";
         if (newpassword != newpasswordconfirm) {
-            add_alert("New password and Confirm Password do not match", "red");
+            showError("New password and confirm password do not match");
         }
         else {
             if (newpassword == "") {
@@ -213,9 +186,9 @@ require_once '../include/protect.php';
                     if (data['message']) {
                         showError(data['message'])
                     } else {
-                        add_alert("Successfully updated account details.", "green");
+                        alert("Successfully updated account details.")
                         //Refreshes the page
-                        // window.location.href = "patientUpdateProfile.php";               
+                        window.location.href = "patientUpdateProfile.php";               
                     }
                 } catch (error) {
                     // Errors when calling the service; such as network error, service offline, etc

@@ -14,7 +14,7 @@ require_once '../include/protect.php';
 </head>
 <header>
     <?php include '../include/codeLinks.php';?>
-    <link rel = "stylesheet" type = "text/css" href = "../include/stylesheet.css" />
+    <link rel = "stylesheet" type = "text/css" href = "../include/stylesheet.css"/>
 </header>
 
 
@@ -33,7 +33,7 @@ require_once '../include/protect.php';
     <table class="table table-striped table-light table-hover text-center" id="apptTable" style="border:3px solid #f0f0f0;">
     <thead>
         <tr >
-        <th scope="col"># Appointment ID</th>
+        <th scope="col">Appointment ID</th>
         <th scope="col">Patient</th>
         <th scope="col">Date</th>
         <th scope="col">Time</th>
@@ -54,10 +54,10 @@ require_once '../include/protect.php';
     try {
       // Promise.all() lets us coalesce multiple promises into a single super-promise
       var data = await Promise.all([
-        //fetch("http://127.0.0.1:5002/view-all-doctors").then((response) => response.json()),
-        //fetch("http://127.0.0.1:5001/view-all-patients").then((response) => response.json())
-        fetch("http://" + sessionStorage.getItem("doctorip") + "/view-all-doctors").then((response) => response.json()),
-        fetch("http://" + sessionStorage.getItem("patientip") + "/view-all-patients").then((response) => response.json())
+        //fetch("http://"  + doctorip + "  /view-all-doctors").then((response) => response.json()),
+        //fetch("http://" + patientip + "/view-all-patients").then((response) => response.json())
+        fetch("http://" + doctorip + "/view-all-doctors").then((response) => response.json()),
+        fetch("http://" + patientip + "/view-all-patients").then((response) => response.json())
       ]);
       doctor = {}
       
@@ -86,8 +86,8 @@ require_once '../include/protect.php';
   $(async (event) =>
   {
     var doctor_id = sessionStorage.getItem("doctor_id");
-    //var serviceURL = "http://127.0.0.1:5003/view-all-appointments";
-    var serviceURL = "http://" + sessionStorage.getItem("appointmentip") + "/view-all-appointments";
+    //var serviceURL = "http://" + appointmentip + "/view-all-appointments";
+    var serviceURL = "http://" + appointmentip + "/view-all-appointments";
 
     try 
     {

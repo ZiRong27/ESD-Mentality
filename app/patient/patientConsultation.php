@@ -6,7 +6,7 @@
         $accountType = "patient";
         require_once '../include/protect.php';
     ?>
-    <link rel = "stylesheet" type = "text/css" href = "../include/stylesheet.css" />
+    <link rel = "stylesheet" type = "text/css" href = "../include/stylesheet.css"/>
     <script>
         $('#displayMessage').hide();
         $('#conTable').show();
@@ -58,7 +58,7 @@ function showError(message)
   $(async (event) =>
   {
     var patient_id = sessionStorage.getItem("patient_id");
-    var serviceURL_consultation = "http://" + sessionStorage.getItem("consultationip") + "/consultation-by-patient/" + patient_id;
+    var serviceURL_consultation = "http://" + consultationip + "/consultation-by-patient/" + patient_id;
     try 
     {
     // retrieve consultation data by patient
@@ -89,8 +89,8 @@ function showError(message)
     async function fetchData(appointment_id, doctor_id) 
     {
         var data = [];
-        var serviceURL_appointment = "http://" + sessionStorage.getItem("appointmentip") + "/appointment-by-id/" + appointment_id;
-        var serviceURL_doctor = "http://" + sessionStorage.getItem("doctorip") + "/view-specific-doctor-by-id/" + doctor_id;
+        var serviceURL_appointment = "http://" + appointmentip + "/appointment-by-id/" + appointment_id;
+        var serviceURL_doctor = "http://" + doctorip + "/view-specific-doctor-by-id/" + doctor_id;
         try 
         {
             // retrieve appointment by appointment ID
@@ -110,10 +110,10 @@ function showError(message)
     }
 
 /*
-    sessionStorage.setItem('patientip', "127.0.0.1:5001")
-    sessionStorage.setItem('doctorip', "127.0.0.1:5002")
-    sessionStorage.setItem('appointmentip', "127.0.0.1:5003")   
-    sessionStorage.setItem('consultationip', "127.0.0.1:5004")   
+    sessionStorage.setItem('patientip', "" + patientip + " ")
+    sessionStorage.setItem('doctorip', ""  + doctorip + "  ")
+    sessionStorage.setItem('appointmentip', "" + appointmentip + " ")   
+    sessionStorage.setItem('consultationip', "" + consultationip + " ")   
 */
   });
 </script>

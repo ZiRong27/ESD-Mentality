@@ -6,7 +6,7 @@
         $accountType = "patient";
         require_once '../include/protect.php';
     ?>
-    <link rel = "stylesheet" type = "text/css" href = "../include/stylesheet.css" />
+    <link rel = "stylesheet" type = "text/css" href = "../include/stylesheet.css"/>
     <script>
         $('#displayMessage').hide();
         $('#conTable').show();
@@ -21,17 +21,18 @@
 </br>
 <br/>
 
-<div id="" class="container" style="border:1px solid #696969; border-radius:20px; padding:10px; box-shadow: 2px 3px #989898; background:white;">
-    <div class = "whitetextbig" style="color: black; font-weight: bold; font-size: 200%;">        
-            My Consultation
+<div id="" class="container">
+    <div class="my-2">        
+        <h1> My Consultation(s) </h1>
+        <hr>
     </div> 
-    <br> 
+
     <div class ="index-errormsg"></div>
     <br>  
-    <table class="table table-striped table-light table-hover text-center" id="conTable">
+    <table class="table table-striped table-light table-hover text-center" id="conTable" style="border: 1px solid #e0e0e0;">
     <thead>
         <tr >
-        <th scope="col"> # Consultation ID</th>
+        <th scope="col"> Consultation ID</th>
         <th scope="col"> Doctor </th>
         <th scope="col"> Date & Time </th>
         <th scope="col"> View Consultation </th>
@@ -58,7 +59,7 @@ function showError(message)
   $(async (event) =>
   {
     var patient_id = sessionStorage.getItem("patient_id");
-    var serviceURL_consultation = "http://" + sessionStorage.getItem("consultationip") + "/consultation-by-patient/" + patient_id;
+    var serviceURL_consultation = "http://" + consultationip + "/consultation-by-patient/" + patient_id;
     try 
     {
     // retrieve consultation data by patient
@@ -89,8 +90,8 @@ function showError(message)
     async function fetchData(appointment_id, doctor_id) 
     {
         var data = [];
-        var serviceURL_appointment = "http://" + sessionStorage.getItem("appointmentip") + "/appointment-by-id/" + appointment_id;
-        var serviceURL_doctor = "http://" + sessionStorage.getItem("doctorip") + "/view-specific-doctor-by-id/" + doctor_id;
+        var serviceURL_appointment = "http://" + appointmentip + "/appointment-by-id/" + appointment_id;
+        var serviceURL_doctor = "http://" + doctorip + "/view-specific-doctor-by-id/" + doctor_id;
         try 
         {
             // retrieve appointment by appointment ID
@@ -110,10 +111,10 @@ function showError(message)
     }
 
 /*
-    sessionStorage.setItem('patientip', "127.0.0.1:5001")
-    sessionStorage.setItem('doctorip', "127.0.0.1:5002")
-    sessionStorage.setItem('appointmentip', "127.0.0.1:5003")   
-    sessionStorage.setItem('consultationip', "127.0.0.1:5004")   
+    sessionStorage.setItem('patientip', "" + patientip + " ")
+    sessionStorage.setItem('doctorip', ""  + doctorip + "  ")
+    sessionStorage.setItem('appointmentip', "" + appointmentip + " ")   
+    sessionStorage.setItem('consultationip', "" + consultationip + " ")   
 */
   });
 </script>

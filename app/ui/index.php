@@ -1,7 +1,7 @@
 <html>
 <header>
     <?php include 'include/codeLinks.php';?>
-    <link rel = "stylesheet" type = "text/css" href = "style/style-login.css" />
+    <link rel = "stylesheet" type = "text/css" href = "style/style-login.css"/>
 </header>
 
 
@@ -13,7 +13,7 @@
         <div class="container">
           <div class="row">
             <div class="col-md-9 col-lg-8 mx-auto">
-              <img class="d-flex justify-content-center" src="images/logo.png"> change logo colour
+              <img class="d-flex justify-content-center" src="images/logo_blue.jpg" style="height:200px; width:450px;">
               <h3 class="login-heading mb-4">Patient Portal</h3>
               <form id="loginForm">
                 <div class="form-label-group">
@@ -27,7 +27,10 @@
                 <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" type="submit">Sign in</button>
                 <div class="text-center">
                   <br> 
-                  <a class="medium font-weight-bold .text-secondary" href="patient/register.php">Register new account</a></div>
+                  <a class="medium font-weight-bold .text-secondary" href="patient/register.php">Register new account</a>
+                  <hr>
+                  <a class="medium font-weight-bold .text-secondary" href="doctor/doctorLogin.php">Doctor Portal</a>
+                </div>
               </form>
               <div class='text-center'>
                 <div class ="index-errormsg" style="background-color: #f8d7da; color: #8b3f46;">

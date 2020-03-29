@@ -14,7 +14,7 @@ require_once '../include/protect.php';
 </head>
 <header>
     <?php include '../include/codeLinks.php';?>
-    <link rel = "stylesheet" type = "text/css" href = "../include/stylesheet.css" />
+    <link rel = "stylesheet" type = "text/css" href = "../include/stylesheet.css"/>
 </header>
 
 
@@ -33,7 +33,7 @@ require_once '../include/protect.php';
     <table class="table table-striped table-light table-hover text-center" id="conTable" style="border:3px solid #f0f0f0;">
     <thead>
         <tr >
-        <th scope="col"># Consultation ID</th>
+        <th scope="col">Consultation ID</th>
         <th scope="col"> Patient ID </th>
         <th scope="col"> Patient Name </th>
         <th scope="col"> appointment ID </th>
@@ -54,10 +54,10 @@ require_once '../include/protect.php';
   $(async (event) =>
   {
     var doctor_id = sessionStorage.getItem("doctor_id");
-    //var serviceURL_consultation = "http://127.0.0.1:5004/consultation-by-doctor/" + doctor_id;
-    var serviceURL_consultation = "http://" + sessionStorage.getItem("consultationip") + "/consultation-by-doctor/" + doctor_id;
-    //var serviceURL_patients = "http://127.0.0.1:5001/view-all-patients";
-    var serviceURL_patients = "http://" + sessionStorage.getItem("patientip") + "/view-all-patients";
+    //var serviceURL_consultation = "http://" + consultationip + "/consultation-by-doctor/" + doctor_id;
+    var serviceURL_consultation = "http://" + consultationip + "/consultation-by-doctor/" + doctor_id;
+    //var serviceURL_patients = "http://" + patientip + "/view-all-patients";
+    var serviceURL_patients = "http://" + patientip + "/view-all-patients";
     try 
     {
     // retrieve consultation data by doctor

@@ -1,6 +1,6 @@
 <html>
 <?php include 'codeLinks.php';?>
-<link rel = "stylesheet" type = "text/css" href = "stylesheet.css" />
+<link rel = "stylesheet" type = "text/css" href = "stylesheet.css"/>
 <head>
 </head>
 <body>
@@ -24,9 +24,6 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="../doctor/doctorViewAppts.php"> Appointments </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#"> Payments </a>
             </li>
         </ul>
         <!--Create another ul with the class ml-auto to align it to the right-->
