@@ -16,9 +16,9 @@ $accountType = "doctor";
 
 <div id="main-container" class="container">
 
-    <div class = "whitetextbig" style="color: black; font-weight: bold; font-size: 180%;" id="doctorName">        
+    <div class="my-2" id="doctorName">        
             <br>
-            Patient Information:
+            <h2>Patient Information:</h2>
     </div> 
 
     <form>
