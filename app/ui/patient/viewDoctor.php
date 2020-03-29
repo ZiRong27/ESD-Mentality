@@ -23,7 +23,7 @@ require_once '../include/protect.php';
 </head>
 <header>
     <?php include '../include/codeLinks.php';?>
-    <link rel = "stylesheet" type = "text/css" href = "../include/stylesheet.css"/>
+    <link rel = "stylesheet" type = "text/css" href = "../include/stylesheet.css" />
 </header>
 
 
@@ -33,61 +33,80 @@ require_once '../include/protect.php';
 </br></br>
 
 <br/>
-<div id="main-container" class="container">
-<div id=whole style="border:1px solid #696969; border-radius:20px; padding:10px; box-shadow: 2px 3px #989898; background:white;">
-    <div style="align:center">
-        <img id = "doctorPicture" width = '150px' height = '150px'>
-    </div>
-    <div style="color: #383838; font-weight: bold; font-size: 200%;" id="doctorName">       
-    </div>
-    <div class ="index-errormsg"></div>
-    <br>  
-    <table class="table table-striped table-light table-hover text-center" id="doctorsTable">
-    <thead>
-    </thead>
-    <tbody>
-    </tbody>
-    </table>  
-    
-    <div class="text-center">
-    <form id='dateForm'>
-            <hr>
-            <span style="font-weight:bold;">Select Appointment Date:</span>  
-            <input type='date' name='booking_date' id='booking_date'>
-            <!-- <input type='text' name='booking_time' id='booking_time'> -->
-            <button type='submit' class="btn btn-primary btn-lg" id='date_submit' style="height:30px; width:100px; font-size:15px; padding:3px">Submit</button>
+
+<!-- Page Content -->
+<div class="container">
+
+<!-- Page Heading -->
+<h1 class="my-4">Book an Appointment
+  <!-- <small>with our therapists</small> -->
+</h1>
+
+<!-- Doctor Summary -->
+<div class="row">
+  <div id="picture" class="col-md-6">
+  </div>
+  <div class="col-md-5">
+    <h2 id="name"></h2>
+    <h5 id="experience" class= "text-secondary"></h5>
+    <dl class="row">
+      <dt class="col-sm-3">Age</dt>
+      <dd id="age" class="col-sm-9"></dd>
+      <dt class="col-sm-3">Price</dt>
+      <dd id= "price" class="col-sm-9">$</dd>
+      <dt class="col-sm-3">Specialisation</dt>
+      <dd id = "specialisation" class="col-sm-9"></dd>
+    </dl>
+    <!-- Date Form -->
+    <form id='dateForm' class="form-inline">
+      <div class="form-group mx-sm-3 mb-2">
+        <input type="date" class="form-control" id="booking_date">
+      </div>
+      <button type="date_submit" class="btn btn-primary mb-2" id="date_submit">Choose Date</button>
     </form>
-    </div>
-    
-    
-    <form id='bookForm'> 
+  </div>
+</div>
+
+
+<div>
+<form id='bookForm'> 
+  <br>
+  <h4 id='timeslot-header'></h4>
+  <br>
         <!-- <div class="text-right">     -->
-        
-        <table class="table table-light table-bordered table-hover text-center" id="timeslotTable"> 
-            <thead>
-            </thead>
-        </table>
-            <!-- <input type='date' name='booking_date' id='booking_date'>
-            <input type='text' name='booking_time' id='booking_time'>
-            <button type='submit' class="btn btn-primary btn-lg" id='booking_submit'>Submit booking</button> --> 
+
+<table class="table table-hover text-center" id="timeslotTable"> 
+
+</table>
+    <!-- <input type='date' name='booking_date' id='booking_date'>
+    <input type='text' name='booking_time' id='booking_time'>
+    <button type='submit' class="btn btn-primary btn-lg" id='booking_submit'>Submit booking</button> --> 
+</form>
+
+
+    <!-- This form will be automatically submitted upon booking-->   
+    <form method="POST" action="checkout.php" id="checkoutForm">
     </form>
-    
 </div>
 </div>
+<!-- /.container -->
+
 <script>    
+
     // Helper function to display error message
     function showError(message) {
         console.log('Error logged')
         console.log(message)
     }
     $(async() => { 
-        //This is the url found above the get_all function in doctor.py. Basically you are trying to send data(username and password) to that url using post and receive its response
+        //This is the url found above the get_all function in doctor.py. 
+        // Basically you are trying to send data(username and password) to that url using post and receive its response
         //The response you get is found is sent by the json function of the doctor class in doctor.py
         //Get the doctor username from the url
         let params = new URLSearchParams(location.search);
         username = params.get('username')
-        var serviceURL = "http://"  + doctorip + "  /view-specific-doctor/" + username;
-        //var serviceURL = "http://" + sessionStorage.getItem("doctorip") + "/view-specific-doctor/" + username ;
+        var serviceURL = "http://" + doctorip + "/view-specific-doctor/" + username;
+        //var serviceURL = "http://" + doctorip + "/view-specific-doctor/" + username ;
         try {
                 //console.log(JSON.stringify({ username: username, password: password,}))
                 const response =
@@ -120,17 +139,18 @@ require_once '../include/protect.php';
                     //If havent past birthday yet, deduct age by one
                     if ( (currentmonth < dobarr[1]) || (currentmonth == dobarr[1] && currentday < dobarr[2]) ) {
                         age = age - 1;
-                    }            
-                    Row =
-                        "<tr><th>Gender</th><td>" + data.gender + "</td></tr>" +
-                        "<tr><th>Age</th><td>" + age + "</td></tr>" +
-                        "<tr><th>Experience</th><td>" + data.experience + "</td></tr>" +
-                        "<tr><th>Specialisation</th><td>" + data.specialisation + "</td></tr>";
-                    $('#doctorsTable').append(Row);
+                    } 
+
+                    // append doctor's summary
+                    $('#picture').append('<img class="img-fluid rounded mb-3 mb-md-0" src="../images/doctors/' + data.doctor_id + '.png" alt="">');
+                    $('#name').append(data.name);
+                    $('#experience').append(data.experience);
+                    $('#price').append(data.price);
+                    $('#specialisation').append(data.specialisation);
+                    $('#age').append(age);
+
                     price = data.price;
                     doctor_id = data.doctor_id;
-                    //Add the t body
-                    $('#doctorsTable').append("</tbody>");              
                 }
             } catch (error) {
                 // Errors when calling the service; such as network error, service offline, etc
@@ -145,6 +165,7 @@ require_once '../include/protect.php';
     $("#dateForm").submit(async (event) => {
         event.preventDefault();     
         var date = String($('#booking_date').val());
+
         //This is the url found above the login function in patient.py. Basically you are trying to send data(username and password) to that url using post and receive its response
         //The response you get is found is sent by the json function of the Patient class in patient.py
         var serviceURL = "http://" + appointmentip + "/appointment-by-date/" + date;
@@ -167,24 +188,24 @@ require_once '../include/protect.php';
                 if (data['message']) {
                     showError(data['message'])
                 } else {
-                    //Refreshes the page
-                    //window.location.href = "patientUpdateAppts.php"; 
-                    $('#TimeslotsTable').append("<tbody>"); 
-                    // $('#TimeslotsTable').append("<tr><form id='bookForm'>"); 
+                    var hidden_input = 
+                            '<input type="hidden" id="doctor_id" value="' + doctor_id + '" />' +
+                            '<input type="hidden" id="cost" value="' + price + '" />';
+                    $('#bookForm').append(hidden_input);
+
+                    $('#timeslot-header').append("Select Your Prefered Timeslot");
+
                     timeslots_display = ['09:00 AM - 10:00 AM','10:00 AM - 11:00 AM','11:00 AM - 12:00 PM','12:00 PM - 13:00 PM','13:00 PM - 14:00 PM','14:00 PM - 15:00 PM','15:00 PM - 16:00 PM','16:00 PM - 17:00 PM','17:00 PM - 18:00 PM']
                     timeslots = ['09:00 AM','10:00 AM','11:00 AM','12:00 PM','13:00 PM','14:00 PM','15:00 PM','16:00 PM','17:00 PM']
-                    //console.log(timeslots.length);
+
                     for (i = 0; i < timeslots.length; i++){
-                        //console.log("yo");
                         if (jQuery.inArray(timeslots[i], timings) == -1){ // if timing is available
-                            //console.log("hey");
-                            Row = "<tr><td class='text-left'>" + timeslots_display[i] + "</td><td class='text-right'>" + 
-                                "<button type='submit' value='" + timeslots[i] + "' class='btn btn-success' id='booking_submit'>Submit booking</button></td></tr>";
+                            Row = 
+                              "<tr><td class='text-left'>" + timeslots_display[i] + "</td><td class='text-right'>" + 
+                              "<button type='submit' value='" + timeslots[i] + "' class='btn btn-success' id='booking_submit'>Submit booking</button></td></tr>";
                             $('#timeslotTable').append(Row); 
-                            console.log(Row);
                         }
                     }
-                    $('#TimeslotsTable').append("</tbody>"); 
                     
                 }
             } catch (error) {
@@ -202,15 +223,20 @@ require_once '../include/protect.php';
         $("#bookForm").submit(async (event) => {
             event.preventDefault();     
             var booking_date = $('#booking_date').val();
-            var booking_time = $("#booking_submit").val();
+            //var booking_time = $("#booking_submit").val();
+            var booking_time = $(document.activeElement).val()
+            var doctor_id = $("#doctor_id").val();
+            var price = $("#cost").val();
             var patient_id = sessionStorage.getItem("patient_id");
+
             $('#patient_id').val(patient_id); 
             
-            var serviceURL = "http://" + appointmentip + "/create-appointment";
-            //var serviceURL = "http://" + sessionStorage.getItem("appointmentip") + "/create-appointment";
+            var serviceURL = "http://" + paymentip + "/checkout";
+            // var serviceURL = "http://" + appointmentip + "/create-appointment";
             try {
                 console.log(JSON.stringify({ doctor_id: doctor_id,
                                             patient_id: patient_id,
+                                            price: price,
                                             date: booking_date,
                                             time: booking_time}))
                 const response = await fetch(serviceURL,{method: 'POST',
@@ -218,17 +244,26 @@ require_once '../include/protect.php';
                                             body: JSON.stringify
                                             ({ doctor_id: doctor_id,
                                                patient_id: patient_id,
+                                               price: price,
                                                date: booking_date,
                                                time: booking_time})
                                             });
-              
+
                 const data = await response.json();
-                console.log(data)
-                //The error message is stored in the data array sent by patient.py! If there is a message variable, it means there is an error
+
+                // The error message is stored in the data array sent by patient.py! If there is a message variable, it means there is an error
                 if (data['message']) {
                     showError(data['message'])
                 } else {
-                    alert("Appointment successfully booked!")
+                    alert("You will be redirected to payment")
+
+                    var hidden_input = 
+                            '<input type="hidden" name="CHECKOUT_SESSION_ID" value="' + data['CHECKOUT_SESSION_ID'] + '" />' +
+                            '<input type="hidden" name="pub_key" value="' + data['pub_key'] + '" />';
+                    $('#checkoutForm').append(hidden_input);
+
+                    $('#checkoutForm').submit();
+
                 }
             } catch (error) {
                 // Errors when calling the service; such as network error, service offline, etc

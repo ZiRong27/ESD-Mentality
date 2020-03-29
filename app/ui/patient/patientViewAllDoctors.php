@@ -15,7 +15,7 @@ require_once '../include/protect.php';
 </head>
 <header>
     <?php include '../include/codeLinks.php';?>
-    <link rel = "stylesheet" type = "text/css" href = "../include/stylesheet.css"/>
+    <link rel = "stylesheet" type = "text/css" href = "../include/stylesheet.css" />
 </header>
 
 
@@ -25,35 +25,22 @@ require_once '../include/protect.php';
 </br></br>
 
 <br/>
-<div class="row d-flex justify-content-center">
-<div id="main-container" class="container" style="border:1px;">
-    <div id=whole style="border:1px solid #696969; border-radius:20px; padding:10px; box-shadow: 2px 3px #989898; background:white;">
-    <div class = "whitetextbig" style="color: #303030; font-weight: bold; font-size: 200%; font-family: helvetica">        
-        Book an appointment with us
-    </div> 
-    <br>
-    <p style="color: #303030; font-size: 120%; font-family: helvetica"> Select from our range of professional counsellors: </p>
-   
-    <div class ="index-errormsg"></div>
+<!-- Page Content -->
+<div class="container">
 
-    <table class="table table-striped table-light table-hover text-center" id="doctorsTable" style=border-radius:20px;>
-    <thead>
-        <tr >
-        <th scope="col">#</th>
-        <th scope="col">Name</th>
-        <th scope="col">Gender</th>
-        <th scope="col">Age</th>
-        <th scope="col">Experience</th>
-        <th scope="col">Specialisation</th>
-        <th scope="col">View profile</th>
-        </tr>
-    </thead>
-    <tbody>
-    </tbody>
-    </table>
-    </div>   
+<!-- Page Heading -->
+<h1 class="my-4">Book an Appointment</h1>
+<h5 class="my-4"> Select from our wide ranging qualified therapists and book an appointment with us</h5>
+<hr>
+<br>
+
+<!-- List of Doctors (to be appended) -->
+<div id="doctor-list">
 </div>
+
+
 </div>
+<!-- /.container -->
 <script>    
     // Helper function to display error message
     function showError(message) {
@@ -65,8 +52,8 @@ require_once '../include/protect.php';
     $(async() => { 
         //This is the url found above the get_all function in doctor.py. Basically you are trying to send data(username and password) to that url using post and receive its response
         //The response you get is found is sent by the json function of the doctor class in doctor.py
-        var serviceURL = "http://"  + doctorip + "/view-all-doctors";
-        //var serviceURL = "http://" + sessionStorage.getItem("doctorip") + "/view-all-doctors";
+        var serviceURL = "http://" + doctorip + "/view-all-doctors";
+        //var serviceURL = "http://" + doctorip + "/view-all-doctors";
         try {
                 //console.log(JSON.stringify({ username: username, password: password,}))
                 const response =
@@ -81,7 +68,6 @@ require_once '../include/protect.php';
                 } else {
                     // for loop to setup all table rows with obtained doctors data
                     //data = data["doctors"];
-                    $('#doctorsTable').append("<tbody>");
                     //get current year
                     var currentyear = new Date().getFullYear();
                     //Js month is off by 1
@@ -98,14 +84,28 @@ require_once '../include/protect.php';
                             age = age - 1;
                         }            
                         Row =
-                            "<tr><th scope='row'>" + data[i].doctor_id + "</th>" +
-                            "<td>" + data[i].name + "</td>" +
-                            "<td>" + data[i].gender + "</td>" +
-                            "<td>" + age + "</td>" +
-                            "<td>" + data[i].experience + "</td>" +
-                            "<td>" + data[i].specialisation + "</td>" +
-                            "<td> <a href='viewDoctor.php?username=" + data[i].username + "'>View profile</a> </td></tr>";
-                        $('#doctorsTable').append(Row);
+                            '<div class="row">' + 
+                            '<div class="col-md-6">' +
+                            '<a href="#">' +
+                            '<img class="img-fluid rounded mb-3 mb-md-0" src="../images/doctors/' + data[i].doctor_id + '.png" alt="">' +
+                            '</a>' +
+                            '</div>' +
+                            '<div class="col-md-5">' +
+                            '<h2>' + data[i].name + '</h2>' + 
+                            '<h5 class= "text-secondary">' + data[i].experience + '</h5>' + 
+                            '<dl class="row">' +
+                            '<dt class="col-sm-3">Age</dt>'+
+                            '<dd class="col-sm-9">' + age + '</dd>' +
+                            '<dt class="col-sm-3">Price</dt>' +
+                            '<dd class="col-sm-9">$' +  data[i].price + '</dd>' + 
+                            '<dt class="col-sm-3">Specialisation</dt>' +
+                            '<dd class="col-sm-9">' +  data[i].specialisation + '</dd>' +
+                            '</dl>' +
+                            '<a class="btn btn-primary" href="viewDoctor.php?username=' + data[i].username + '">Book Now</a>' +
+                            '</div>' +
+                            '</div>' +
+                            '<hr>';
+                        $('#doctor-list').append(Row);
                     }
                     //Add the t body
                     $('#doctorsTable').append("</tbody>");              
