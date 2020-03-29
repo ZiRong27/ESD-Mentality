@@ -64,19 +64,12 @@
         event.preventDefault();     
         var username = $('#username').val();
         var password = $('#password').val();
-<<<<<<< HEAD
         //This is the url found above the login function in doctor.py. Basically you are trying to send data(username and password) to that url using post and receive its response
         //The response you get is found is sent by the json function of the doctor class in doctor.py
         //var serviceURL = "http://" + doctorip + "/login-process";
         //var serviceURL = "http://" + doctorip + "/login-process";
         var serviceURL = "http://" + doctorip + "/login-process-doctor";
 
-=======
-        //This is the url found above the login function in patient.py. Basically you are trying to send data(username and password) to that url using post and receive its response
-        //The response you get is found is sent by the json function of the Patient class in patient.py
-        var serviceURL = "http://" + doctorip + "/login-process-doctor";
-        //var serviceURL = "http://54.169.208.175:5002/login-process-doctor";
->>>>>>> 38a6fea689e71e6d616d679033951e915ff7dcfd
         try {
                 //console.log("PO")
                 //console.log(JSON.stringify({ username: username, password: password,}))
