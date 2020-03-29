@@ -23,15 +23,18 @@ require_once '../include/protect.php';
 <body style="background:#f8f8f8;">
 <!-- Import navigation bar -->
 <?php include '../include/patientNavbar.php';?>
+</br>
 
-<br><br>
-<div class="row d-flex justify-content-center">
-<div id="main-container" class="container" style="border:1px;">
-    <!-- <div id=whole style="border:1px solid #696969; border-radius:20px; padding:10px; box-shadow: 2px 3px #989898; background:white;"> -->
-    <div class="my-2">        
-        <h1>Transaction History</h1>
-        <hr>
-    </div> 
+
+<!-- Page Content -->
+<div class="container">
+
+    <!-- Page Heading -->
+    <h1 class="my-4">My Payment History(s)</h1>
+    <h5 class="my-4">Keep track of your past payments here</h5>
+    <hr>
+    <br>
+    
     <div class ="index-errormsg"></div>
     <br>  
     <table class="table table-striped table-light table-hover text-center" id="paymentHistoryTable">

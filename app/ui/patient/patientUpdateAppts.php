@@ -27,21 +27,20 @@ if (isset($_GET['session_id'])){
 <body style="background:#f8f8f8;">
 <!-- Import navigation bar -->
 <?php include '../include/patientNavbar.php';?>
-</br></br>
+</br>
 
-<div id="appointmentSuccess">
 
-</div>
+<!-- Page Content -->
+<div class="container">
 
-<div class="row d-flex justify-content-center">
-<div id="main-container" class="container">
-    <div class = "my-2">        
-        <h1>My Appointment(s)</h1>
-        <hr>
-    </div> 
+    <!-- Page Heading -->
+    <h1 class="my-4">My Appointment(s)</h1>
+    <h5 class="my-4">You will receive a text reminder on your appointment one day before</h5>
+    <hr>
+    <br>
     
     <div class ="index-errormsg"></div>
- 
+    <div id="appointmentSuccess"></div>
     <table class="table table-striped table-light table-hover text-center" id="apptTable" style="border: 1px solid #e0e0e0;">
     <thead>
         <tr >
