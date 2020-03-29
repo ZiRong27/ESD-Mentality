@@ -62,7 +62,7 @@ require_once '../include/protect.php';
     <span style="font-weight:bold;">Select Appointment Date:</span>
     <form id='dateForm' class="form-inline">
       <div class=text-right>
-        <input type="date" class="form-control" id="booking_date" style="height:37px">  &ensp;
+        <input type="date" min="<?php echo date('Y-m-d'); ?>" class="form-control" id="booking_date" style="height:37px">  &ensp;
       </div>
       <button type="date_submit" class="btn btn-primary mb-2" id="date_submit" style="width:80px; height:37px; padding:1px">Submit</button>
     </form>
@@ -209,6 +209,9 @@ require_once '../include/protect.php';
                               "<button type='submit' value='" + timeslots[i] + "' class='btn btn-success' id='booking_submit'>Submit booking</button></td></tr>";
                             $('#timeslotTable').append(Row); 
                         }
+                    }
+                    if ($('#timeslotTable').is(':empty')){
+                        $('#timeslotTable').prepend("<p>No more available timeslots for this date for this therapist.<p>");
                     }
                     
                 }
