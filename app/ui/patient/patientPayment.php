@@ -24,16 +24,14 @@ require_once '../include/protect.php';
 <!-- Import navigation bar -->
 <?php include '../include/patientNavbar.php';?>
 
-
-</br>
-<br><br><br>
+<br><br>
 <div class="row d-flex justify-content-center">
 <div id="main-container" class="container" style="border:1px;">
-    <div id=whole style="border:1px solid #696969; border-radius:20px; padding:10px; box-shadow: 2px 3px #989898; background:white;">
-    <div class = "whitetextbig" style="color: #303030; font-weight: bold; font-size: 200%; font-family: helvetica">        
-            Transaction History
+    <!-- <div id=whole style="border:1px solid #696969; border-radius:20px; padding:10px; box-shadow: 2px 3px #989898; background:white;"> -->
+    <div class="my-2">        
+        <h1>Transaction History</h1>
+        <hr>
     </div> 
-    <br> 
     <div class ="index-errormsg"></div>
     <br>  
     <table class="table table-striped table-light table-hover text-center" id="paymentHistoryTable">
