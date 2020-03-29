@@ -168,7 +168,7 @@ require_once '../include/protect.php';
 
         //This is the url found above the login function in patient.py. Basically you are trying to send data(username and password) to that url using post and receive its response
         //The response you get is found is sent by the json function of the Patient class in patient.py
-        var serviceURL = "http://" + appointmentip + "/appointment-by-date/" + date;
+        var serviceURL = "http://" + appointmentip + "/appointment-by-date/" + date + "/" + doctor_id;
     
         try {
                 //console.log(JSON.stringify({ username: username, password: password,}))
