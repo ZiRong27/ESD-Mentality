@@ -36,7 +36,7 @@
     </thead>
     </table>  
     <!-- If not Data display -->
-    <hr>
+    <br>
     <br>
     <h1 id="displayMessage" class="text-center" style="font-size:20px">No appointment history available </h1>
     <br><br><br><br><br>
@@ -69,21 +69,17 @@ function showError(message)
     // If retrieve data failed, result to no data
     if (!data_appointment || data_appointment["message"] == "history appointment by patient id not found.") 
     {
-        console.log("error retriving");
-        $('#displayMessage').hide();
-        $('#apptHisTable').show();
+        $('#displayMessage').show();
     }
     else
     {
             if (data_appointment.length == 0) 
             {
-                $('#displayMessage').hide();
-                $('#apptHisTable').show();
+                $('#displayMessage').show();
             } 
             else
             {
                 $('#displayMessage').hide();
-                $('#apptHisTable').show();
                 var keys = Object.entries(data_appointment)
                 for (var ele in keys)
                 {

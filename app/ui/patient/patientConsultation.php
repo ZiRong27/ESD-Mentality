@@ -69,19 +69,17 @@ function showError(message)
     // If retrieve data failed, result to no data
     if (!data_consultation || data_consultation["message"] == "consultation by patient id not found.") 
     {
-        console.log("error retriving");
+        $('#displayMessage').show();
     }
     else
     {
             if (!data_consultation) 
             {
                 $('#displayMessage').show();
-                $('#conTable').hide();
             } 
             else
             {
                 $('#displayMessage').hide();
-                $('#conTable').show();
                 var keys = Object.entries(data_consultation)
                 for (var ele in keys)
                 {
