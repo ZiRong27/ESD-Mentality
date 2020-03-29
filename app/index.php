@@ -2,30 +2,29 @@
 <header>
     <?php include 'include/codeLinks.php';?>
     <link rel = "stylesheet" type = "text/css" href = "include/stylesheet.css" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </header>
 
 
-<body style="background:#f8f8f8;">
-
+<body style="background:white;">
+<br><br><br><br>
 <div id="main-container" class="container">
     <div class="row d-flex justify-content-center">
             <form id ="loginForm" class="col-12 justify-content-center" >
             <div class="text-center">
-                <img src="images/logo.png" height="200" width="300"> ! chnage logo color !
+                <img src="images/logo_blue.jpg" height="180" width="400"> 
             </div>
             <div class = "whitetextbig" style="color:black;">     
                 Patient Login:
             </div>
             <br/>
                 <div class>
-                    <input type="text" class="form-control input-group-lg" id="username" placeholder="Username" required>
+                    <input type="text" class="form-control input-group-lg" id="username" placeholder="Username" required style="background-color:#f5f5f5">
                 </div>
 
                 </br>
 
                 <div class>
-                    <input type="password" class="form-control input-group-lg" id="password" placeholder="Password" required>
+                    <input type="password" class="form-control input-group-lg" id="password" placeholder="Password" required style="background-color:#f5f5f5">
                 </div>
 
                 </br>
@@ -50,8 +49,16 @@
     </div>
 </div>
 <script>    
- 
-    //Retrieve with patientip
+    //IMPORTANT Set AWS IP address for each microservices here
+    //All these are working! Uncomment to try them, you will NOT need to run any of these microservices yourself
+    //sessionStorage.setItem('patientip', "13.250.127.183:5001")
+    //sessionStorage.setItem('doctorip', "54.169.208.175:5002")
+    //sessionStorage.setItem('appointmentip', "13.229.101.26:5003")
+    sessionStorage.setItem('patientip', "127.0.0.1:5001")
+    sessionStorage.setItem('doctorip', "127.0.0.1:5002")
+    sessionStorage.setItem('appointmentip', "127.0.0.1:5003")   
+    sessionStorage.setItem('consultationip', "127.0.0.1:5004")   
+    //Retrieve with sessionStorage.getItem("patientip")
     // Helper function to display error message
     function showError(message) {
         console.log('Error logged')
@@ -65,7 +72,10 @@
         var password = $('#password').val();
         //This is the url found above the login function in patient.py. Basically you are trying to send data(username and password) to that url using post and receive its response
         //The response you get is found is sent by the json function of the Patient class in patient.py
-        var serviceURL = "http://" + patientip + "/login-process";
+        //var serviceURL = "http://" + sessionStorage.getItem("patientip") + "/login-process";
+        //var serviceURL = "http://" + sessionStorage.getItem("patientip") + "/login-process";
+        var serviceURL = "http://127.0.0.1:5001/login-process";
+        //var serviceURL = "http://54.255.225.231:5001/login-process";
         try {
                 //console.log(JSON.stringify({ username: username, password: password,}))
                 const response = await fetch(serviceURL,{method: 'POST',
@@ -84,10 +94,7 @@
                     //Set the session to username so it wont log the user out.
                     sessionStorage.setItem('username', data['username'])
                     sessionStorage.setItem('patient_id', data['patient_id'])
-                    console.log(data['username'])
-                    console.log(data['patient_id'])
-                    console.log("HIU")
-                    //window.location.href = "patient/patientLanding.php";           
+                    window.location.href = "patient/patientLanding.php";               
                 }
             } catch (error) {
                 // Errors when calling the service; such as network error, service offline, etc

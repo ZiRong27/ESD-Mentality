@@ -5,31 +5,31 @@
 </header>
 
 
-<body style="background:#f8f8f8;">
-
+<body style="background:white;">
+<br><br><br><br>
 <div id="main-container" class="container">
 <div class="row d-flex justify-content-center">
         <form id ="loginForm" class="col-12 justify-content-center" >
         <div class="text-center">
-            <img src="../images/logo.png" height="200" width="300"> change color
+            <img src="../images/logo_blue.jpg" height="180" width="400">
         </div>
             <div class = "whitetextbig"  style="color:black;">     
                 Doctor Login:
             </div>
             <br/>
             <div class>
-                <input type="text" class="form-control input-group-lg" id="username" placeholder="Username" required>
+                <input type="text" class="form-control input-group-lg" id="username" placeholder="Username" required style="background-color:#f5f5f5"> 
             </div>
 
             </br>
 
             <div class>
-                <input type="password" class="form-control input-group-lg" id="password" placeholder="Password" required>
+                <input type="password" class="form-control input-group-lg" id="password" placeholder="Password" required style="background-color:#f5f5f5">
             </div>
 
             </br>
             <!-- <a class = "whitetext" href="../index.php" style="color:#505050;"> Login as a user</a> -->
-            <div class="text-right">"
+            <div class="text-right">
                 
                 
                 <!-- The button type has to be submit for the below async functions to work!-->
@@ -61,7 +61,7 @@
         var password = $('#password').val();
         //This is the url found above the login function in patient.py. Basically you are trying to send data(username and password) to that url using post and receive its response
         //The response you get is found is sent by the json function of the Patient class in patient.py
-        var serviceURL = "http://" + doctorip + "/login-process-doctor";
+        var serviceURL = "http://" + sessionStorage.getItem("doctorip") + "/login-process-doctor";
         //var serviceURL = "http://54.169.208.175:5002/login-process-doctor";
         try {
                 //console.log(JSON.stringify({ username: username, password: password,}))

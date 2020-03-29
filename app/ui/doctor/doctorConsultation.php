@@ -36,7 +36,7 @@ require_once '../include/protect.php';
         <th scope="col"># Consultation ID</th>
         <th scope="col"> Patient ID </th>
         <th scope="col"> Patient Name </th>
-        <th scope="col"> Appointment ID </th>
+        <th scope="col"> appointment ID </th>
         <th scope="col"> View Consultation </th>
         </tr>
     </thead>
@@ -54,8 +54,10 @@ require_once '../include/protect.php';
   $(async (event) =>
   {
     var doctor_id = sessionStorage.getItem("doctor_id");
-    var serviceURL_consultation = "http://" + consultationip + "/consultation-by-doctor/" + doctor_id;
-    var serviceURL_patients = "http://" + patientip + "/view-all-patients";
+    //var serviceURL_consultation = "http://127.0.0.1:5004/consultation-by-doctor/" + doctor_id;
+    var serviceURL_consultation = "http://" + sessionStorage.getItem("consultationip") + "/consultation-by-doctor/" + doctor_id;
+    //var serviceURL_patients = "http://127.0.0.1:5001/view-all-patients";
+    var serviceURL_patients = "http://" + sessionStorage.getItem("patientip") + "/view-all-patients";
     try 
     {
     // retrieve consultation data by doctor
