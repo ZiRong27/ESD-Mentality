@@ -30,20 +30,20 @@
     <script>
       //Sets the IP addresses of ALL microservices here!!
       //All these are working! Uncomment to try them, you will NOT need to run any of these microservices yourself
-      // patientip = "54.255.192.51:5001";
-      // doctorip = "13.229.63.17:5002";
-      // appointmentip = "13.250.25.187:5003";
-      // consultationip = "18.141.146.207:5004";
-      // paymentip = "54.169.77.250:5005";
+      patientip = "54.255.217.186:5001";
+      doctorip = "54.179.180.226:5002";
+      appointmentip = "54.169.239.160:5003";
+      consultationip = "18.136.105.106:5004";
+      paymentip = "13.229.233.99:5005";
       //patientip = "" + patientip + " ";
       //doctorip = ""  + doctorip + "  ";
       //appointmentip = "" + appointmentip + " ";
       //consultationip = "" + consultationip + " ";
-      patientip = "localhost:5001";
-      doctorip = "localhost:5002";
-      appointmentip = "localhost:5003";
-      consultationip = "localhost:5004";
-      paymentip = "localhost:5005";
+      //patientip = "localhost:5001";
+      //doctorip = "localhost:5002";
+      //appointmentip = "localhost:5003";
+      //consultationip = "localhost:5004";
+      //paymentip = "localhost:5005";
     </script>
 
     <!-- tempus dominus bootstrap 4 https://tempusdominus.github.io/bootstrap-4/ -->

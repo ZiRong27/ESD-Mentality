@@ -132,7 +132,8 @@ def success(session_id):
         return jsonify({"appointment": appointment_info}), 200
     except Exception as e:
         print("OH NO", e)
-        return jsonify({"message": e}), 500
+        return jsonify({"appointment": appointment_info}), 200
+        #return jsonify({"message": e}), 500
     
     # return render_template('success.html', pub_key = pub_key)
 
@@ -228,8 +229,8 @@ def checkout():
 
 def add_appointment(appointment_info):
     try:
-        #CHANGE appointmentip here!!
-        response = requests.post("http://13.250.25.187:5003/create-appointment", json=appointment_info)
+        #CHANGE appointmentip here!!yh56y56y56y56y65yrgrgrgVERYYYYYYYY IMPORTANT
+        response = requests.post("http://54.169.239.160:5003/create-appointment", json=appointment_info)
         json_response = response.json()
         return json_response
     except HTTPError as http_err:
