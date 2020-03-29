@@ -64,9 +64,15 @@ def send_sms (message_org, to_phone_no):
     print ('Message Sent to: ', to_phone_no, '! Message content: ', message_org, ' Message sid:', message.sid)
 
 # Access the CLODUAMQP_URL environment variable and parse it 
+amqp://xhnawuvi:znFCiYKqjzNmdGBNLdzTJ07R25lNOCr_@vulture.rmq.cloudamqp.com/xhnawuvi
 url = 'amqp://xhnawuvi:znFCiYKqjzNmdGBNLdzTJ07R25lNOCr_@vulture.rmq.cloudamqp.com/xhnawuvi'
 params = pika.URLParameters(url)
-connection = pika.BlockingConnection(params)
+#connection = pika.BlockingConnection(params)
+hostname = "localhost" # default hostname
+port = 5672 # default port
+# connect to the broker and set up a communication channel in the connection
+connection = pika.BlockingConnection(pika.ConnectionParameters(host=hostname, port=port))
+
 channel = connection.channel() # start a channel
 # set up the exchange if the exchange doesn't exist
 exchangename="appointment_topic"
