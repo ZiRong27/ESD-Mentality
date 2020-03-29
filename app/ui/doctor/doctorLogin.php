@@ -1,11 +1,7 @@
 <html>
 <header>
     <?php include '../include/codeLinks.php';?>
-<<<<<<< HEAD
     <link rel = "stylesheet" type = "text/css" href = "../style/style-login.css" />
-=======
-    <link rel = "stylesheet" type = "text/css" href = "../include/stylesheet.css"/>
->>>>>>> 38a6fea689e71e6d616d679033951e915ff7dcfd
 </header>
 
 <style>
