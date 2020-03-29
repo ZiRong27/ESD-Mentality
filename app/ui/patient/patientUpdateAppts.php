@@ -33,7 +33,7 @@ if (isset($_GET['session_id'])){
 
 </div>
 
-
+<div class="row d-flex justify-content-center">
 <div id="main-container" class="container">
     <div class = "my-2">        
         <h1>My Appointment(s)</h1>

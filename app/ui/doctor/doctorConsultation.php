@@ -23,11 +23,11 @@ require_once '../include/protect.php';
 <?php include '../include/doctorNavbar.php';?>
 </br></br>
 
-<br/>
-<div id="main-container" class="container" style="border:1px solid #696969; border-radius:20px; padding:10px; box-shadow: 2px 3px #989898; background:white;">
-    <div class = "whitetextbig" style="color: black; font-weight: bold; font-size: 180%;">        
-            My Consultations:
-    </div> 
+
+<div class="row d-flex justify-content-center">
+<div id="main-container" class="container" style="border:1px;">        
+          <h1>My Consultations:</h1>
+          <hr> 
     <div class ="index-errormsg"></div>
     <br>  
     <table class="table table-striped table-light table-hover text-center" id="conTable" style="border:3px solid #f0f0f0;">
@@ -41,6 +41,8 @@ require_once '../include/protect.php';
         </tr>
     </thead>
     </table>  
+</div>
+</div>
 </div>
 <script>    
     // Helper function to display error message
