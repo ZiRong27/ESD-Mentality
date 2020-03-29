@@ -33,9 +33,9 @@ exchangename="appointment_topic"
 channel.exchange_declare(exchange=exchangename, exchange_type='topic')
 app = Flask(__name__)
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:root@localhost:8889/esd_payment'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root@localhost:3306/esd_payment'
+#app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root@localhost:3306/esd_payment'
 # app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('dbURL')
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://admin:IloveESMandPaul!<3@esd.cemjatk2jkn2.ap-southeast-1.rds.amazonaws.com/esd_patient'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://admin:IloveESMandPaul!<3@esd.cemjatk2jkn2.ap-southeast-1.rds.amazonaws.com/esd_payment'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
  
 db = SQLAlchemy(app)
@@ -119,10 +119,12 @@ def success(session_id):
     
     try:
         response = add_appointment(appointment_info)
+        
         #Upon successful payment and appointment creation, notify the payment!
         for_patient_message = "An amount of $" + str(amount) + " has been successfully charged to your bank account for your appointment on " + str(appointment_info["date"]) + " at " + str(appointment_info["time"])
         phone = "+6597632174"
         result = {"phone": phone, "message": for_patient_message}
+        print("Added appt successfully")
         message = json.dumps(result, default=str)
         channel.basic_publish(exchange=exchangename, routing_key="paymentSuccess.message", body=message,
             properties=pika.BasicProperties(delivery_mode = 2))# make message persistent within the matching queues until it is received by some receiver (the matching queues have to exist and be durable and bound to the exchange, which are ensured by the previous two api calls)
@@ -269,4 +271,4 @@ def add_appointment(appointment_info):
 #     connection.close()
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5005)
+    app.run(host='0.0.0.0', port=5005, debug = True)
