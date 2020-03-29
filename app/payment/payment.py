@@ -18,13 +18,13 @@ import pika
 # Access the CLODUAMQP_URL environment variable and parse it (fallback to localhost)
 url = 'amqp://xhnawuvi:znFCiYKqjzNmdGBNLdzTJ07R25lNOCr_@vulture.rmq.cloudamqp.com/xhnawuvi'
 params = pika.URLParameters(url)
-#connection = pika.BlockingConnection(params)
+connection = pika.BlockingConnection(params)
 
 #Set up rabbitmq for payment to send a message to notification.py upon successful payment
 hostname = "localhost" # default hostname
 port = 5672 # default port
 # connect to the broker and set up a communication channel in the connection
-connection = pika.BlockingConnection(pika.ConnectionParameters(host=hostname, port=port))
+#connection = pika.BlockingConnection(pika.ConnectionParameters(host=hostname, port=port))
 # Note: various network firewalls, filters, gateways (e.g., SMU VPN on wifi), may hinder the connections;
 # If "pika.exceptions.AMQPConnectionError" happens, may try again after disconnecting the wifi and/or disabling firewalls
 channel = connection.channel()
