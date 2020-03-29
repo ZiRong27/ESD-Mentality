@@ -1,7 +1,7 @@
 <html>
 <header>
     <?php include 'include/codeLinks.php';?>
-    <link rel = "stylesheet" type = "text/css" href = "include/stylesheet.css" />
+    <link rel = "stylesheet" type = "text/css" href = "include/stylesheet.css"/>
 </header>
 
 
@@ -54,10 +54,10 @@
     //sessionStorage.setItem('patientip', "13.250.127.183:5001")
     //sessionStorage.setItem('doctorip', "54.169.208.175:5002")
     //sessionStorage.setItem('appointmentip', "13.229.101.26:5003")
-    sessionStorage.setItem('patientip', "127.0.0.1:5001")
-    sessionStorage.setItem('doctorip', "127.0.0.1:5002")
-    sessionStorage.setItem('appointmentip', "127.0.0.1:5003")   
-    sessionStorage.setItem('consultationip', "127.0.0.1:5004")   
+    sessionStorage.setItem('patientip', "" + patientip + " ")
+    sessionStorage.setItem('doctorip', ""  + doctorip + "  ")
+    sessionStorage.setItem('appointmentip', "" + appointmentip + " ")   
+    sessionStorage.setItem('consultationip', "" + consultationip + " ")   
     //Retrieve with sessionStorage.getItem("patientip")
     // Helper function to display error message
     function showError(message) {
@@ -74,7 +74,7 @@
         //The response you get is found is sent by the json function of the Patient class in patient.py
         //var serviceURL = "http://" + sessionStorage.getItem("patientip") + "/login-process";
         //var serviceURL = "http://" + sessionStorage.getItem("patientip") + "/login-process";
-        var serviceURL = "http://127.0.0.1:5001/login-process";
+        var serviceURL = "http://" + patientip + "/login-process";
         //var serviceURL = "http://54.255.225.231:5001/login-process";
         try {
                 //console.log(JSON.stringify({ username: username, password: password,}))

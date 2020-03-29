@@ -35,10 +35,10 @@
       appointmentip = "13.250.25.187:5003";
       consultationip = "18.141.146.207:5004";
       paymentip = "127.0.0.1:5005";
-      //patientip = "127.0.0.1:5001";
-      //doctorip = "127.0.0.1:5002";
-      //appointmentip = "127.0.0.1:5003";
-      //consultationip = "127.0.0.1:5004";
+      //patientip = "" + patientip + " ";
+      //doctorip = ""  + doctorip + "  ";
+      //appointmentip = "" + appointmentip + " ";
+      //consultationip = "" + consultationip + " ";
     </script>
 
     <!-- tempus dominus bootstrap 4 https://tempusdominus.github.io/bootstrap-4/ -->
@@ -46,7 +46,7 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css"/>
     -->
 
 </head>

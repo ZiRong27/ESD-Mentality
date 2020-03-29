@@ -6,7 +6,7 @@
         $accountType = "patient";
         require_once '../include/protect.php';
     ?>
-    <link rel = "stylesheet" type = "text/css" href = "../include/stylesheet.css" />
+    <link rel = "stylesheet" type = "text/css" href = "../include/stylesheet.css"/>
     <script>
         $('#displayMessage').hide();
         $('#conTable').show();
@@ -110,10 +110,10 @@ function showError(message)
     }
 
 /*
-    sessionStorage.setItem('patientip', "127.0.0.1:5001")
-    sessionStorage.setItem('doctorip', "127.0.0.1:5002")
-    sessionStorage.setItem('appointmentip', "127.0.0.1:5003")   
-    sessionStorage.setItem('consultationip', "127.0.0.1:5004")   
+    sessionStorage.setItem('patientip', "" + patientip + " ")
+    sessionStorage.setItem('doctorip', ""  + doctorip + "  ")
+    sessionStorage.setItem('appointmentip', "" + appointmentip + " ")   
+    sessionStorage.setItem('consultationip', "" + consultationip + " ")   
 */
   });
 </script>

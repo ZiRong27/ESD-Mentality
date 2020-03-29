@@ -7,7 +7,7 @@ $accountType = "doctor";
 
 <head>
     <?php include '../include/codeLinks.php';?>
-    <link rel = "stylesheet" type = "text/css" href = "include/stylesheet.css" />
+    <link rel = "stylesheet" type = "text/css" href = "include/stylesheet.css"/>
 </head>
 
 <body style="background:#f8f8f8;">

@@ -23,7 +23,7 @@ require_once '../include/protect.php';
 </head>
 <header>
     <?php include '../include/codeLinks.php';?>
-    <link rel = "stylesheet" type = "text/css" href = "../include/stylesheet.css" />
+    <link rel = "stylesheet" type = "text/css" href = "../include/stylesheet.css"/>
 </header>
 
 
@@ -86,7 +86,7 @@ require_once '../include/protect.php';
         //Get the doctor username from the url
         let params = new URLSearchParams(location.search);
         username = params.get('username')
-        var serviceURL = "http://127.0.0.1:5002/view-specific-doctor/" + username;
+        var serviceURL = "http://"  + doctorip + "  /view-specific-doctor/" + username;
         //var serviceURL = "http://" + sessionStorage.getItem("doctorip") + "/view-specific-doctor/" + username ;
         try {
                 //console.log(JSON.stringify({ username: username, password: password,}))
@@ -147,7 +147,7 @@ require_once '../include/protect.php';
         var date = String($('#booking_date').val());
         //This is the url found above the login function in patient.py. Basically you are trying to send data(username and password) to that url using post and receive its response
         //The response you get is found is sent by the json function of the Patient class in patient.py
-        var serviceURL = "http://127.0.0.1:5003/appointment-by-date/" + date;
+        var serviceURL = "http://" + appointmentip + "/appointment-by-date/" + date;
     
         try {
                 //console.log(JSON.stringify({ username: username, password: password,}))
@@ -206,7 +206,7 @@ require_once '../include/protect.php';
             var patient_id = sessionStorage.getItem("patient_id");
             $('#patient_id').val(patient_id); 
             
-            var serviceURL = "http://127.0.0.1:5003/create-appointment";
+            var serviceURL = "http://" + appointmentip + "/create-appointment";
             //var serviceURL = "http://" + sessionStorage.getItem("appointmentip") + "/create-appointment";
             try {
                 console.log(JSON.stringify({ doctor_id: doctor_id,
