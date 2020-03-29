@@ -110,8 +110,8 @@ require_once '../include/protect.php';
         
         //This is the url found above the login function in patient.py. Basically you are trying to send data(username and password) to that url using post and receive its response
         //The response you get is found is sent by the json function of the Patient class in patient.py
-        var serviceURL = "http://127.0.0.1:5001/update-profile-process";
-        //var serviceURL = "http://" + sessionStorage.getItem("patientip") + "/update-profile-process";
+        //var serviceURL = "http://127.0.0.1:5001/update-profile-process";
+        var serviceURL = "http://" + sessionStorage.getItem("patientip") + "/update-profile-process";
         try {
                 //console.log(JSON.stringify({ username: username, password: password,}))
                 const response = await fetch(serviceURL,{method: 'POST',
@@ -162,8 +162,8 @@ require_once '../include/protect.php';
         var newpasswordconfirm = $('#newpasswordconfirm').val();
         //This is the url found above the login function in patient.py. Basically you are trying to send data(username and password) to that url using post and receive its response
         //The response you get is found is sent by the json function of the Patient class in patient.py
-        var serviceURL = "http://127.0.0.1:5001/update-profile-update";
-        //var serviceURL = "http://" + sessionStorage.getItem("patientip") + "/update-profile-update";
+        //var serviceURL = "http://127.0.0.1:5001/update-profile-update";
+        var serviceURL = "http://" + sessionStorage.getItem("patientip") + "/update-profile-update";
         if (newpassword != newpasswordconfirm) {
             showError("New password and confirm password do not match");
         }
