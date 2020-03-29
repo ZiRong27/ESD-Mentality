@@ -21,13 +21,13 @@
 </br>
 <br/>
 
-<div id="main-container" class="container" style="border:1px solid #696969; border-radius:20px; padding:10px; box-shadow: 2px 3px #989898; background:white;">
-    <div class = "whitetextbig" style="color: black; font-weight: bold; font-size: 200%;">        
-            My Consultation
+<div id="main-container" class="container">
+    <div class = "my-2">        
+        <h1>My Consultation(s)</h1>
+        <hr>
     </div> 
 
-    <div class ="index-errormsg"></div>
-    <br>  
+    <div class ="index-errormsg"></div> 
     <table class="table table-striped table-light table-hover text-center" id="conTable" style="border: 1px solid #e0e0e0;">
     <thead>
         <tr >

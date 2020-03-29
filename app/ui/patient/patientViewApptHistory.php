@@ -10,24 +10,25 @@
 </header>
 
 
-<body>
+<body  style="background:#f8f8f8;">
 <!-- Import navigation bar -->
 <?php include '../include/patientNavbar.php';?>
 
 </br>
 <br/>
 
-<div id="main-container" class="container" style="border:1px solid #696969; border-radius:20px; padding:10px; box-shadow: 2px 3px #989898; background:white;">
-    <div class = "whitetextbig" style="color: black; font-weight: bold; font-size: 200%;">        
-            My Appointment History
+<div class="row d-flex justify-content-center">
+<div id="main-container" class="container">
+    <div class = "my-2">        
+        <h1>My Appointment History</h1>
+        <hr>
     </div> 
-    <br> 
     <div class ="index-errormsg"></div>
-    <br>  
+ 
     <table class="table table-striped table-light table-hover text-center" id="apptHisTable">
     <thead>
         <tr>
-            <th scope="col"> # Appointment ID </th>
+            <th scope="col"> Appointment ID </th>
             <th scope="col"> Doctor </th>
             <th scope="col"> Date & Time </th>
             <th scope="col"> Paid Amount </th>
@@ -35,7 +36,10 @@
     </thead>
     </table>  
     <!-- If not Data display -->
-    <h1 id="displayMessage"> You do not have any Appointment History </h1>
+    <hr>
+    <br>
+    <h1 id="displayMessage" class="text-center" style="font-size:20px">No appointment history available </h1>
+    <br><br><br><br><br>
 
 </div>
 
