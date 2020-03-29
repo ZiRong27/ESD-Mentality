@@ -41,7 +41,7 @@ if (isset($_GET['session_id'])){
     </div> 
     
     <div class ="index-errormsg"></div>
-    <br>  
+ 
     <table class="table table-striped table-light table-hover text-center" id="apptTable" style="border: 1px solid #e0e0e0;">
     <thead>
         <tr >
