@@ -24,23 +24,25 @@ require_once '../include/protect.php';
 </br></br>
 
 <div class="row d-flex justify-content-center">
-<div id="main-container" class="container" style="border:1px;">        
-          <h1>My Appointments:</h1>
-          <hr> 
-    <div class ="index-errormsg"></div>
-    <br>  
-    <table class="table table-striped table-light table-hover text-center" id="apptTable" style="border:3px solid #f0f0f0;">
-    <thead>
-        <tr >
-        <th scope="col">Appointment ID</th>
-        <th scope="col">Patient</th>
-        <th scope="col">Date</th>
-        <th scope="col">Time</th>
-        <th scope="col">View profile</th>
-        </tr>
-    </thead>
-    </table>  
-</div>
+  <div id="main-container" class="container" style="border:1px;">        
+            <h1>My Appointments:</h1>
+            <hr> 
+        <div class ="index-errormsg"></div>
+        <br>  
+        <table class="table table-striped table-light table-hover text-center" id="apptTable" style="border:3px solid #f0f0f0;">
+          <thead>
+              <tr>
+                <th scope="col">Appointment ID</th>
+                <th scope="col">Patient</th>
+                <th scope="col">Date</th>
+                <th scope="col">Time</th>
+                <th scope="col">View profile</th>
+              </tr>
+          </thead>
+        </table> 
+        <br><br>
+        <h1 id="displayMessage" class="text-center" style="font-size:20px">No Appointments available</h1> 
+  </div>
 </div>
 </div>
 <script>    
@@ -51,6 +53,7 @@ require_once '../include/protect.php';
         $('.index-errormsg').html(message)
     }
 
+/*
     async function fetchURLs() {
     try {
       // Promise.all() lets us coalesce multiple promises into a single super-promise
@@ -82,13 +85,14 @@ require_once '../include/protect.php';
       console.log(error);
     }
   }
+  */
 
   // This function here show all appointments by doctor_ID
   $(async (event) =>
   {
     var doctor_id = sessionStorage.getItem("doctor_id");
+    var serviceURL = "http://" + appointmentip + "/appointments-by-doctor/" + doctor_id;
     //var serviceURL = "http://" + appointmentip + "/view-all-appointments";
-    var serviceURL = "http://" + appointmentip + "/view-all-appointments";
 
     try 
     {
@@ -96,29 +100,26 @@ require_once '../include/protect.php';
       const data = await response.json(); 
       console.log(data)
 
-      if (!data || data.message == "Appointment(s) not found.") 
+      if (!data || data.length == 0) 
       {
-        console.log(data['message']);
+        $("#displayMessage").show();
       } 
       else
       {
-        console.log(Object.values(data))
-        for (i = 0; i < data.length; i++) 
-        { 
-          if(data[i]["doctor_id"] == doctor_id)
-          {
-            console.log("hello")
-            row = 
+        $("#displayMessage").hide();
+        for (var ele in data)
+        {
+          var obj = data[ele]
+          var patientName = await fetchData(obj["patient_id"])
+          row = 
               "<tbody><tr>" + 
-                  "<td>" + data[i]["appointment_id"] + "</td>" + 
-                  "<td>" + data[i]["patient_id"] + "</td>" + 
-                  "<td>" + data[i]["date"] + "</td>" + 
-                  "<td>" + data[i]["time"] + "</td>" +
-                  "<td> <a href='viewPatient.php?appointmentid=" + data[i]["appointment_id"] + "&patientid="+ data[i]["patient_id"]+"'> View Patient </a> </td>" +
+                  "<td>" + obj["appointment_id"] + "</td>" + 
+                  "<td>" + patientName + "</td>" + 
+                  "<td>" + obj["date"] + "</td>" + 
+                  "<td>" + obj["time"] + "</td>" +
+                  "<td> <a href='viewPatient.php?appointmentid=" + obj["appointment_id"] + "&patientid="+ obj["patient_id"]+"'> View Patient </a> </td>" +
               "</tr></tbody>";
             $('#apptTable').append(row);
-          }
-          
         }
       }
     }
@@ -126,6 +127,31 @@ require_once '../include/protect.php';
     {
       console.log("Error in connecting to Mircoservice!");
     }
+
+// Function: Get appointment and doctor information - Part B
+async function fetchData(patient_id) 
+    {
+        var serviceURL_Patient = "http://" + patientip + "/patient/" + patient_id;
+        console.log(serviceURL_Patient)
+        try 
+        {
+            // retrieve appointment by appointment ID
+            const response_patient = await fetch(serviceURL_Patient, { method: 'GET' });
+            const data_patient = await response_patient.json(); 
+            var patientName = data_patient["name"];
+            console.log(patientName);
+            return patientName;
+        }
+        catch(error)
+        {
+            console.log("Error in connecting to Mircoservice!");
+        }
+    } // End of function -Part B
+
+
+
+
+
   });
 
 </script>

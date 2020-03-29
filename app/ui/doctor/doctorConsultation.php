@@ -25,25 +25,27 @@ require_once '../include/protect.php';
 
 
 <div class="row d-flex justify-content-center">
-<div id="main-container" class="container" style="border:1px;">        
-          <h1>My Consultations:</h1>
-          <hr> 
-    <div class ="index-errormsg"></div>
-    <br>  
-    <table class="table table-striped table-light table-hover text-center" id="conTable" style="border:3px solid #f0f0f0;">
-    <thead>
-        <tr >
-        <th scope="col">Consultation ID</th>
-        <th scope="col"> Patient ID </th>
-        <th scope="col"> Patient Name </th>
-        <th scope="col"> Appointment ID </th>
-        <th scope="col"> View Consultation </th>
-        </tr>
-    </thead>
-    </table>  
+    <div id="main-container" class="container" style="border:1px;">        
+              <h1>My Consultations:</h1>
+              <hr> 
+        <div class ="index-errormsg"></div>
+        <br>  
+          <table class="table table-striped table-light table-hover text-center" id="conTable" style="border:3px solid #f0f0f0;">
+            <thead>
+                <tr >
+                    <th scope="col">Consultation ID</th>
+                    <th scope="col"> Patient ID </th>
+                    <th scope="col"> Patient Name </th>
+                    <th scope="col"> Appointment ID </th>
+                    <th scope="col"> View Consultation </th>
+                </tr>
+            </thead>
+          </table>  
+          <br><br>
+          <h1 id="displayMessage" class="text-center" style="font-size:20px">No consultations available </h1>
+    </div>
 </div>
-</div>
-</div>
+
 <script>    
     // Helper function to display error message
     function showError(message) 
@@ -72,13 +74,14 @@ require_once '../include/protect.php';
       console.log(data_patients)
 
     // If retrieve data failed, result to no data
-      if (!data_consultation && !data_patients) 
+      if (!data_consultation || data_consultation["message"] == "consultation by doctor id not found." || data_consultation.length == 0) 
       {
-        console.log("Error retrving from Database");
+        $("#displayMessage").show();
       } 
       // else display
       else
       {
+        $("#displayMessage").hide();
         console.log(Object.values(data_consultation))
         // loop through consultation data by doctor
         for (i = 0; i < data_consultation.length; i++) 
