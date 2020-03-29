@@ -15,9 +15,9 @@ import pika, os
 
 app = Flask(__name__)
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:root@localhost:8889/esd_appointment'
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root@localhost:3306/esd_appointment'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root@localhost:3306/esd_appointment'
 #app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('dbURL')
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://admin:IloveESMandPaul!<3@esd.cemjatk2jkn2.ap-southeast-1.rds.amazonaws.com/esd_appointment'
+#app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://admin:IloveESMandPaul!<3@esd.cemjatk2jkn2.ap-southeast-1.rds.amazonaws.com/esd_appointment'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
  
 db = SQLAlchemy(app)
@@ -167,6 +167,73 @@ def delete_appointment(appointment_id):
 @app.route("/view-all-appointments") 
 def get_all():
     return jsonify([appointment.json() for appointment in Appointment.query.all()])
+
+# capture appointment history. 
+class History(db.Model):
+    __tablename__ = 'history'
+ 
+    appointment_id = db.Column(db.Integer, primary_key=True)
+    doctor_id = db.Column(db.String,nullable=False)
+    patient_id = db.Column(db.String, nullable=False)
+    date = db.Column(db.String, nullable=False)
+    time = db.Column(db.String, nullable=False)
+    payment_id = db.Column(db.Integer, nullable=False)
+    
+    def __init__(self, doctor_id, patient_id, date, time, payment_id):
+        self.doctor_id = doctor_id
+        self.patient_id = patient_id
+        self.date = date
+        self.time = time
+        self.payment_id = payment_id
+     
+    # return an appointment item as a JSON object
+    def json(self):
+        return {'appointment_id': self.appointment_id, 
+                'doctor_id': self.doctor_id, 
+                'patient_id': self.patient_id, 
+                'date': self.date, 
+                'time': self.time, 
+                'payment_id':self.payment_id
+                }
+
+    #def print_q(self):
+        #print ("pid", self.patient_id, "date", self.date, "did", self.doctor_id, "time", self.time, "paymentid", self.payment_id)
+
+# note -> guys i have to change the name of the route here cus, appointment is used by doctor id
+@app.route("/get-appointment-id-history/<string:appointment_id>")
+def find_history_by_appointment_id(appointment_id):
+    history = History.query.filter_by(appointment_id=appointment_id).first()
+    if history:
+        return jsonify(history.json())
+    return jsonify({"message": "This Appointment is not found."}), 404
+
+#Function: Get all appointment history
+@app.route("/get-all-appointment-history/<string:patient_id>") 
+def get_all_history_appointment_by_patient(patient_id):
+    #return jsonify([consultation.json() for consultation in Consultation.query.filter(Consultation.patient_id.endswith(patient_id)).all()])
+    data = []
+    for history in History.query.filter(History.patient_id.endswith(patient_id)).all():
+        data.append(history.json())
+    if data:
+        return jsonify(data)
+    return jsonify({"message": "history appointment by patient id not found."}), 404
+
+#Function: create appointment history
+@app.route("/appointment-history/<string:appointment_id>",methods=['POST'])
+def add_appointment_history(appointment_id):
+    history = History.query.filter_by(appointment_id=appointment_id).first()
+    if history:
+        return jsonify({"message": "appointment exisit in the history, please check with admin"}), 400
+    data = request.get_json()
+    history = History(appointment_id, **data)
+    try:
+        db.session.add(history)
+        db.session.commit()
+    except:
+        return jsonify({"message": "An error occurred creating appointment history"}), 500
+    return jsonify(history.json()), 201
+
+
 
 
 # Flask app

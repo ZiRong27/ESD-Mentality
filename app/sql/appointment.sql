@@ -20,7 +20,7 @@ SET time_zone = "+00:00";
 --
 -- Table structure for table `appointment`
 --
-
+DROP TABLE IF EXISTS `appointment`;
 CREATE TABLE `appointment` (
   `appointment_id` int(11) NOT NULL,
   `doctor_id` varchar(11) NOT NULL,
@@ -61,3 +61,22 @@ ALTER TABLE `appointment`
 --
 ALTER TABLE `appointment`
   MODIFY `appointment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+
+
+DROP TABLE IF EXISTS `history`;
+CREATE TABLE `history` (
+  `appointment_id` int(11) NOT NULL,
+  `doctor_id` varchar(11) NOT NULL,
+  `patient_id` varchar(11) NOT NULL,
+  `date` varchar(15) NOT NULL,
+  `time` varchar(12) NOT NULL,
+  `payment_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+INSERT INTO `history` (`appointment_id`, `doctor_id`, `patient_id`, `date`, `time`, `payment_id`) VALUES
+(119, '2', '1', '04-04-20', '4.00 AM', 41),
+(210, '3', '2', '04-04-20', '5.00 AM', 30),
+(211, '2', '3', '04-04-20', '6.00 AM', 41),
+(212, '1', '1', '04-04-20', '7.00 AM', 20),
+(213, '2', '2', '04-04-20', '8.00 AM', 41),
+(214, '2', '1', '04-04-20', '9.00 AM', 41);

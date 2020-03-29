@@ -83,10 +83,6 @@ $( document ).ready(function()
 }); // End of document ready 
 </script>
 
-
-
-
-
 </body>
 
 </html>
