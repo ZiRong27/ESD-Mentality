@@ -91,8 +91,8 @@ if (isset($_GET['session_id'])){
 
     } catch (error) {
       console.log(error);
+      }
     }
-  }
 
 
     //This is the form id, not the submit button id!
@@ -128,7 +128,7 @@ if (isset($_GET['session_id'])){
             }
         }
 
-        fetchURLs();
+        
         var patient_id = sessionStorage.getItem("patient_id");
         $('#patient_id').val(patient_id); 
         //This is the url found above the get_all function in doctor.py. Basically you are trying to send data(username and password) to that url using post and receive its response
@@ -136,16 +136,17 @@ if (isset($_GET['session_id'])){
         //var serviceURL = "http://" + appointmentip + "/view-all-appointments";
         var serviceURL = "http://" + appointmentip + "/view-all-appointments";
         try {
+                var doctor = await fetchURLs();
                 //console.log(JSON.stringify({ username: username, password: password,}))
                 const response =
                  await fetch(
                    serviceURL, { method: 'GET' }
                 );
                 const data = await response.json();
-                console.log(data)
+                console.log(data);
                 //The error message is stored in the data array sent by patient.py! If there is a message variable, it means there is an error
                 if (data['message']) {
-                    showError(data['message'])
+                    showError(data['message']);
                 } else {
                     // for loop to setup all table rows with obtained doctors data
                     //data = data["doctors"];
@@ -156,8 +157,7 @@ if (isset($_GET['session_id'])){
                         if (data[i].patient_id == patient_id){
                             doctorName = doctor[data[i].doctor_id][0];
                             price = doctor[data[i].doctor_id][1];
-                            Row =
-                            "<tr><th scope='row'>" + data[i].appointment_id + "</th>" +
+                            var Row = "<tr><th scope='row'>" + data[i].appointment_id + "</th>" +
                             "<td>" + doctorName + "</td>" +
                             "<td>" + data[i].date + "</td>" +
                             "<td>" + data[i].time + "</td>" +
