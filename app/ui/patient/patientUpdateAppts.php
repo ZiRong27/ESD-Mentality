@@ -20,7 +20,7 @@ if (isset($_GET['session_id'])){
 </head>
 <header>
     <?php include '../include/codeLinks.php';?>
-    <link rel = "stylesheet" type = "text/css" href = "../include/stylesheet.css" />
+    <link rel = "stylesheet" type = "text/css" href = "../include/stylesheet.css"/>
 </header>
 
 
@@ -29,24 +29,23 @@ if (isset($_GET['session_id'])){
 <?php include '../include/patientNavbar.php';?>
 </br></br>
 
-<br/>
-
 <div id="appointmentSuccess">
 
 </div>
 
 
-<div id="main-container" class="container" style="border:1px solid #696969; border-radius:20px; padding:10px; box-shadow: 2px 3px #989898; background:white;">
-    <div class = "whitetextbig" style="color: black; font-weight: bold; font-size: 200%;">        
-            My Appointments
+<div id="main-container" class="container">
+    <div class = "my-2">        
+        <h1>My Appointment(s)</h1>
+        <hr>
     </div> 
-    <br> 
+    
     <div class ="index-errormsg"></div>
     <br>  
-    <table class="table table-striped table-light table-hover text-center" id="apptTable">
+    <table class="table table-striped table-light table-hover text-center" id="apptTable" style="border: 1px solid #e0e0e0;">
     <thead>
         <tr >
-        <th scope="col"># Appointment ID</th>
+        <th scope="col">Appointment ID</th>
         <th scope="col">Doctor</th>
         <th scope="col">Date</th>
         <th scope="col">Time</th>

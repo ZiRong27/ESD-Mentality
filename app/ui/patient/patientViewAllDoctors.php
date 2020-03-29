@@ -22,15 +22,15 @@ require_once '../include/protect.php';
 <body style="background:#f8f8f8;">
 <!-- Import navigation bar -->
 <?php include '../include/patientNavbar.php';?>
-</br></br>
+</br>
 
-<br/>
+
 <!-- Page Content -->
 <div class="container">
 
 <!-- Page Heading -->
 <h1 class="my-4">Book an Appointment</h1>
-<h5 class="my-4"> Select from our wide ranging qualified therapists and book an appointment with us</h5>
+<h5 class="my-4"> Select from our range of qualified therapists</h5>
 <hr>
 <br>
 
@@ -87,7 +87,7 @@ require_once '../include/protect.php';
                             '<div class="row">' + 
                             '<div class="col-md-6">' +
                             '<a href="#">' +
-                            '<img class="img-fluid rounded mb-3 mb-md-0" src="../images/doctors/' + data[i].doctor_id + '.png" alt="">' +
+                            '<img class="img-fluid rounded mb-3 mb-md-0" src="../images/doctors/' + data[i].doctor_id + '.jpg" alt="">' +
                             '</a>' +
                             '</div>' +
                             '<div class="col-md-5">' +

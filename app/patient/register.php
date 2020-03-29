@@ -5,17 +5,19 @@
 </head>
 <header>
     <?php include '../include/codeLinks.php';?>
-    <link rel = "stylesheet" type = "text/css" href = "../include/stylesheet.css" />
+    <link rel = "stylesheet" type = "text/css" href = "../include/stylesheet.css"/>
 </header>
 
 
 <body>
 
 <div id="main-container" class="container">
+<br><br><br><br>
+<!-- <div id=whole style="border:1px solid #696969; border-radius:20px; padding:20px; box-shadow: 2px 3px #989898; background:white;"> -->
 <div class="row d-flex justify-content-center">
         <form id ="loginForm" class="col-12 justify-content-center" >
         <div class="text-center">
-            <img src="../images/logo.png" height="200" width="300"> 
+            <img src="../images/logo_blue.jpg" height="180" width="400"> 
         </div>
         <div class = "whitetextbig">     
                 Register an account
@@ -23,19 +25,20 @@
         <br/>
             <div class = "row">
                 <div class = "col-2">
-                    <input type="text" class="form-control input-group-lg" id="salutation" placeholder="Salutation" required>
+                    <input type="text" class="form-control input-group-lg" id="salutation" placeholder="Salutation" required style="background-color:#f5f5f5">
                 </div>
                 <div class = "col-5">
-                    <input type="text" class="form-control input-group-lg" id="firstname" placeholder="First name" required>
+                    <input type="text" class="form-control input-group-lg" id="firstname" placeholder="First name" required style="background-color:#f5f5f5">
                 </div>
                 <div class = "col-5">
-                    <input type="text" class="form-control input-group-lg" id="surname" placeholder="Surname" required>
+                    <input type="text" class="form-control input-group-lg" id="surname" placeholder="Surname" required style="background-color:#f5f5f5">
                 </div>
             </div>
+            <br>
             <div class="whitetext">
                 Gender: 
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="gender" id="gender1" value="female" required>
+                    <input class="form-check-input" type="radio" name="gender" id="gender1" value="female" required >
                     <label class="form-check-label" for="gender1">Female</label>
                 </div>
                 <div class="form-check form-check-inline">
@@ -43,33 +46,36 @@
                     <label class="form-check-label" for="gender2">Male</label>
                 </div>         
             </div>
+            <br>
             <div class = "row">
                 <div class = "col-6">
-                    <input type="text" class="form-control input-group-lg" id="dob" placeholder="Date of birth" required>
+                    <input type="text" class="form-control input-group-lg" id="dob" placeholder="Date of birth" required style="background-color:#f5f5f5">
                 </div>
                 <div class = "col-6">
-                    <input type="text" class="form-control input-group-lg" id="phone" placeholder="Phone" required>
+                    <input type="text" class="form-control input-group-lg" id="phone" placeholder="Phone" required style="background-color:#f5f5f5">
                 </div>
             </div>
             </br>
             <div class = "row">
                 <div class = "col-6">
-                    <input type="text" class="form-control input-group-lg" id="username" placeholder="Username" required>
+                    <input type="text" class="form-control input-group-lg" id="username" placeholder="Username" required style="background-color:#f5f5f5">
                 </div>
                 <div class = "col-6">
-                    <input type="password" class="form-control input-group-lg" id="password" placeholder="Password" required>
+                    <input type="password" class="form-control input-group-lg" id="password" placeholder="Password" required style="background-color:#f5f5f5">
                 </div>
                 </div>
             </div>
-            <div class="text-right">"
-                <a class="whitetext" href="../index.php"> Already registered an account? Sign in here</a>
-                
+            <div class="text-right">
                 <!-- The button type has to be submit for the below async functions to work!-->
                 <!--<button type="button" class="btn btn-primary btn-lg" id="signup"> Sign Up </button>-->
                     &nbsp;
                     &nbsp;
-                    <button type="submit" class="btn btn-primary btn-lg" id="registerBtn"> Register </button>
+                    <button type="submit" class="btn btn-primary btn-lg" id="registerBtn" style="width:180px; height:50px;"> Register </button>
             </div>
+            <br>
+            <div class="text-right">
+                    <a class = "whitetext" href="../index.php" style="color:black; font-size:15px;">Already have an account? <br> Sign in here!</a>
+                </div>  
         </form>
         <div class ="index-errormsg"></div>
 

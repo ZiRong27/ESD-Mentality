@@ -15,7 +15,7 @@ require_once '../include/protect.php';
 </head>
 <header>
     <?php include '../include/codeLinks.php';?>
-    <link rel = "stylesheet" type = "text/css" href = "../include/stylesheet.css" />
+    <link rel = "stylesheet" type = "text/css" href = "../include/stylesheet.css"/>
 </header>
 
 
@@ -25,33 +25,34 @@ require_once '../include/protect.php';
 </br></br>
 
 <br/>
+<div class="row d-flex justify-content-center">
 <div id="main-container" class="container" style="border:1px;">
-    <div class="row d-flex justify-content-center">
-        <div id=whole style="border:1px solid #696969; border-radius:20px; padding:10px; box-shadow: 2px 3px #989898; background:white;">
-        <div class = "whitetextbig" style="color: #303030; font-weight: bold; font-size: 200%; font-family: helvetica">        
-            Book an appointment with us
-        </div> 
-        <br>
-        <p style="color: #303030; font-size: 120%; font-family: helvetica"> Select from our range of professional counsellors: </p>
-    
-        <div class ="index-errormsg"></div>
-        
-        <table class="table table-striped table-light table-hover text-center" id="doctorsTable" style=border-radius:20px;>
-        <thead>
-            <tr >
-            <th scope="col">#</th>
-            <th scope="col">Name</th>
-            <th scope="col">Gender</th>
-            <th scope="col">Age</th>
-            <th scope="col">Experience</th>
-            <th scope="col">Specialisation</th>
-            <th scope="col">View profile</th>
-            </tr>
-        </thead>
-        <tbody>
-        </tbody>
-        </table>   
-    </div>
+    <div id=whole style="border:1px solid #696969; border-radius:20px; padding:10px; box-shadow: 2px 3px #989898; background:white;">
+    <div class = "whitetextbig" style="color: #303030; font-weight: bold; font-size: 200%; font-family: helvetica">        
+        Book an appointment with us
+    </div> 
+    <br>
+    <p style="color: #303030; font-size: 120%; font-family: helvetica"> Select from our range of professional counsellors: </p>
+   
+    <div class ="index-errormsg"></div>
+
+    <table class="table table-striped table-light table-hover text-center" id="doctorsTable" style=border-radius:20px;>
+    <thead>
+        <tr >
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Gender</th>
+        <th scope="col">Age</th>
+        <th scope="col">Experience</th>
+        <th scope="col">Specialisation</th>
+        <th scope="col">View profile</th>
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+    </table>
+    </div>   
+</div>
 </div>
 <script>    
     // Helper function to display error message
@@ -64,7 +65,7 @@ require_once '../include/protect.php';
     $(async() => { 
         //This is the url found above the get_all function in doctor.py. Basically you are trying to send data(username and password) to that url using post and receive its response
         //The response you get is found is sent by the json function of the doctor class in doctor.py
-        var serviceURL = "http://" + doctorip + "/view-all-doctors";
+        var serviceURL = "http://"  + doctorip + "  /view-all-doctors";
         //var serviceURL = "http://" + doctorip + "/view-all-doctors";
         try {
                 //console.log(JSON.stringify({ username: username, password: password,}))

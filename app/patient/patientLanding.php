@@ -9,7 +9,7 @@ require_once '../include/protect.php';
 <html>
 <header>
     <?php include '../include/codeLinks.php';?>
-    <link rel = "stylesheet" type = "text/css" href = "../include/stylesheet.css" />
+    <link rel = "stylesheet" type = "text/css" href = "../include/stylesheet.css"/>
 </header>
 
 <body style="background:#f8f8f8;">
@@ -24,24 +24,24 @@ require_once '../include/protect.php';
   </ol>
   <div class="carousel-inner">
     <div class="carousel-item active">
-      <img src="../images/landing1" class="d-block w-100 h-50">
+      <img src="../images/landing1.jpg" class="d-block w-100 h-50" style="opacity:0.65;">
       <div class="carousel-caption d-none d-md-block">
-        <h5 style=color:#484848>Here For You</h5>
-        <p style=color:#484848>We are here for you and your needs.</p>
+        <h5 style="color:#484848; font-size:25px;">Here For You</h5>
+        <p style="color:#484848; font-size:20px; font-weight:480;">We are here for you and your needs.</p>
       </div>
     </div>
     <div class="carousel-item">
-      <img src="../images/landing2" class="d-block w-100 h-50">
+      <img src="../images/landing2.jpg" class="d-block w-100 h-50" style="opacity:0.65;">
       <div class="carousel-caption d-none d-md-block">
-        <h5 style=color:#484848>Providing You Guidance</h5>
-        <p style=color:#484848>We are here to help and guide you.</p>
+        <h5 style="color:#484848; font-size:25px;">Providing You Guidance</h5>
+        <p style="color:#484848; font-size:20px; font-weight:480;">We are here to help and guide you.</p>
       </div>
     </div>
     <div class="carousel-item">
-      <img src="../images/landing3" class="d-block w-100 h-50">
+      <img src="../images/landing3.jpg" class="d-block w-100 h-50" style="opacity:0.65;">
       <div class="carousel-caption d-none d-md-block">
-        <h5 style=color:#484848>Caring For You</h5>
-        <p style=color:#484848>We are here to patiently listen to whatever you have in mind.</p>
+        <h5 style="color:#484848; font-size:25px;">Caring For You</h5>
+        <p style="color:#484848; font-size:20px; font-weight:480;">We are here to patiently listen to whatever you have in mind.</p>
       </div>
     </div>
   </div>

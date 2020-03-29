@@ -6,11 +6,15 @@
         $accountType = "patient";
         require_once '../include/protect.php';
     ?>
-    <link rel = "stylesheet" type = "text/css" href = "../include/stylesheet.css" />
+    <link rel = "stylesheet" type = "text/css" href = "../include/stylesheet.css"/>
+    <script>
+        $('#displayMessage').hide();
+        $('#conTable').show();
+    </script>
 </header>
 
 
-<body>
+<body style="background:#f8f8f8;">
 <!-- Import navigation bar -->
 <?php include '../include/patientNavbar.php';?>
 
@@ -21,13 +25,13 @@
     <div class = "whitetextbig" style="color: black; font-weight: bold; font-size: 200%;">        
             My Consultation
     </div> 
-    <br> 
+
     <div class ="index-errormsg"></div>
     <br>  
-    <table class="table table-striped table-light table-hover text-center" id="conTable">
+    <table class="table table-striped table-light table-hover text-center" id="conTable" style="border: 1px solid #e0e0e0;">
     <thead>
         <tr >
-        <th scope="col"> # Consultation ID</th>
+        <th scope="col"> Consultation ID</th>
         <th scope="col"> Doctor </th>
         <th scope="col"> Date & Time </th>
         <th scope="col"> View Consultation </th>
@@ -35,13 +39,14 @@
     </thead>
     </table>  
     <!-- If not Data display -->
-    <h1 id="displayMessage"> You do not have any Consultation </h1>
+    <hr>
+    <br><br>
+    <h1 id="displayMessage" class="text-center" style="font-size:20px"> You do not have any consultations </h1>
+    <br><br><br><br><br>
 
 </div>
 
 <script>    
-$( document ).ready(function() 
-{
 // Helper function to display error message
 function showError(message) 
 {
@@ -49,7 +54,6 @@ function showError(message)
     // Display an error on top of the table
     $('.index-errormsg').html(message)
 }
-
 // Function: Get all consultation by patient_ID - Part A
   $(async (event) =>
   {
@@ -102,9 +106,8 @@ function showError(message)
     } // end of try 
     catch(error)
     {
-      console.log("Error in connecting to Consultation Mircoservice!");
+      console.log("Error in connecting to Mircoservice!");
     }
-}); // End of Function - Part A
 
 // Function: Get appointment and doctor information - Part B
     async function fetchData(doctor_id, appointment_id) 
@@ -112,10 +115,6 @@ function showError(message)
         var data = [];
         var serviceURL_appointment = "http://" + appointmentip + "/get-appointment-id-history/" + appointment_id;
         var serviceURL_doctor = "http://" + doctorip + "/view-specific-doctor-by-id/" + doctor_id;
-
-        //console.log(serviceURL_appointment)
-        console.log(serviceURL_doctor)
-
         try 
         {
             // retrieve appointment by appointment ID
@@ -139,9 +138,15 @@ function showError(message)
         {
             console.log("Error in connecting to Mircoservice!");
         }
-    } // End of function -Part B
+    }
 
-}); // End of Document ready
+/*
+    sessionStorage.setItem('patientip', "" + patientip + " ")
+    sessionStorage.setItem('doctorip', ""  + doctorip + "  ")
+    sessionStorage.setItem('appointmentip', "" + appointmentip + " ")   
+    sessionStorage.setItem('consultationip', "" + consultationip + " ")   
+*/
+  });
 </script>
 
 

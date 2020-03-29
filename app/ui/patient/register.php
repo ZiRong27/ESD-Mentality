@@ -5,79 +5,82 @@
 </head>
 <header>
     <?php include '../include/codeLinks.php';?>
-    <link rel = "stylesheet" type = "text/css" href = "../style/style-login.css" />
+    <link rel = "stylesheet" type = "text/css" href = "../include/stylesheet.css"/>
 </header>
 
 
 <body>
-<div class="container-fluid">
-  <div class="row no-gutter">
-    <div class="d-none d-md-flex col-md-4 col-lg-6 bg-image"></div>
-    <div class="col-md-8 col-lg-6">
-      <div class="login d-flex align-items-center py-5">
-        <div class="container">
-          <div class="row">
-            <div class="col-md-9 col-lg-8 mx-auto">
-              <h3 class="login-heading mb-4">Patient Portal Registration</h3>
-              <form id="loginForm">
-                <div class="form-label-group">
-                  <input id="salutation" class="form-control" placeholder="Salutation" required autofocus>
-                  <label for="salutation">Salutation</label>
+
+<div id="main-container" class="container">
+<br><br><br><br>
+<!-- <div id=whole style="border:1px solid #696969; border-radius:20px; padding:20px; box-shadow: 2px 3px #989898; background:white;"> -->
+<div class="row d-flex justify-content-center">
+        <form id ="loginForm" class="col-12 justify-content-center" >
+        <div class="text-center">
+            <img src="../images/logo_blue.jpg" height="180" width="400"> 
+        </div>
+        <div class = "whitetextbig">     
+                Register an account
+            </div>
+        <br/>
+            <div class = "row">
+                <div class = "col-2">
+                    <input type="text" class="form-control input-group-lg" id="salutation" placeholder="Salutation" required style="background-color:#f5f5f5">
                 </div>
-                <div class="form-label-group">
-                  <input id="firstname" class="form-control" placeholder="First name" required autofocus>
-                  <label for="firstname">First name</label>
+                <div class = "col-5">
+                    <input type="text" class="form-control input-group-lg" id="firstname" placeholder="First name" required style="background-color:#f5f5f5">
                 </div>
-                <div class="form-label-group">
-                  <input id="surname" class="form-control" placeholder="Surname" required autofocus>
-                  <label for="surname">Surname</label>
+                <div class = "col-5">
+                    <input type="text" class="form-control input-group-lg" id="surname" placeholder="Surname" required style="background-color:#f5f5f5">
                 </div>
-                <div class="form-label-group">
-                  <input id="dob" class="form-control" placeholder="Date of birth (yyyy-mm-dd)" required autofocus>
-                  <label for="dob">Date of birth (yyyy-mm-dd)</label>
-                </div>
-                <div class="form-label-group">
-                  <input id="phone" class="form-control" placeholder="Phone" required autofocus>
-                  <label for="phone">Phone</label>
-                </div>  
-                <div class="form-label-group">
-                  <input id="username" class="form-control" placeholder="Username" required autofocus>
-                  <label for="username">Username</label>
-                </div>
-                <div class="form-label-group">
-                  <input type="password" id="password" class="form-control" placeholder="Password" required>
-                  <label for="inputPassword">Password</label>
-                </div>
-                <div class="text-left">
-                  <br>
-                  <a class="medium .text-primary">Gender:</a>
-                  <br>
-                </div>
+            </div>
+            <br>
+            <div class="whitetext">
+                Gender: 
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="gender" id="gender1" value="female" required>
+                    <input class="form-check-input" type="radio" name="gender" id="gender1" value="female" required >
                     <label class="form-check-label" for="gender1">Female</label>
                 </div>
                 <div class="form-check form-check-inline">
                     <input class="form-check-input" type="radio" name="gender" id="gender2" value="male" required>
                     <label class="form-check-label" for="gender2">Male</label>
-                </div>   
-                <div class="text-left">
-                  <br>
-                </div>
-                <button id="registerBtn" class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" type="submit">Sign Up</button>
-                <div class="text-center">
-                  <br> 
-                  <a class="medium font-weight-bold .text-secondary" href="index.php">Back to login</a></div>
-              </form>
+                </div>         
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-</body>
+            <br>
+            <div class = "row">
+                <div class = "col-6">
+                    <input type="text" class="form-control input-group-lg" id="dob" placeholder="Date of birth" required style="background-color:#f5f5f5">
+                </div>
+                <div class = "col-6">
+                    <input type="text" class="form-control input-group-lg" id="phone" placeholder="Phone" required style="background-color:#f5f5f5">
+                </div>
+            </div>
+            </br>
+            <div class = "row">
+                <div class = "col-6">
+                    <input type="text" class="form-control input-group-lg" id="username" placeholder="Username" required style="background-color:#f5f5f5">
+                </div>
+                <div class = "col-6">
+                    <input type="password" class="form-control input-group-lg" id="password" placeholder="Password" required style="background-color:#f5f5f5">
+                </div>
+                </div>
+            </div>
+            <div class="text-right">
+                <!-- The button type has to be submit for the below async functions to work!-->
+                <!--<button type="button" class="btn btn-primary btn-lg" id="signup"> Sign Up </button>-->
+                    &nbsp;
+                    &nbsp;
+                    <button type="submit" class="btn btn-primary btn-lg" id="registerBtn" style="width:180px; height:50px;"> Register </button>
+            </div>
+            <br>
+            <div class="text-right">
+                    <a class = "whitetext" href="../index.php" style="color:black; font-size:15px;">Already have an account? <br> Sign in here!</a>
+                </div>  
+        </form>
+        <div class ="index-errormsg"></div>
 
+</div>
+</div>
 <script>    
     // Helper function to display error message
     function showError(message) {
@@ -115,7 +118,7 @@
                 } else {
                     alert("Successfully created an account. Please sign in!")
                     //Redirects the user to sign in page
-                    window.location.href = "index.php";               
+                    window.location.href = "../index.php";               
                 }
             } catch (error) {
                 // Errors when calling the service; such as network error, service offline, etc
@@ -135,6 +138,6 @@ if (params.get('signout') == "true") {
 }
 </script>
 
-
+</body>
 
 </html>

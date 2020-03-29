@@ -9,7 +9,7 @@ require_once '../include/protect.php';
 <html>
 <header>
     <?php include '../include/codeLinks.php';?>
-    <link rel = "stylesheet" type = "text/css" href = "../include/stylesheet.css" />
+    <link rel = "stylesheet" type = "text/css" href = "../include/stylesheet.css"/>
 </header>
 
 
@@ -25,24 +25,24 @@ require_once '../include/protect.php';
   </ol>
   <div class="carousel-inner">
     <div class="carousel-item active">
-      <img src="../images/landing1" class="d-block w-100 h-50">
+      <img src="../images/landing1" class="d-block w-100 h-50" style="opacity:0.65;">
       <div class="carousel-caption d-none d-md-block">
-        <h5 style=color:#484848>To Care</h5>
-        <p style=color:#484848>We are here for the needs of our patients.</p>
+        <h5 style="color:#484848; font-size:25px;">To Care</h5>
+        <p style="color:#484848; font-size:20px; font-weight:480;">We are here for the needs of our patients.</p>
       </div>
     </div>
     <div class="carousel-item">
-      <img src="../images/landing2" class="d-block w-100 h-50">
+      <img src="../images/landing2" class="d-block w-100 h-50" style="opacity:0.65;">
       <div class="carousel-caption d-none d-md-block">
-        <h5 style=color:#484848>To Provide Guidance</h5>
-        <p style=color:#484848>We are here to help and guide our patients.</p>
+        <h5 style="color:#484848; font-size:25px;">To Provide Guidance</h5>
+        <p style="color:#484848; font-size:20px; font-weight:480;">We are here to help and guide our patients.</p>
       </div>
     </div>
     <div class="carousel-item">
-      <img src="../images/landing3" class="d-block w-100 h-50">
+      <img src="../images/landing3" class="d-block w-100 h-50" style="opacity:0.65;">
       <div class="carousel-caption d-none d-md-block">
-        <h5 style=color:#484848>To Actively Listen</h5>
-        <p style=color:#484848>We are here to patiently listen to whatever our patients have in mind.</p>
+        <h5 style="color:#484848; font-size:25px;">To Actively Listen</h5>
+        <p style="color:#484848; font-size:20px; font-weight:480;">We are here to patiently listen to whatever our patients have in mind.</p>
       </div>
     </div>
   </div>
@@ -61,7 +61,7 @@ require_once '../include/protect.php';
 <br>
 
 <div class="row justify-content-center">
-  <!-- Card 1--->
+  <!--
   <div class="col-lg-3 col-md-6 mb-4">
     <div class="card h-100">
       <img class="card-img-top" src="../images/docwithpatient.jpg" height="180" width="250">
@@ -76,7 +76,7 @@ require_once '../include/protect.php';
       </div>
     </div>
   </div>
-
+  -->
 <!-- Card 2 --->
 <div class="col-lg-3 col-md-6 mb-4">
   <div class="card h-100">

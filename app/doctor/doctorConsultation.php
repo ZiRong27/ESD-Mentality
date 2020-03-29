@@ -14,7 +14,7 @@ require_once '../include/protect.php';
 </head>
 <header>
     <?php include '../include/codeLinks.php';?>
-    <link rel = "stylesheet" type = "text/css" href = "../include/stylesheet.css" />
+    <link rel = "stylesheet" type = "text/css" href = "../include/stylesheet.css"/>
 </header>
 
 
@@ -36,7 +36,7 @@ require_once '../include/protect.php';
         <th scope="col"># Consultation ID</th>
         <th scope="col"> Patient ID </th>
         <th scope="col"> Patient Name </th>
-        <th scope="col"> Appointment ID </th>
+        <th scope="col"> appointment ID </th>
         <th scope="col"> View Consultation </th>
         </tr>
     </thead>
@@ -54,7 +54,9 @@ require_once '../include/protect.php';
   $(async (event) =>
   {
     var doctor_id = sessionStorage.getItem("doctor_id");
+    //var serviceURL_consultation = "http://" + consultationip + "/consultation-by-doctor/" + doctor_id;
     var serviceURL_consultation = "http://" + consultationip + "/consultation-by-doctor/" + doctor_id;
+    //var serviceURL_patients = "http://" + patientip + "/view-all-patients";
     var serviceURL_patients = "http://" + patientip + "/view-all-patients";
     try 
     {

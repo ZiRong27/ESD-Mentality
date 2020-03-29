@@ -58,11 +58,13 @@ require_once '../include/protect.php';
       <dd id = "specialisation" class="col-sm-9"></dd>
     </dl>
     <!-- Date Form -->
+    <hr>
+    <span style="font-weight:bold;">Select Appointment Date:</span>
     <form id='dateForm' class="form-inline">
-      <div class="form-group mx-sm-3 mb-2">
-        <input type="date" class="form-control" id="booking_date">
+      <div class=text-right>
+        <input type="date" class="form-control" id="booking_date" style="height:37px">  &ensp;
       </div>
-      <button type="date_submit" class="btn btn-primary mb-2" id="date_submit">Choose Date</button>
+      <button type="date_submit" class="btn btn-primary mb-2" id="date_submit" style="width:80px; height:37px; padding:1px">Submit</button>
     </form>
   </div>
 </div>
@@ -124,7 +126,7 @@ require_once '../include/protect.php';
                     //Display the doctor name
                     $('#doctorName').html(data.name);
                     //Display the doctor picture
-                    $('#doctorPicture').attr("src", "../images/doctors/" + data["doctor_id"] + ".png");
+                    $('#doctorPicture').attr("src", "../images/doctors/" + data["doctor_id"] + ".jpg");
                     $('#doctorsTable').append("<tbody>");
                     //get current year
                     var currentyear = new Date().getFullYear();
@@ -142,7 +144,7 @@ require_once '../include/protect.php';
                     } 
 
                     // append doctor's summary
-                    $('#picture').append('<img class="img-fluid rounded mb-3 mb-md-0" src="../images/doctors/' + data.doctor_id + '.png" alt="">');
+                    $('#picture').append('<img class="img-fluid rounded mb-3 mb-md-0" src="../images/doctors/' + data.doctor_id + '.jpg" alt="">');
                     $('#name').append(data.name);
                     $('#experience').append(data.experience);
                     $('#price').append(data.price);
@@ -168,8 +170,7 @@ require_once '../include/protect.php';
 
         //This is the url found above the login function in patient.py. Basically you are trying to send data(username and password) to that url using post and receive its response
         //The response you get is found is sent by the json function of the Patient class in patient.py
-        var serviceURL = "http://" + appointmentip + "/appointment-by-date/" + date;
-    
+        var serviceURL = "http://" + appointmentip + "/appointment-by-date/" + date + "/" + doctor_id;
         try {
                 //console.log(JSON.stringify({ username: username, password: password,}))
                 const response = await fetch(
@@ -193,10 +194,13 @@ require_once '../include/protect.php';
                             '<input type="hidden" id="cost" value="' + price + '" />';
                     $('#bookForm').append(hidden_input);
 
+                    $('#timeslot-header').empty();
                     $('#timeslot-header').append("Select Your Prefered Timeslot");
 
                     timeslots_display = ['09:00 AM - 10:00 AM','10:00 AM - 11:00 AM','11:00 AM - 12:00 PM','12:00 PM - 13:00 PM','13:00 PM - 14:00 PM','14:00 PM - 15:00 PM','15:00 PM - 16:00 PM','16:00 PM - 17:00 PM','17:00 PM - 18:00 PM']
                     timeslots = ['09:00 AM','10:00 AM','11:00 AM','12:00 PM','13:00 PM','14:00 PM','15:00 PM','16:00 PM','17:00 PM']
+                    
+                    $('#timeslotTable').empty(); 
 
                     for (i = 0; i < timeslots.length; i++){
                         if (jQuery.inArray(timeslots[i], timings) == -1){ // if timing is available

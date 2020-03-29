@@ -11,7 +11,7 @@ require_once '../include/protect.php';
 </head>
 <header>
     <?php include '../include/codeLinks.php';?>
-    <link rel = "stylesheet" type = "text/css" href = "../include/stylesheet.css" />
+    <link rel = "stylesheet" type = "text/css" href = "../include/stylesheet.css"/>
 </header>
 
 
@@ -23,11 +23,10 @@ require_once '../include/protect.php';
             <img src="../images/logo.png" height="200" width="300"> 
         </div> --> 
         <br> <br> <br> <br>
-<div id=whole style="border:1px solid #696969; border-radius:20px; padding:10px; box-shadow: 2px 3px #989898; background:white;">
+<div id=whole style="border:1px solid #696969; border-radius:20px; padding:20px; box-shadow: 2px 3px #989898; background:white;">
 <div class="row d-flex justify-content-center">
         <form id ="loginForm" class="col-12 justify-content-center" >
         <div class = "whitetextbig" style="color: black; font-weight: bold; font-size: 200%;">
-        
             Update account details
         </div>
         <br/>
@@ -42,6 +41,7 @@ require_once '../include/protect.php';
                 <input type="text" class="form-control input-group-lg" id="surname" placeholder="Surname" required>
             </div>
         </div>
+        <br>
         <div class="whitetext" style="color: gray">
             Gender: 
             <div class="form-check form-check-inline">
@@ -53,6 +53,7 @@ require_once '../include/protect.php';
                 <label class="form-check-label" for="gender2">Male</label>
             </div>         
         </div>
+        <br>
         <div class = "row">
             <div class = "col-6">
                 <input type="text" class="form-control input-group-lg" id="dob" placeholder="Date of birth" required>
@@ -80,12 +81,12 @@ require_once '../include/protect.php';
             </div>
         </div>
         </br>
-        <div class="text-right">"               
+        <div class="text-right">               
             <!-- The button type has to be submit for the below async functions to work!-->
             <!--<button type="button" class="btn btn-primary btn-lg" id="signup"> Sign Up </button>-->
                 &nbsp;
                 &nbsp;
-                <button type="submit" class="btn btn-primary btn-lg" id="registerBtn"> Update details </button>
+                <button type="submit" class="btn btn-primary btn-lg" id="registerBtn" style="height:40px; width:160px; padding:1px;"> Update details </button>
         </div>
     </form>
     <div class ="index-errormsg"></div>
@@ -109,8 +110,8 @@ require_once '../include/protect.php';
         
         //This is the url found above the login function in patient.py. Basically you are trying to send data(username and password) to that url using post and receive its response
         //The response you get is found is sent by the json function of the Patient class in patient.py
-        var serviceURL = "http://" + patientip + "/update-profile-process";
-        //var serviceURL = "http://" + patientip + "/update-profile-process";
+        var serviceURL = "http://127.0.0.1:5001/update-profile-process";
+        //var serviceURL = "http://" + sessionStorage.getItem("patientip") + "/update-profile-process";
         try {
                 //console.log(JSON.stringify({ username: username, password: password,}))
                 const response = await fetch(serviceURL,{method: 'POST',
@@ -161,8 +162,8 @@ require_once '../include/protect.php';
         var newpasswordconfirm = $('#newpasswordconfirm').val();
         //This is the url found above the login function in patient.py. Basically you are trying to send data(username and password) to that url using post and receive its response
         //The response you get is found is sent by the json function of the Patient class in patient.py
-        var serviceURL = "http://" + patientip + "/update-profile-update";
-        //var serviceURL = "http://" + patientip + "/update-profile-update";
+        var serviceURL = "http://127.0.0.1:5001/update-profile-update";
+        //var serviceURL = "http://" + sessionStorage.getItem("patientip") + "/update-profile-update";
         if (newpassword != newpasswordconfirm) {
             showError("New password and confirm password do not match");
         }

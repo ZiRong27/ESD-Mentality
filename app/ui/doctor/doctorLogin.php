@@ -1,53 +1,58 @@
 <html>
 <header>
     <?php include '../include/codeLinks.php';?>
-    <link rel = "stylesheet" type = "text/css" href = "../include/stylesheet.css" />
+    <link rel = "stylesheet" type = "text/css" href = "../style/style-login.css" />
 </header>
 
+<style>
+.bg-image {
+  background-image: url('../images/doctorlogin.jpg');
+  background-size: cover;
+  background-position: center;
+}
+</style>
 
-<body style="background:#f8f8f8;">
-
-<div id="main-container" class="container">
-<div class="row d-flex justify-content-center">
-        <form id ="loginForm" class="col-12 justify-content-center" >
-        <div class="text-center">
-            <img src="../images/logo.png" height="200" width="300"> change color
+<div class="container-fluid">
+  <div class="row no-gutter">
+    <div class="d-none d-md-flex col-md-4 col-lg-6 bg-image"></div>
+    <div class="col-md-8 col-lg-6">
+      <div class="login d-flex align-items-center py-5">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-9 col-lg-8 mx-auto">
+              <img class="d-flex justify-content-center" src="../images/logo_blue.jpg" style="height:200px; width:450px;">
+              <h3 class="login-heading mb-4">Doctor Portal</h3>
+              <form id="loginForm">
+                <div class="form-label-group">
+                  <input id="username" class="form-control" placeholder="Username" required autofocus>
+                  <label for="inputEmail">Username</label>
+                </div>
+                <div class="form-label-group">
+                  <input type="password" id="password" class="form-control" placeholder="Password" required>
+                  <label for="inputPassword">Password</label>
+                </div>
+                <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" type="submit">Sign in</button>
+                <div class="text-center">
+                  <br><hr>
+                  <a class="medium font-weight-bold .text-secondary" href="../index.php">Patient Portal</a></div>
+              </form>
+              <div class='text-center'>
+                <div class ="index-errormsg" style="background-color: #f8d7da; color: #8b3f46;">
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-            <div class = "whitetextbig"  style="color:black;">     
-                Doctor Login:
-            </div>
-            <br/>
-            <div class>
-                <input type="text" class="form-control input-group-lg" id="username" placeholder="Username" required>
-            </div>
-
-            </br>
-
-            <div class>
-                <input type="password" class="form-control input-group-lg" id="password" placeholder="Password" required>
-            </div>
-
-            </br>
-            <!-- <a class = "whitetext" href="../index.php" style="color:#505050;"> Login as a user</a> -->
-            <div class="text-right">"
-                
-                
-                <!-- The button type has to be submit for the below async functions to work!-->
-                <!--<button type="button" class="btn btn-primary btn-lg" id="signup"> Sign Up </button>-->
-                    &nbsp;
-                    &nbsp;
-                    <button type="submit" class="btn btn-primary btn-lg" id="loginBtn" style="width:150px; height:45px;"> Login </button>
-            </div>
-            <br>
-            <div class="text-right">
-                    <a class = "whitetext" href="../index.php" style="color:black; font-size:15px; text-align: center;"> OR login as a patient</a>
-                </div>  
-        </form>
-        <div class ="index-errormsg"></div>
-
+      </div>
+    </div>
+  </div>
 </div>
-</div>
+
+
+
 <script>    
+    //IMPORTANT Set AWS IP address for each microservices here
+    //Retrieve with doctorip
     // Helper function to display error message
     function showError(message) {
         console.log('Error logged')
@@ -59,11 +64,21 @@
         event.preventDefault();     
         var username = $('#username').val();
         var password = $('#password').val();
+<<<<<<< HEAD
+        //This is the url found above the login function in doctor.py. Basically you are trying to send data(username and password) to that url using post and receive its response
+        //The response you get is found is sent by the json function of the doctor class in doctor.py
+        //var serviceURL = "http://" + doctorip + "/login-process";
+        //var serviceURL = "http://" + doctorip + "/login-process";
+        var serviceURL = "http://" + doctorip + "/login-process-doctor";
+
+=======
         //This is the url found above the login function in patient.py. Basically you are trying to send data(username and password) to that url using post and receive its response
         //The response you get is found is sent by the json function of the Patient class in patient.py
         var serviceURL = "http://" + doctorip + "/login-process-doctor";
         //var serviceURL = "http://54.169.208.175:5002/login-process-doctor";
+>>>>>>> 38a6fea689e71e6d616d679033951e915ff7dcfd
         try {
+                //console.log("PO")
                 //console.log(JSON.stringify({ username: username, password: password,}))
                 const response = await fetch(serviceURL,{method: 'POST',
                                             headers: { "Content-Type": "application/json" },
@@ -72,7 +87,7 @@
                                             });
                 const data = await response.json();
                 console.log(data)
-                //The error message is stored in the data array sent by patient.py! If there is a message variable, it means there is an error
+                //The error message is stored in the data array sent by doctor.py! If there is a message variable, it means there is an error
                 if (data['message']) {
                     showError(data['message'])
                 } else {
@@ -90,14 +105,14 @@
                
             } 
     });
-//Use javascript to retreive the error from the url and display it
-//An example of such error is a user tries to enter another page without logging in, causing protect.php to redirect them back to this page
-let params = new URLSearchParams(location.search);
-showError(params.get('error'))
-//There will be ?signout=true on theu rl if the user signed out on the navbar in patientLanding.php(or other pages). Destroy session username if that is the case
-if (params.get('signout') == "true") {
-    sessionStorage.removeItem('username')
-}
+    //Use javascript to retreive the error from the url and display it
+    //An example of such error is a user tries to enter another page without logging in, causing protect.php to redirect them back to this page
+    let params = new URLSearchParams(location.search);
+    showError(params.get('error'))
+    //There will be ?signout=true on theu rl if the user signed out on the navbar in doctorLanding.php(or other pages). Destroy session username if that is the case
+    if (params.get('signout') == "true") {
+        sessionStorage.removeItem('username')
+    }
 </script>
 
 </body>
