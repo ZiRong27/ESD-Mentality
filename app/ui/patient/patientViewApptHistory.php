@@ -65,9 +65,8 @@ function showError(message)
     // If retrieve data failed, result to no data
     if (!data_appointment || data_appointment["message"] == "history appointment by patient id not found.") 
     {
-        console.log("error retriving");
-        $('#displayMessage').hide();
-        $('#apptHisTable').show();
+        $('#displayMessage').show();
+        $('#apptHisTable').hide();
     }
     else
     {
