@@ -56,8 +56,8 @@ require_once '../include/protect.php';
       var data = await Promise.all([
         //fetch("http://"  + doctorip + "  /view-all-doctors").then((response) => response.json()),
         //fetch("http://" + patientip + "/view-all-patients").then((response) => response.json())
-        fetch("http://" + sessionStorage.getItem("doctorip") + "/view-all-doctors").then((response) => response.json()),
-        fetch("http://" + sessionStorage.getItem("patientip") + "/view-all-patients").then((response) => response.json())
+        fetch("http://" + doctorip + "/view-all-doctors").then((response) => response.json()),
+        fetch("http://" + patientip + "/view-all-patients").then((response) => response.json())
       ]);
       doctor = {}
       
@@ -87,7 +87,7 @@ require_once '../include/protect.php';
   {
     var doctor_id = sessionStorage.getItem("doctor_id");
     //var serviceURL = "http://" + appointmentip + "/view-all-appointments";
-    var serviceURL = "http://" + sessionStorage.getItem("appointmentip") + "/view-all-appointments";
+    var serviceURL = "http://" + appointmentip + "/view-all-appointments";
 
     try 
     {

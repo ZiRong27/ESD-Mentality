@@ -87,7 +87,7 @@ require_once '../include/protect.php';
         let params = new URLSearchParams(location.search);
         username = params.get('username')
         var serviceURL = "http://"  + doctorip + "  /view-specific-doctor/" + username;
-        //var serviceURL = "http://" + sessionStorage.getItem("doctorip") + "/view-specific-doctor/" + username ;
+        //var serviceURL = "http://" + doctorip + "/view-specific-doctor/" + username ;
         try {
                 //console.log(JSON.stringify({ username: username, password: password,}))
                 const response =
@@ -207,7 +207,7 @@ require_once '../include/protect.php';
             $('#patient_id').val(patient_id); 
             
             var serviceURL = "http://" + appointmentip + "/create-appointment";
-            //var serviceURL = "http://" + sessionStorage.getItem("appointmentip") + "/create-appointment";
+            //var serviceURL = "http://" + appointmentip + "/create-appointment";
             try {
                 console.log(JSON.stringify({ doctor_id: doctor_id,
                                             patient_id: patient_id,

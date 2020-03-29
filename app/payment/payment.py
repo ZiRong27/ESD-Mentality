@@ -119,10 +119,12 @@ def success(session_id):
     
     try:
         response = add_appointment(appointment_info)
+        
         #Upon successful payment and appointment creation, notify the payment!
         for_patient_message = "An amount of $" + str(amount) + " has been successfully charged to your bank account for your appointment on " + str(appointment_info["date"]) + " at " + str(appointment_info["time"])
         phone = "+6597632174"
         result = {"phone": phone, "message": for_patient_message}
+        print("Added appt successfully")
         message = json.dumps(result, default=str)
         channel.basic_publish(exchange=exchangename, routing_key="paymentSuccess.message", body=message,
             properties=pika.BasicProperties(delivery_mode = 2))# make message persistent within the matching queues until it is received by some receiver (the matching queues have to exist and be durable and bound to the exchange, which are ensured by the previous two api calls)
