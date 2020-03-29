@@ -46,6 +46,13 @@ CREATE TABLE IF NOT EXISTS `consultation` (
 --
 
 INSERT INTO `consultation` (`consultation_id`, `appointment_id`, `doctor_id`, `patient_id`, `diagnosis`, `prescription`, `notes`) VALUES
+(119, '119', '2', '1','Bipolar Disorder, Anxiety', 'Zoloft: 35mg', 'Patient is starting to display worsening symptoms of anxiety'),
+(210, '210', '3', '2','Obsessive-Compulsive Disorder', 'Prozac: 60mg', 'Patient is responding well to the new round of medication'),
+(211, '211', '2', '3','Anxiety Disorder', 'Xanax: 7mg', 'Patient\s insomnia is getting worse, started to experience an increase in sleepless nights'),
+(212, '212', '1', '1', 'Anxiety Disorder', 'Xanax: 5mg', 'NA'),
+(213, '213', '2', '2', 'Bipolar Disorder', 'Zoloft: 30mg', 'NA'),
+(214, '214', '2', '1', 'Depression, Panic Disorder', 'Xanax: 7mg', 'Patient reacting well to the change in antidepressant from Prozac to Xanax');
+/*
 (1, '1', '2', '1', 'Bipolar Disorder, Anxiety', 'Zoloft: 35mg', 'Patient is starting to display worsening symptoms of anxiety'),
 (10, '10', '1', '5', 'Obsessive-Compulsive Disorder', 'Prozac: 60mg', 'Patient is responding well to the new round of medication'),
 (11, '11', '5', '10', 'Depression', 'Prozac: 70mg', '*Self harm risk'),
@@ -60,6 +67,7 @@ INSERT INTO `consultation` (`consultation_id`, `appointment_id`, `doctor_id`, `p
 (7, '7', '3', '8', 'Anxiety Disorder', 'Xanax: 5mg', 'NA'),
 (8, '8', '3', '7', 'Bipolar Disorder', 'Zoloft: 30mg', 'NA'),
 (9, '9', '1', '6', 'Anxiety Disorder, Insomnia', 'Xanax: 10mg', 'Patient experienced more anxiety attacks this past week, which was caused by overthinking - will increase medication dosage');
+*/
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

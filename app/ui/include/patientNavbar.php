@@ -32,6 +32,9 @@
                 <a class="nav-link" href="../patient/patientUpdateAppts.php"> Appointments </a>
             </li>
             <li class="nav-item">
+                <a class="nav-link" href="../patient/patientViewApptHistory.php"> History </a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="../patient/patientPayment.php"> Payments </a>
             </li>
         </ul>

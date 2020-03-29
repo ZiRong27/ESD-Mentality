@@ -78,7 +78,7 @@ require_once '../include/protect.php';
                     for (i = 0; i < history.length; i++) { 
                         Row =
                         "<tr><th scope='row'>" + history[i].payment_id + "</th>" +
-                        "<td>" + history[i].date+ "</td>" +
+                        "<td>" + history[i].date.replace(' GMT','')+ "</td>" +
                         "<td>" + history[i].amount / 100 + "</td>" +
                         "<td></td></tr>";
 

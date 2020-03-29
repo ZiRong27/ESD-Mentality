@@ -96,11 +96,23 @@ def find_by_appointment_id(consultation_id):
 @app.route("/consultation-by-doctor/<string:doctor_id>")
 def get_all_consultation_by_doctor(doctor_id):
     return jsonify([consultation.json() for consultation in Consultation.query.filter(Consultation.doctor_id.endswith(doctor_id)).all()])
+    data = []
+    for consultation in Consultation.query.filter(Consultation.patient_id.endswith(patient_id)).all():
+        data.append(consultation.json())
+    if data:
+        return jsonify(data)
+    return jsonify({"message": "consultation by doctor id not found."}), 404
 
 #Function: Get all consultation by Patient_id -> For Patient to view
 @app.route("/consultation-by-patient/<string:patient_id>")
 def get_all_consultation_by_patient(patient_id):
-    return jsonify([consultation.json() for consultation in Consultation.query.filter(Consultation.patient_id.endswith(patient_id)).all()])
+    #return jsonify([consultation.json() for consultation in Consultation.query.filter(Consultation.patient_id.endswith(patient_id)).all()])
+    data = []
+    for consultation in Consultation.query.filter(Consultation.patient_id.endswith(patient_id)).all():
+        data.append(consultation.json())
+    if data:
+        return jsonify(data)
+    return jsonify({"message": "consultation by patient id not found."}), 404
 
 #Function: Create consultation
 @app.route("/convert-to-consultation", methods=['POST'])

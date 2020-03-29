@@ -21,10 +21,9 @@
 </br>
 <br/>
 
-<div id="" class="container">
-    <div class="my-2">        
-        <h1> My Consultation(s) </h1>
-        <hr>
+<div id="main-container" class="container" style="border:1px solid #696969; border-radius:20px; padding:10px; box-shadow: 2px 3px #989898; background:white;">
+    <div class = "whitetextbig" style="color: black; font-weight: bold; font-size: 200%;">        
+            My Consultation
     </div> 
 
     <div class ="index-errormsg"></div>
@@ -68,41 +67,72 @@ function showError(message)
       console.log(data_consultation)
 
     // If retrieve data failed, result to no data
-      if (!data_consultation) 
-      {
-        $('#displayMessage').show();
-        $('#conTable').hide();
-      } 
-      // else display
-      else
-      {
-          var appointment_id = data_consultation["appointment_id"];
-          var doctor_id = data_consultation["doctor_id"];
-          var data = fetchData(appointment_id, doctor_id);
-      } 
+    if (!data_consultation || data_consultation["message"] == "consultation by patient id not found.") 
+    {
+        console.log("error retriving");
     }
+    else
+    {
+            if (!data_consultation) 
+            {
+                $('#displayMessage').show();
+                $('#conTable').hide();
+            } 
+            else
+            {
+                $('#displayMessage').hide();
+                $('#conTable').show();
+                var keys = Object.entries(data_consultation)
+                for (var ele in keys)
+                {
+                    var obj = data_consultation[ele];
+                    console.log(obj);
+                    //var doctorName = await fetchData(obj["doctor_id"]);
+                    var data = await fetchData(obj["doctor_id"],obj["appointment_id"]);
+                    var doctorName = data[0];
+                    var dateTime = data[1];
+                    console.log(doctorName);
+                    var row =
+                    "<tbody><tr>" + 
+                        "<td>" + obj["consultation_id"] + "</td>" + 
+                        "<td>" + doctorName + "</td>" + 
+                        "<td>" + dateTime + "</td>" + 
+                        "<td> <a href='viewConsultation.php?consultationid=" + obj["consultation_id"] + "&doctorname="+ doctorName +"'> View Consultation </a> </td>" +
+                    "</tr></tbody>";
+                    $('#conTable').append(row);
+                } // End of for loop
+            } // End of else
+        }// End of esle
+    } // end of try 
     catch(error)
     {
       console.log("Error in connecting to Mircoservice!");
     }
 
 // Function: Get appointment and doctor information - Part B
-    async function fetchData(appointment_id, doctor_id) 
+    async function fetchData(doctor_id, appointment_id) 
     {
         var data = [];
-        var serviceURL_appointment = "http://" + appointmentip + "/appointment-by-id/" + appointment_id;
+        var serviceURL_appointment = "http://" + appointmentip + "/get-appointment-id-history/" + appointment_id;
         var serviceURL_doctor = "http://" + doctorip + "/view-specific-doctor-by-id/" + doctor_id;
         try 
         {
             // retrieve appointment by appointment ID
+            const response_doctor = await fetch(serviceURL_doctor, { method: 'GET' });
+            const data_doctor = await response_doctor.json(); 
+            const doctorName = data_doctor["name"];
+            console.log(doctorName);
+
             const response_appointment = await fetch(serviceURL_appointment, { method: 'GET' });
             const data_appointment = await response_appointment.json(); 
-            console.log(data_appointment)
+            console.log(data_appointment);
+            console.log(data_appointment["date"]);
+            console.log(data_appointment["time"]);
+            var datetime = "Date: " + data_appointment["date"] + " - " + "Time: " + data_appointment["time"];
+            console.log(datetime);
 
-            // retrieve appointment by appointment ID
-            const response_doctor = await fetch(serviceURL_doctorip, { method: 'GET' });
-            const data_doctor = await response_doctor.json(); 
-            console.log(data_doctor)
+            data = [doctorName, datetime];
+            return data;
         }
         catch(error)
         {
