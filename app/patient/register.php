@@ -49,7 +49,7 @@
             <br>
             <div class = "row">
                 <div class = "col-6">
-                    <input type="text" class="form-control input-group-lg" id="dob" placeholder="Date of birth" required style="background-color:#f5f5f5">
+                    <input type="text" class="form-control input-group-lg" id="dob" placeholder="Date of birth (yyyy-mm-dd)" required style="background-color:#f5f5f5">
                 </div>
                 <div class = "col-6">
                     <input type="text" class="form-control input-group-lg" id="phone" placeholder="Phone" required style="background-color:#f5f5f5">
