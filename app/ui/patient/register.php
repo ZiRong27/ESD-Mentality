@@ -29,6 +29,10 @@
                   <label for="firstname">First name</label>
                 </div>
                 <div class="form-label-group">
+                  <input id="surname" class="form-control" placeholder="Surname" required autofocus>
+                  <label for="surname">Surname</label>
+                </div>
+                <div class="form-label-group">
                   <input id="dob" class="form-control" placeholder="Date of birth (yyyy-mm-dd)" required autofocus>
                   <label for="dob">Date of birth (yyyy-mm-dd)</label>
                 </div>
@@ -85,7 +89,7 @@
     $("#loginForm").submit(async (event) => {
         event.preventDefault();     
         //Use comma to seperate the name for easy splitting in patientUpdateProfile.php
-        var name = $('#firstname').val();
+        var name = $('#surname').val() + "," + $('#firstname').val();
         //Need to use checked to select radio buttons in jquery
         var gender = $("input[name='gender']:checked").val();
         var dob = $('#dob').val();
