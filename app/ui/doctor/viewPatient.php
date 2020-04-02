@@ -138,7 +138,7 @@ $(document).ready(function()
     row = 
         "<tbody>" + 
             "<tr> <th> Name </th> <td>" + patient_information["salutation"] + ". "+ patient_information["name"] +"</td> </tr>" + 
-            "<tr> <th> Username </th> <td>" + patient_information["username"] + "</td> </tr>" + 
+            //"<tr> <th> Username </th> <td>" + patient_information["username"] + "</td> </tr>" + 
             "<tr> <th> Date & Time </th> <td>" + appointment_information["date"] + "," + appointment_information["time"] + "</td> </tr>" + 
         "</tbody>";
         $('#appointmentTable').append(row);
