@@ -67,7 +67,7 @@
                 <button id="registerBtn" class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" type="submit">Sign Up</button>
                 <div class="text-center">
                   <br> 
-                  <a class="medium font-weight-bold .text-secondary" href="index.php">Back to login</a></div>
+                  <a class="medium font-weight-bold .text-secondary" href="../index.php">Back to login</a></div>
               </form>
             </div>
           </div>
