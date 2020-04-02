@@ -117,6 +117,12 @@ require_once '../include/protect.php';
 
 <!-- Import footer -->
 
+<script>
+  $(() => {
+    $("#home").addClass("active");
+  });
+</script>
 </body>
 
 </html>
+

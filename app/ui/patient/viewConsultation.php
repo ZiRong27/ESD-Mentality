@@ -30,7 +30,11 @@
     </div> 
 </div>
 
-<script>    
+<script>   
+$(() => {
+  $("#consultation").addClass("active");
+}); 
+
 $( document ).ready(function() 
 {
     // Helper function to display error message
