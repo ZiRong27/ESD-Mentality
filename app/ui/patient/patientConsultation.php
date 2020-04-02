@@ -17,15 +17,16 @@
 <body style="background:#f8f8f8;">
 <!-- Import navigation bar -->
 <?php include '../include/patientNavbar.php';?>
-
 </br>
-<br/>
 
-<div id="main-container" class="container">
-    <div class = "my-2">        
-        <h1>My Consultation(s)</h1>
-        <hr>
-    </div> 
+<!-- Page Content -->
+<div class="container">
+
+    <!-- Page Heading -->
+    <h1 class="my-4">My Consultation(s)</h1>
+    <h5 class="my-4">Our therapists will have access to your consultation history during future appointments</h5>
+    <hr>
+    <br>
 
     <div class ="index-errormsg"></div> 
     <table class="table table-striped table-light table-hover text-center" id="conTable" style="border: 1px solid #e0e0e0;">
@@ -48,6 +49,9 @@
 
 <script>    
 // Helper function to display error message
+$(() => {
+    $("#consultation").addClass("active");
+});
 function showError(message) 
 {
     console.log('Error logged')
@@ -122,7 +126,6 @@ function showError(message)
             const response_doctor = await fetch(serviceURL_doctor, { method: 'GET' });
             const data_doctor = await response_doctor.json(); 
             const doctorName = data_doctor["name"];
-            console.log(doctorName);
 
             const response_appointment = await fetch(serviceURL_appointment, { method: 'GET' });
             const data_appointment = await response_appointment.json(); 

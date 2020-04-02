@@ -46,7 +46,12 @@ require_once '../include/protect.php';
     </div>
 </div>
 
-<script>    
+<script> 
+
+    $(() => {
+      $("#consultation").addClass("active");
+    });
+
     // Helper function to display error message
     function showError(message) 
     {

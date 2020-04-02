@@ -41,9 +41,9 @@
       //consultationip = "" + consultationip + " ";
       //patientip = "localhost:5001";
       //doctorip = "localhost:5002";
-      //appointmentip = "localhost:5003";
-      //consultationip = "localhost:5004";
-      //paymentip = "localhost:5005";
+      // appointmentip = "localhost:5003";
+      // //consultationip = "localhost:5004";
+      // paymentip = "localhost:5005";
     </script>
 
     <!-- tempus dominus bootstrap 4 https://tempusdominus.github.io/bootstrap-4/ -->

@@ -16,25 +16,25 @@
    
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
-            <li class="nav-item active">
+            <li class="nav-item" id="home">
                 <a class="nav-link" href="../patient/patientLanding.php">Home <span class="sr-only">(current)</span> </a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" id="profile">
                 <a class="nav-link" href="../patient/patientUpdateProfile.php"> Profile </a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" id="book">
                 <a class="nav-link" href="../patient/patientViewAllDoctors.php"> Book </a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" id="consultation">
                 <a class="nav-link" href="../patient/patientConsultation.php"> Consultation </a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" id="appointments">
                 <a class="nav-link" href="../patient/patientUpdateAppts.php"> Appointments </a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" id="history">
                 <a class="nav-link" href="../patient/patientViewApptHistory.php"> History </a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" id="payment">
                 <a class="nav-link" href="../patient/patientPayment.php"> Payments </a>
             </li>
         </ul>

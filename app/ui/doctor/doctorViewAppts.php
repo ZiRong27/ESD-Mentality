@@ -46,6 +46,10 @@ require_once '../include/protect.php';
 </div>
 </div>
 <script>    
+
+    $(() => {
+      $("#appointment").addClass("active");
+    });
     // Helper function to display error message
     function showError(message) {
         console.log('Error logged')

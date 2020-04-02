@@ -58,6 +58,11 @@ if (isset($_GET['session_id'])){
     <br> 
 </div>
 <script>    
+
+    $(() => {
+        $("#appointments").addClass("active");
+    });
+
     // Helper function to display error message
     function showError(message) {
         console.log('Error logged');
