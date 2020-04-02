@@ -25,21 +25,21 @@ require_once '../include/protect.php';
   </ol>
   <div class="carousel-inner">
     <div class="carousel-item active">
-      <img src="../images/landing1" class="d-block w-100 h-50" style="opacity:0.65;">
+      <img src="../images/landing1.jpg" class="d-block w-100 h-50" style="opacity:0.65;">
       <div class="carousel-caption d-none d-md-block">
         <h5 style="color:#484848; font-size:25px;">To Care</h5>
         <p style="color:#484848; font-size:20px; font-weight:480;">We are here for the needs of our patients.</p>
       </div>
     </div>
     <div class="carousel-item">
-      <img src="../images/landing2" class="d-block w-100 h-50" style="opacity:0.65;">
+      <img src="../images/landing2.jpg" class="d-block w-100 h-50" style="opacity:0.65;">
       <div class="carousel-caption d-none d-md-block">
         <h5 style="color:#484848; font-size:25px;">To Provide Guidance</h5>
         <p style="color:#484848; font-size:20px; font-weight:480;">We are here to help and guide our patients.</p>
       </div>
     </div>
     <div class="carousel-item">
-      <img src="../images/landing3" class="d-block w-100 h-50" style="opacity:0.65;">
+      <img src="../images/landing3.jpg" class="d-block w-100 h-50" style="opacity:0.65;">
       <div class="carousel-caption d-none d-md-block">
         <h5 style="color:#484848; font-size:25px;">To Actively Listen</h5>
         <p style="color:#484848; font-size:20px; font-weight:480;">We are here to patiently listen to whatever our patients have in mind.</p>
@@ -112,7 +112,9 @@ require_once '../include/protect.php';
 </div>
 
 <script>    
-
+  $(() => {
+    $("#home").addClass("active");
+  });
 </script>
 
 </body>

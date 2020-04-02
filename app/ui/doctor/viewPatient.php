@@ -114,6 +114,10 @@ $accountType = "doctor";
 </div>
 
 <script>
+$(() => {
+  $("#appointment").addClass("active");
+});
+
 $(document).ready(function() 
 {
   // FUNCTION: Retrieve patient and appointment details and display.

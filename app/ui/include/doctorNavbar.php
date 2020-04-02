@@ -16,13 +16,13 @@
    
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
-            <li class="nav-item active">
+            <li class="nav-item" id="home">
                 <a class="nav-link" href="../doctor/doctorLanding.php">Home <span class="sr-only">(current)</span> </a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" id="consultation">
                 <a class="nav-link" href="../doctor/doctorConsultation.php"> Consultation </a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" id="appointment">
                 <a class="nav-link" href="../doctor/doctorViewAppts.php"> Appointments </a>
             </li>
         </ul>

@@ -29,6 +29,10 @@ $accountType = "doctor";
 </div>
 
 <script>
+$(() => {
+    $("#consultation").addClass("active");
+});
+
 $(document).ready(function() 
 {
   // FUNCTION: Retrieve patient name, consultationt id and doctor id and display.
