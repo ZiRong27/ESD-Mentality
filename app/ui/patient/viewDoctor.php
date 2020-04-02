@@ -93,7 +93,11 @@ require_once '../include/protect.php';
 </div>
 <!-- /.container -->
 
-<script>    
+<script>  
+
+    $(() => {
+        $("#book").addClass("active");
+    });
 
     // Helper function to display error message
     function showError(message) {

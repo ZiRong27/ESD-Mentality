@@ -114,6 +114,10 @@ $accountType = "doctor";
 </div>
 
 <script>
+$(() => {
+  $("#appointment").addClass("active");
+});
+
 $(document).ready(function() 
 {
   // FUNCTION: Retrieve patient and appointment details and display.
@@ -134,7 +138,7 @@ $(document).ready(function()
     row = 
         "<tbody>" + 
             "<tr> <th> Name </th> <td>" + patient_information["salutation"] + ". "+ patient_information["name"] +"</td> </tr>" + 
-            "<tr> <th> Username </th> <td>" + patient_information["username"] + "</td> </tr>" + 
+            //"<tr> <th> Username </th> <td>" + patient_information["username"] + "</td> </tr>" + 
             "<tr> <th> Date & Time </th> <td>" + appointment_information["date"] + "," + appointment_information["time"] + "</td> </tr>" + 
         "</tbody>";
         $('#appointmentTable').append(row);
@@ -245,6 +249,7 @@ async function fetchpatientmedicalhistoryURLs(patient_id)
         event.preventDefault(); 
         let params = new URLSearchParams(location.search);
         var appointment_id = params.get("appointmentid");
+        console.log(appointment_id);
         var patient_id = params.get("patientid");
         var doctor_id = sessionStorage.getItem("doctor_id");
         var data = await fetchURLs(appointment_id, patient_id); 
@@ -254,20 +259,26 @@ async function fetchpatientmedicalhistoryURLs(patient_id)
         var appointment_information = data[1];
         
         // Create consultation ID 
-        var consultation_length = data[2].length;
-        consultation_length += 1;
+        //var consultation_length = data[2].length;
+        //consultation_length += 1;
 
         var appointment_id = appointment_information["appointment_id"];
+        var date = appointment_information["date"];
+        console.log("Test" + date);
+        var time = appointment_information["time"];
+        console.log("Test" + time);
+        var payment_id = appointment_information["payment_id"];
         var doctor_id = doctor_id;
         var patient_id = patient_information["patient_id"];
         var diagnosis_information = $("#diagnosisInformation").val(); 
         var prescription_information = $("#prescriptionInformation").val();
         var notes_information = $("#notesInformation").val();
-                
-        var serviceURL  = "http://" + consultationip + "/convert-to-consultation";
-        var requestBody = 
+
+        // Consultation -> create consultation       
+        var serviceURL_consultation  = "http://" + consultationip + "/convert-to-consultation";
+        var requestBody_consultation = 
         {
-            consultation_id: consultation_length,
+            consultation_id: appointment_id,
             appointment_id: appointment_id,
             doctor_id: doctor_id,
             patient_id: patient_id,
@@ -275,61 +286,113 @@ async function fetchpatientmedicalhistoryURLs(patient_id)
             prescription: prescription_information,
             notes: notes_information
         }   
-        postData(serviceURL, requestBody, appointment_id) 
-        });
-    // FUNCTION: create consultation - Part B
-    async function postData(serviceURL, requestBody, appointment_id) 
-    {
-        var requestParam = 
+        console.log(requestBody_consultation);
+        // Appointment History -> create appointment history 
+        var serviceURL_appointment  = "http://" + appointmentip + "/appointment-history";
+        var requestBody_appointment = 
         {
-            method: 'POST',                
-            headers: { "content-type": "application/json;" },
-            body: JSON.stringify(requestBody)
-        }
-        var appointment_serviceURL = "http://" + appointmentip + "/delete-appointment/" + appointment_id;
-        try 
+            appointment_id: appointment_id,
+            doctor_id: doctor_id,
+            patient_id: patient_id,
+            date: date,
+            time: time,
+            payment_id: payment_id
+        }  
+        console.log(requestBody_appointment);
+        var r1 = postDataConsultation(serviceURL_consultation, requestBody_consultation) 
+        var r2 = postDataAppointmentHistory(serviceURL_appointment, requestBody_appointment, appointment_id)
+        //var r3 = postDataDeleteHistory(appointment_id)
+        if (r1 == true && r2 ==true)
         {
-            const response = await fetch(serviceURL, requestParam);
-            data = await response.json();               
-            console.log("consultation created!:" + data);
-
-            const appointment_response = await fetch(appointment_serviceURL, { method: 'POST' });
-            const appointment_data = await appointment_response.json(); 
-            
             window.location.replace("doctorConsultation.php");
-        }       
-        catch (error) 
-        {
-            console.error(error);
-        }
-    }
-    // End of Function 
-
-    /*
-    $(async(event) =>
-    {
-      var doctor_id = sessionStorage.getItem("doctor_id");
-      var serviceURL  = "http://" + consultationip + "/consultation-by-doctor/"  + doctor_id;
-      try 
-      {
-        console.log(serviceURL)
-        const response = await fetch(serviceURL, { method: 'GET' });
-        const doctorConsultation = await response.json();
-        if (!doctorConsultation || doctorConsultation.message == "Error retriving consultation.") 
-        {
-          console.log("error retrieving ids");
         }
         else
         {
-          console.log(doctorConsultation);
+            console.log("cannot go next page!")
         }
+    });
+    // FUNCTION: create consultation - Part B
+    async function postDataConsultation(serviceURL_consultation, requestBody_consultation) 
+    {
+        var requestParam_consultation = 
+        {
+            method: 'POST',                
+            headers: { "content-type": "application/json;" },
+            body: JSON.stringify(requestBody_consultation)
+        }
+        try 
+        {
+            const response_consultation = await fetch(serviceURL_consultation, requestParam_consultation);
+            data_consultation = await response_consultation.json();               
+            console.log("consultation created!:" + data_consultation);
+            return true;
+        }       
+        catch (error) 
+        {
+            console.log("Unable to connect to consultation");
+            return false;
+        }
+    }
+    // End of Function 
+    // FUNCTION: create appointment History - Part B
+    async function postDataAppointmentHistory(serviceURL_appointment, requestBody_appointment, appointment_id) 
+    {
+      console.log("this is the object " + requestBody_appointment);
+      console.log(serviceURL_appointment);
+      var requestParam_appointment = 
+        {
+            method: 'POST',                
+            headers: { "content-type": "application/json;" },
+            body: JSON.stringify(requestBody_appointment)
+        }
+        try
+        {
+            console.log("requestParam_appointment");
+            console.log(requestParam_appointment);
+            const response_appointment = await fetch(serviceURL_appointment, requestParam_appointment);
+            console.log("response_appointment");
+            console.log(response_appointment);
+            data_appointment = await response_appointment.json();               
+            console.log("history created!:" + data_appointment);
+            postDataDeleteHistory(appointment_id);
+            /*
+            if(data_appointment)
+            {
+              var r3 = postDataDeleteHistory(appointment_id);
+              if(re == true)
+              {
+                return true;
+              }
+            }
+            */
+        }
+        catch(error)
+        {
+             console.log("Unable to connect to appointment history");
+            return false;
+        }
+    }
+    // End of Function 
+    // FUNCTION: delete from appointment - Part B
+    async function postDataDeleteHistory(appointment_id) 
+    {
+      var appointment_serviceURL = "http://" + appointmentip + "/delete-appointment/" + appointment_id;
+      console.log(appointment_serviceURL);
+      try
+      {
+          const appointment_response = await fetch(appointment_serviceURL, { method: 'POST' });
+          const appointment_data = await appointment_response.json(); 
+          window.location.replace("doctorConsultation.php");
+          //return true;
       }
       catch(error)
       {
-        console.log("Error in connecting to Mircoservice!");
+            console.log("Unable to connect to appointment");
+            window.location.replace("doctorConsultation.php"); // This is a temporary solution
+            return false;
       }
-    });
-    */
+    }
+    // End of Function 
 });
 </script>
 

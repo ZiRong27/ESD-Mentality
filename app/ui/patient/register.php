@@ -1,5 +1,6 @@
 <html>
 <head>
+  <title>Registration</title>
     <!--Install jquery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
@@ -67,8 +68,11 @@
                 <button id="registerBtn" class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" type="submit">Sign Up</button>
                 <div class="text-center">
                   <br> 
-                  <a class="medium font-weight-bold .text-secondary" href="index.php">Back to login</a></div>
+                  <a class="medium font-weight-bold .text-secondary" href="../index.php">Back to login</a></div>
               </form>
+              <div class='text-center'>
+                <div class ="index-errormsg" style="background-color: #f8d7da; color: #8b3f46;">
+              </div>
             </div>
           </div>
         </div>
@@ -83,7 +87,7 @@
     function showError(message) {
         console.log('Error logged')
         // Display an error under the signup/login form
-        $('.index-errormsg').html(message)
+        $('.index-errormsg').html(message);
     }
     //This is the form id, not the submit button id!
     $("#loginForm").submit(async (event) => {
@@ -115,7 +119,7 @@
                 } else {
                     alert("Successfully created an account. Please sign in!")
                     //Redirects the user to sign in page
-                    window.location.href = "index.php";               
+                    window.location.href = "../index.php";               
                 }
             } catch (error) {
                 // Errors when calling the service; such as network error, service offline, etc

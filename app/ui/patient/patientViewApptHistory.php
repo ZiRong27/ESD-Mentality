@@ -43,7 +43,12 @@
 
 </div>
 
-<script>    
+<script>   
+
+$(() => {
+    $("#history").addClass("active");
+});
+
 $( document ).ready(function() 
 {
 // Helper function to display error message

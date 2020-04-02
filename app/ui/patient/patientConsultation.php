@@ -17,15 +17,16 @@
 <body style="background:#f8f8f8;">
 <!-- Import navigation bar -->
 <?php include '../include/patientNavbar.php';?>
-
 </br>
-<br/>
 
-<div id="main-container" class="container">
-    <div class = "my-2">        
-        <h1>My Consultation(s)</h1>
-        <hr>
-    </div> 
+<!-- Page Content -->
+<div class="container">
+
+    <!-- Page Heading -->
+    <h1 class="my-4">My Consultation(s)</h1>
+    <h5 class="my-4">Our therapists will have access to your consultation history during future appointments</h5>
+    <hr>
+    <br>
 
     <div class ="index-errormsg"></div> 
     <table class="table table-striped table-light table-hover text-center" id="conTable" style="border: 1px solid #e0e0e0;">
@@ -48,6 +49,9 @@
 
 <script>    
 // Helper function to display error message
+$(() => {
+    $("#consultation").addClass("active");
+});
 function showError(message) 
 {
     console.log('Error logged')
@@ -64,7 +68,8 @@ function showError(message)
     // retrieve consultation data by patient
       const response_consultation = await fetch(serviceURL_consultation, { method: 'GET' });
       const data_consultation = await response_consultation.json(); 
-      console.log(data_consultation)
+      console.log("retrive Data");
+      console.log(data_consultation);
 
     // If retrieve data failed, result to no data
     if (!data_consultation || data_consultation["message"] == "consultation by patient id not found.") 
@@ -86,6 +91,7 @@ function showError(message)
                     var obj = data_consultation[ele];
                     console.log(obj);
                     //var doctorName = await fetchData(obj["doctor_id"]);
+                    console.log(obj["appointment_id"]);
                     var data = await fetchData(obj["doctor_id"],obj["appointment_id"]);
                     var doctorName = data[0];
                     var dateTime = data[1];
@@ -112,6 +118,7 @@ function showError(message)
     {
         var data = [];
         var serviceURL_appointment = "http://" + appointmentip + "/get-appointment-id-history/" + appointment_id;
+        console.log(serviceURL_appointment);
         var serviceURL_doctor = "http://" + doctorip + "/view-specific-doctor-by-id/" + doctor_id;
         try 
         {
@@ -119,7 +126,6 @@ function showError(message)
             const response_doctor = await fetch(serviceURL_doctor, { method: 'GET' });
             const data_doctor = await response_doctor.json(); 
             const doctorName = data_doctor["name"];
-            console.log(doctorName);
 
             const response_appointment = await fetch(serviceURL_appointment, { method: 'GET' });
             const data_appointment = await response_appointment.json(); 
