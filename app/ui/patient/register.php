@@ -70,6 +70,9 @@
                   <br> 
                   <a class="medium font-weight-bold .text-secondary" href="../index.php">Back to login</a></div>
               </form>
+              <div class='text-center'>
+                <div class ="index-errormsg" style="background-color: #f8d7da; color: #8b3f46;">
+              </div>
             </div>
           </div>
         </div>
@@ -84,7 +87,7 @@
     function showError(message) {
         console.log('Error logged')
         // Display an error under the signup/login form
-        $('.index-errormsg').html(message)
+        $('.index-errormsg').html(message);
     }
     //This is the form id, not the submit button id!
     $("#loginForm").submit(async (event) => {
