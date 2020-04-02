@@ -1,5 +1,6 @@
 <html>
 <head>
+  <title>Registration</title>
     <!--Install jquery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
@@ -115,7 +116,7 @@
                 } else {
                     alert("Successfully created an account. Please sign in!")
                     //Redirects the user to sign in page
-                    window.location.href = "index.php";               
+                    window.location.href = "../index.php";               
                 }
             } catch (error) {
                 // Errors when calling the service; such as network error, service offline, etc
