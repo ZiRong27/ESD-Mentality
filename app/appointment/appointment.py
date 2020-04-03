@@ -15,9 +15,9 @@ import pika, os
 
 app = Flask(__name__)
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:root@localhost:8889/esd_appointment'
-#app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root@localhost:3306/esd_appointment'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root@localhost:3306/esd_appointment'
 #app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('dbURL')
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://admin:IloveESMandPaul!<3@esd.cemjatk2jkn2.ap-southeast-1.rds.amazonaws.com/esd_appointment'
+#app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://admin:IloveESMandPaul!<3@esd.cemjatk2jkn2.ap-southeast-1.rds.amazonaws.com/esd_appointment'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
  
 db = SQLAlchemy(app)
@@ -129,6 +129,7 @@ def create_appointment():
     
 
 #FUNCTION: Delete by Appointment
+'''
 @app.route("/delete-appointment/<string:appointment_id>", methods=['POST'])
 def delete_appointment(appointment_id):
     data = Appointment.query.filter_by(appointment_id=appointment_id).first()
@@ -139,7 +140,20 @@ def delete_appointment(appointment_id):
         return jsonify({"message": "An error occurred while deleting the appointment."}), 500
  
     return jsonify(appointment.json()), 201
-   
+'''
+
+@app.route("/delete-appointment", methods=['POST'])
+def delete_appointment():
+    data = request.get_json()
+    appointment = Appointment.query.filter_by(appointment_id=data["appointment_id"]).first()
+    try:
+        db.session.delete(appointment)
+        db.session.commit()
+    except:
+        return jsonify({"message": "An error occurred while deleting the appointment."}), 500
+    return jsonify(history.json()), 201
+
+
 
 # @app.route("/update-appointment", methods=['POST'])
 # #Updates a specific appointment details
