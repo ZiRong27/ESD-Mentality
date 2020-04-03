@@ -230,7 +230,7 @@ def checkout():
 def add_appointment(appointment_info):
     try:
         #CHANGE appointmentip here!!yh56y56y56y56y65yrgrgrgVERYYYYYYYY IMPORTANT
-        response = requests.post("http://54.169.239.160:5003/create-appointment", json=appointment_info)
+        response = requests.post("http://54.255.163.159:5003/create-appointment", json=appointment_info)
         json_response = response.json()
         return json_response
     except HTTPError as http_err:

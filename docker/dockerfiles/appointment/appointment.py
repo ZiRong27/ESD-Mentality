@@ -164,7 +164,27 @@ def delete_appointment(appointment_id):
 def get_all():
     return jsonify([appointment.json() for appointment in Appointment.query.all()])
 
-# capture appointment history. 
+# capture appointment history.
+class History(db.Model):
+    __tablename__ = 'history'
+    appointment_id = db.Column(db.Integer, primary_key=True)
+    doctor_id = db.Column(db.String,nullable=False)
+    patient_id = db.Column(db.String, nullable=False)
+    date = db.Column(db.String, nullable=False)
+    time = db.Column(db.String, nullable=False)
+    payment_id = db.Column(db.Integer, nullable=False)
+
+    def json(self):
+        dto = {
+            "appointment_id": self.appointment_id, 
+            "doctor_id": self.doctor_id, 
+            "patient_id": self.patient_id, 
+            "date": self.date,
+            "time": self.time, 
+            "payment_id": self.payment_id
+        }
+        return dto  
+''' 
 class History(db.Model):
     __tablename__ = 'history'
  
@@ -194,6 +214,7 @@ class History(db.Model):
 
     #def print_q(self):
         #print ("pid", self.patient_id, "date", self.date, "did", self.doctor_id, "time", self.time, "paymentid", self.payment_id)
+'''
 
 # note -> guys i have to change the name of the route here cus, appointment is used by doctor id
 @app.route("/get-appointment-id-history/<string:appointment_id>")
@@ -215,6 +236,7 @@ def get_all_history_appointment_by_patient(patient_id):
     return jsonify({"message": "history appointment by patient id not found."}), 404
 
 #Function: create appointment history
+'''
 @app.route("/appointment-history/<string:appointment_id>",methods=['POST'])
 def add_appointment_history(appointment_id):
     history = History.query.filter_by(appointment_id=appointment_id).first()
@@ -228,7 +250,23 @@ def add_appointment_history(appointment_id):
     except:
         return jsonify({"message": "An error occurred creating appointment history"}), 500
     return jsonify(history.json()), 201
+'''
 
+@app.route("/appointment-history", methods=['POST'])
+def add_appointment_history():
+    data = request.get_json()
+    #Checks if there exists another patient with the same username
+    if (History.query.filter_by(appointment_id=data["appointment_id"]).first()):
+        return jsonify({"message": "This Appointment ID already exist, please contact support team"}), 400
+    #We use **data to retrieve all the info in the data array, which includes username, password, salutation, name, dob etc
+    data = request.get_json()
+    history = History(**data)
+    try:
+        db.session.add(history)
+        db.session.commit()
+    except:
+        return jsonify({"message": "An error occurred creating the Consultation."}), 500
+    return jsonify(history.json()), 201
 
 
 

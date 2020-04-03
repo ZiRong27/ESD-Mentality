@@ -32,9 +32,9 @@
       //All these are working! Uncomment to try them, you will NOT need to run any of these microservices yourself
       patientip = "54.255.217.186:5001";
       doctorip = "54.179.180.226:5002";
-      appointmentip = "13.250.96.50:5003";
+      appointmentip = "54.255.163.159:5003";
       consultationip = "18.136.105.106:5004";
-      paymentip = "52.77.227.195:5005";
+      paymentip = "52.77.249.244:5005";
       //patientip = "" + patientip + " ";
       //doctorip = ""  + doctorip + "  ";
       //appointmentip = "" + appointmentip + " ";
