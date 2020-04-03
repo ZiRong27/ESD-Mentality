@@ -74,43 +74,6 @@ $accountType = "doctor";
       <button type="submit" class="btn btn-primary" id="registerAppointment"> Submit </button>
       </div>
 
-<!--
-       ************** in terms of ui,  can we just display these info without having to select the buttons ********************* 
-      <a class="btn btn-info" data-toggle="collapse" href="#viewallergies" role="button" aria-expanded="false" aria-controls="viewallergies">
-        View Allergies
-      </a>
-
-      <a class="btn btn-info" data-toggle="collapse" href="#viewMedicalHistory" role="button" aria-expanded="false" aria-controls="viewallergies">
-        View Medical History
-      </a>
-
-    </form> 
-
- ### View Patient Allergies
-<div class="collapse" id="viewallergies">
-  <div class="card card-body">
-    <table class="table table-striped table-light table-hover text-center" id="viewallergiesTable">
-          <thead>
-          </thead>
-          <tbody>
-          </tbody>
-    </table>  
-  </div>
-</div>
-
-
-### View Patient Medical History 
-<div class="collapse" id="viewMedicalHistory">
-  <div class="card card-body">
-    <table class="table table-striped table-light table-hover text-center" id="viewMedicalHistoryTable">
-          <thead>
-          </thead>
-          <tbody>
-          </tbody>
-    </table>  
-  </div>
-</div>
--->
 </div>
 
 <script>
@@ -138,7 +101,6 @@ $(document).ready(function()
     row = 
         "<tbody>" + 
             "<tr> <th> Name </th> <td>" + patient_information["salutation"] + ". "+ patient_information["name"] +"</td> </tr>" + 
-            //"<tr> <th> Username </th> <td>" + patient_information["username"] + "</td> </tr>" + 
             "<tr> <th> Date & Time </th> <td>" + appointment_information["date"] + "," + appointment_information["time"] + "</td> </tr>" + 
         "</tbody>";
         $('#appointmentTable').append(row);
@@ -299,10 +261,13 @@ async function fetchpatientmedicalhistoryURLs(patient_id)
             payment_id: payment_id
         }  
         console.log(requestBody_appointment);
-        var r1 = postDataConsultation(serviceURL_consultation, requestBody_consultation) 
-        var r2 = postDataAppointmentHistory(serviceURL_appointment, requestBody_appointment, appointment_id)
-        //var r3 = postDataDeleteHistory(appointment_id)
-        if (r1 == true && r2 ==true)
+        
+        await postDataConsultation(serviceURL_consultation, requestBody_consultation) 
+        await postDataAppointmentHistory(serviceURL_appointment, requestBody_appointment)
+        await postDataDeleteHistory(appointment_id)
+        window.location.replace("doctorConsultation.php");
+        /*
+        if (r1 == true && r2 == true && r3 == true)
         {
             window.location.replace("doctorConsultation.php");
         }
@@ -310,6 +275,24 @@ async function fetchpatientmedicalhistoryURLs(patient_id)
         {
             console.log("cannot go next page!")
         }
+        */
+
+        /* triple checklist 
+        var r3 = await postDataDeleteHistory(appointment_id)
+        if(r3 == true) // if true, create the consultation
+        {
+          var r1 = await postDataConsultation(serviceURL_consultation, requestBody_consultation)
+          if(r1 == true) // if true, create appointment history
+          {
+            var r2 = await postDataAppointmentHistory(serviceURL_appointment, requestBody_appointment)
+            if(r2 == true) // if true, go to conultation page
+            {
+              window.location.replace("doctorConsultation.php");
+            }
+          }
+        }
+      // End of if statement.
+      */
     });
     // FUNCTION: create consultation - Part B
     async function postDataConsultation(serviceURL_consultation, requestBody_consultation) 
@@ -330,67 +313,79 @@ async function fetchpatientmedicalhistoryURLs(patient_id)
         catch (error) 
         {
             console.log("Unable to connect to consultation");
-            return false;
+            //return false;
         }
     }
     // End of Function 
     // FUNCTION: create appointment History - Part B
-    async function postDataAppointmentHistory(serviceURL_appointment, requestBody_appointment, appointment_id) 
+    async function postDataAppointmentHistory(serviceURL_appointment, requestBody_appointment) 
     {
       console.log("this is the object " + requestBody_appointment);
       console.log(serviceURL_appointment);
       var requestParam_appointment = 
-        {
+      {
             method: 'POST',                
             headers: { "content-type": "application/json;" },
             body: JSON.stringify(requestBody_appointment)
-        }
-        try
-        {
-            console.log("requestParam_appointment");
-            console.log(requestParam_appointment);
+      }
+      try
+      {
             const response_appointment = await fetch(serviceURL_appointment, requestParam_appointment);
-            console.log("response_appointment");
-            console.log(response_appointment);
             data_appointment = await response_appointment.json();               
             console.log("history created!:" + data_appointment);
-            postDataDeleteHistory(appointment_id);
-            /*
-            if(data_appointment)
-            {
-              var r3 = postDataDeleteHistory(appointment_id);
-              if(re == true)
-              {
-                return true;
-              }
-            }
-            */
-        }
-        catch(error)
-        {
-             console.log("Unable to connect to appointment history");
-            return false;
-        }
+            //return true;
+      }
+      catch(error)
+      {
+            //return false;
+      }
     }
     // End of Function 
     // FUNCTION: delete from appointment - Part B
     async function postDataDeleteHistory(appointment_id) 
     {
-      var appointment_serviceURL = "http://" + appointmentip + "/delete-appointment/" + appointment_id;
+      var requestBody_deleteAppointment = 
+      {
+        appointment_id: appointment_id,
+      }  
+
+      var requestParam_deleteAppointment = 
+      {
+        method: 'POST',                
+        headers: { "content-type": "application/json;" },
+        body: JSON.stringify(requestBody_deleteAppointment)
+      }
+      var appointment_serviceURL = "http://" + appointmentip + "/delete-appointment";
+      console.log(requestParam_deleteAppointment)
+      try
+      {
+        const response_deleteAppointment = await fetch(appointment_serviceURL, requestParam_deleteAppointment);
+        data_deleteAppointment = await response_deleteAppointment.json();               
+        console.log("appointment delete!:" + data_deleteAppointment);
+        //return true;
+      }
+      catch(error)
+      {
+        //return false;
+      }
+      //var appointment_serviceURL = "http://" + appointmentip + "/delete-appointment/" + appointment_id;
+
+      /*
       console.log(appointment_serviceURL);
       try
       {
           const appointment_response = await fetch(appointment_serviceURL, { method: 'POST' });
           const appointment_data = await appointment_response.json(); 
-          window.location.replace("doctorConsultation.php");
+          // window.location.replace("doctorConsultation.php");
           //return true;
       }
       catch(error)
       {
             console.log("Unable to connect to appointment");
-            window.location.replace("doctorConsultation.php"); // This is a temporary solution
+            // window.location.replace("doctorConsultation.php"); // This is a temporary solution
             return false;
       }
+      */
     }
     // End of Function 
 });
