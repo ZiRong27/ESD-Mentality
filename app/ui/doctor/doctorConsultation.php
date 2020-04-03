@@ -34,7 +34,6 @@ require_once '../include/protect.php';
             <thead>
                 <tr >
                     <th scope="col">Consultation ID</th>
-                    <th scope="col"> Patient ID </th>
                     <th scope="col"> Patient Name </th>
                     <th scope="col"> Appointment ID </th>
                     <th scope="col"> View Consultation </th>
@@ -102,7 +101,6 @@ require_once '../include/protect.php';
             row = 
               "<tbody><tr>" + 
                   "<td>" + data_consultation[i]["consultation_id"] + "</td>" + 
-                  "<td>" + data_consultation[i]["patient_id"] + "</td>" + 
                   "<td>" + name + "</td>" + 
                   "<td>" + data_consultation[i]["appointment_id"] + "</td>" + 
                   "<td> <a href='viewConsultation.php?consultationtid=" + data_consultation[i]["consultation_id"] + "&patientname=" + name +"'> View Consultation </a> </td>" +
