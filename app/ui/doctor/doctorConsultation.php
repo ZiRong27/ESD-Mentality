@@ -33,9 +33,10 @@ require_once '../include/protect.php';
           <table class="table table-striped table-light table-hover text-center" id="conTable" style="border:3px solid #f0f0f0;">
             <thead>
                 <tr >
-                    <th scope="col">Consultation ID</th>
+                    <th scope="col"> Consultation ID </th>
                     <th scope="col"> Patient Name </th>
-                    <th scope="col"> Appointment ID </th>
+                    <th scope="col"> Date </th>
+                    <th scope="col"> Time </th>
                     <th scope="col"> View Consultation </th>
                 </tr>
             </thead>
@@ -98,11 +99,16 @@ require_once '../include/protect.php';
                     var name = data_patients[j]["name"];
                 }
             }
+
+            date = await getDate(data_consultation[i]["appointment_id"])
+            time = await getTime(data_consultation[i]["appointment_id"])
+
             row = 
               "<tbody><tr>" + 
                   "<td>" + data_consultation[i]["consultation_id"] + "</td>" + 
                   "<td>" + name + "</td>" + 
-                  "<td>" + data_consultation[i]["appointment_id"] + "</td>" + 
+                  "<td>" + date + "</td>" + 
+                  "<td>" + time + "</td>" + 
                   "<td> <a href='viewConsultation.php?consultationtid=" + data_consultation[i]["consultation_id"] + "&patientname=" + name +"'> View Consultation </a> </td>" +
               "</tr></tbody>";
             $('#conTable').append(row);
@@ -113,6 +119,39 @@ require_once '../include/protect.php';
     {
       console.log("Error in connecting to Mircoservice!");
     }
+
+    async function getDate(data) 
+    {
+      var serviceURL_appointment = "http://" + appointmentip + "/get-appointment-id-history/" + data;
+      try 
+      {
+        var response_appointment = await fetch(serviceURL_appointment, { method: 'GET' });
+        var data_appointment = await response_appointment.json(); 
+        return data_appointment["date"]
+       }       
+      catch (error) 
+      {
+         console.log("Unable to connect to Appointment History to retrive Date");
+        //return false;
+       }
+    }
+
+    async function getTime(data) 
+    {
+      var serviceURL_appointment = "http://" + appointmentip + "/get-appointment-id-history/" + data;
+      try 
+      {
+        var response_appointment = await fetch(serviceURL_appointment, { method: 'GET' });
+        var data_appointment = await response_appointment.json(); 
+        return data_appointment["time"]
+       }       
+      catch (error) 
+      {
+         console.log("Unable to connect to Appointment History to retrive Date");
+        //return false;
+       }
+    }
+
   });
 </script>
 </body>

@@ -30,7 +30,8 @@
         <tr>
             <th scope="col"> Appointment ID </th>
             <th scope="col"> Doctor </th>
-            <th scope="col"> Date & Time </th>
+            <th scope="col"> Date </th>
+            <th scope="col"> Time </th>
             <th scope="col"> Paid Amount </th>
         </tr>
     </thead>
@@ -96,8 +97,9 @@ function showError(message)
                     "<tbody><tr>" + 
                         "<td>" + obj["appointment_id"] + "</td>" + 
                         "<td>" + doctorName + "</td>" + 
-                        "<td>" + "Date: " + obj["date"] + " - " + "Time: " + obj["time"] + "</td>" + 
-                        "<td>" + "$" + obj["payment_id"] +
+                        "<td>" + obj["date"] + "</td>" + 
+                        "<td>" + obj["time"] + "</td>" + 
+                        "<td>" + obj["payment_id"] +
                     "</tr></tbody>";
                     $('#apptHisTable').append(row);
                 } // End of for loop

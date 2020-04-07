@@ -119,12 +119,13 @@ def get_all():
     for patient in Patient.query.with_entities(Patient.patient_id, Patient.name, Patient.phone, Patient.salutation, Patient.gender, Patient.dob).all():
         ele = {}
         ele.update( {'patient_id' : patient[0]} )
-        ele.update( {'name' : patient[1]} )
+        inputName = patient[1]
+        patientName = splitName( inputName )
+        ele.update( {'name' : patientName} )
         ele.update( {'phone' : patient[2]} )
         ele.update( {'salutation' : patient[3]} )
         ele.update( {'gender' : patient[4]} )
         ele.update( {'dob' : patient[5]} )
-        #print(ele)
         data.append(ele)
     if data:
         return jsonify(data)
@@ -149,7 +150,9 @@ def find_by_patientid(patient_id):
     for ele in data:
         result = {}
         result.update( {'patient_id' : ele["patient_id"]} )
-        result.update( {'name' : ele["name"]} )
+        inputName = ele["name"]
+        patientName = splitName( inputName )
+        result.update( {'name' : patientName} )
         result.update( {'phone' : ele["phone"]} )
         result.update( {'salutation' : ele["salutation"]} )
         result.update( {'gender' : ele["gender"]} )
@@ -158,6 +161,15 @@ def find_by_patientid(patient_id):
     if result:
         return jsonify(result)
     return jsonify({"message": "Patient not found."}), 404
+
+def splitName(inputName):
+    print(inputName)
+    textList = inputName.split(",")
+    newTextList = []
+    newTextList.append(textList[-1])
+    newTextList.append(textList[0])
+    newText = ' '.join(newTextList)
+    return newText
 
 # --------------------------------- #
 # <!-- Patient Allergies Database -->

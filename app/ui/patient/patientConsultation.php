@@ -34,7 +34,8 @@
         <tr >
         <th scope="col"> Consultation ID</th>
         <th scope="col"> Doctor </th>
-        <th scope="col"> Date & Time </th>
+        <th scope="col"> Date </th>
+        <th scope="col"> Time </th>
         <th scope="col"> View Consultation </th>
         </tr>
     </thead>
@@ -94,13 +95,15 @@ function showError(message)
                     console.log(obj["appointment_id"]);
                     var data = await fetchData(obj["doctor_id"],obj["appointment_id"]);
                     var doctorName = data[0];
-                    var dateTime = data[1];
+                    var date = data[1];
+                    var time = data[2];
                     console.log(doctorName);
                     var row =
                     "<tbody><tr>" + 
                         "<td>" + obj["consultation_id"] + "</td>" + 
                         "<td>" + doctorName + "</td>" + 
-                        "<td>" + dateTime + "</td>" + 
+                        "<td>" + date + "</td>" + 
+                        "<td>" + time + "</td>" + 
                         "<td> <a href='viewConsultation.php?consultationid=" + obj["consultation_id"] + "&doctorname="+ doctorName +"'> View Consultation </a> </td>" +
                     "</tr></tbody>";
                     $('#conTable').append(row);
@@ -125,17 +128,14 @@ function showError(message)
             // retrieve appointment by appointment ID
             const response_doctor = await fetch(serviceURL_doctor, { method: 'GET' });
             const data_doctor = await response_doctor.json(); 
-            const doctorName = data_doctor["name"];
+            var doctorName = data_doctor["name"];
 
             const response_appointment = await fetch(serviceURL_appointment, { method: 'GET' });
             const data_appointment = await response_appointment.json(); 
-            console.log(data_appointment);
-            console.log(data_appointment["date"]);
-            console.log(data_appointment["time"]);
-            var datetime = "Date: " + data_appointment["date"] + " - " + "Time: " + data_appointment["time"];
-            console.log(datetime);
+            var date = data_appointment["date"];
+            var time = data_appointment["time"];
 
-            data = [doctorName, datetime];
+            data = [doctorName, date, time];
             return data;
         }
         catch(error)
