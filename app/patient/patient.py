@@ -105,17 +105,58 @@ def updatePatient():
  
     return jsonify(patient.json()), 201
 
+# Function (KIV): return all patient, with all data which is bad practice
+'''
 @app.route("/view-all-patients") 
 def get_all():
     return jsonify([patient.json() for patient in Patient.query.all()])
+'''
+
+# Function: return all patient, without the unnecessary data -> username, password, dob, 
+@app.route("/view-all-patients") 
+def get_all():
+    data = []
+    for patient in Patient.query.with_entities(Patient.patient_id, Patient.name, Patient.phone, Patient.salutation, Patient.gender, Patient.dob).all():
+        ele = {}
+        ele.update( {'patient_id' : patient[0]} )
+        ele.update( {'name' : patient[1]} )
+        ele.update( {'phone' : patient[2]} )
+        ele.update( {'salutation' : patient[3]} )
+        ele.update( {'gender' : patient[4]} )
+        ele.update( {'dob' : patient[5]} )
+        #print(ele)
+        data.append(ele)
+    if data:
+        return jsonify(data)
+    return jsonify({"message": "Error retriving all patients."}), 404
 
 
-#Function: Search patient by id
+# Function (KIV): Search patient by id, with all data which is bad practice
+'''
 @app.route("/patient/<string:patient_id>")
 def find_by_patientid(patient_id):
     patient = Patient.query.filter_by(patient_id=patient_id).first()
     if patient:
         return jsonify(patient.json())
+    return jsonify({"message": "Patient not found."}), 404
+'''
+
+@app.route("/patient/<string:patient_id>")
+def find_by_patientid(patient_id):
+    data = []
+    patient = Patient.query.filter_by(patient_id=patient_id).first()
+    data.append(patient.json())
+    for ele in data:
+        result = {}
+        result.update( {'patient_id' : ele["patient_id"]} )
+        result.update( {'name' : ele["name"]} )
+        result.update( {'phone' : ele["phone"]} )
+        result.update( {'salutation' : ele["salutation"]} )
+        result.update( {'gender' : ele["gender"]} )
+        result.update( {'dob' : ele["dob"]} )
+        print(result)
+    if result:
+        return jsonify(result)
     return jsonify({"message": "Patient not found."}), 404
 
 # --------------------------------- #
