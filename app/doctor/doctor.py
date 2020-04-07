@@ -8,9 +8,9 @@ import json
 import pika
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root@localhost:3306/esd_doctor'
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root@localhost:3306/esd_doctor'
 #app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('dbURL')
-#app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://admin:IloveESMandPaul!<3@esd.cemjatk2jkn2.ap-southeast-1.rds.amazonaws.com/esd_doctor'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://admin:IloveESMandPaul!<3@esd.cemjatk2jkn2.ap-southeast-1.rds.amazonaws.com/esd_doctor'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
  
 db = SQLAlchemy(app)
@@ -42,6 +42,20 @@ class Doctor(db.Model):
             'password' : self.password
         }
         return dto  
+
+    def json_no_password(self):
+        dto = {
+            'doctor_id': self.doctor_id, 
+            'name': self.name,
+            'gender' : self.gender ,
+            'dob' : self.dob ,
+            'experience' : self.experience ,
+            'specialisation' : self.specialisation ,
+            'price': self.price,
+            'username' : self.username
+        }
+        return dto  
+
 #Note that post does not have anything in the url. Its all in the body of the request
 #@app.route("/login-process/<string:username>&<string:password>", methods=['POST'])
 @app.route("/login-process-doctor", methods=['POST'])
@@ -74,7 +88,7 @@ def register():
 def get_specific_doctor(username):
     doctor = Doctor.query.filter_by(username=username).first()
     if doctor:
-        return jsonify(doctor.json())
+        return jsonify(doctor.json_no_password())
     return jsonify({"message": "Doctor not found."}), 404
 
 @app.route("/price/<string:username>") 
@@ -86,7 +100,7 @@ def get_price(username):
 
 @app.route("/view-all-doctors") 
 def get_all():
-    return jsonify([doctor.json() for doctor in Doctor.query.all()])
+    return jsonify([doctor.json_no_password() for doctor in Doctor.query.all()])
 
 
 #Function: Get consultation by consultation Id -> For Doctor & Patient to View
@@ -94,7 +108,7 @@ def get_all():
 def find_by_doctor_id(doctor_id):
     doctor = Doctor.query.filter_by(doctor_id=doctor_id).first()
     if doctor:
-        return jsonify(doctor.json())
+        return jsonify(doctor.json_no_password())
     return jsonify({"message": "Doctor not found."}), 404
 
 #THis is for flask ap
