@@ -1,12 +1,8 @@
-import json
-import sys
-import os
-import pika, os
-
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 from os import environ #For docker use
+import threading
 
 from datetime import datetime
 import json
@@ -82,6 +78,7 @@ def receive_patient_details():
     # set up a consumer and start to wait for coming messages
     channel.basic_qos(prefetch_count=1) # The "Quality of Service" setting makes the broker distribute only one message to a consumer if the consumer is available (i.e., having finished processing and acknowledged all previous messages that it receives)
     channel.basic_consume(queue=queue_name, on_message_callback=callback, auto_ack=True) # 'auto_ack=True' acknowledges the reception of a message to the broker automatically, so that the broker can assume the message is received and processed and remove it from the queue
+    print("waiting for messages")
     channel.start_consuming() # an implicit loop waiting to receive messages; it doesn't exit by default. Use Ctrl+C in the command window to terminate it.
 
 def callback(channel, method, properties, body): # required signature for the callback; no return
@@ -110,4 +107,9 @@ def callback(channel, method, properties, body): # required signature for the ca
 
 
 if __name__ == '__main__':
-    receive_patient_details()
+
+    # create a seperate thread to run receive patient details which is an infinite loop
+    t1 = threading.Thread(target=receive_patient_details)
+    t1.start()
+
+    app.run(host='0.0.0.0', port=5009, debug=True)
