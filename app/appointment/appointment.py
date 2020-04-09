@@ -35,7 +35,7 @@ port = 5672 # default port
 # connection = pika.BlockingConnection(pika.ConnectionParameters(host=hostname, port=port))
 channel = connection.channel()
 # set up the exchange if the exchange doesn't exist
-exchangename="appointment_topic"
+exchangename="mentality"
 channel.exchange_declare(exchange=exchangename, exchange_type='topic')
 
 
@@ -123,8 +123,9 @@ def send_appointment_reminder(message, patient_id, appointment_date, appointment
                           durable=True,
                           exclusive=False,
                           arguments=hold_queue_arguments)
+    print ("reach here")
     channel.basic_publish(
-        exchange=exchangename,  # Publish to the default exchange.
+        exchange= '',  # Publish to the default exchange.
         routing_key=hold_queue, body=message,
         # Make the message persistent.
         properties=pika.BasicProperties(delivery_mode=2,)

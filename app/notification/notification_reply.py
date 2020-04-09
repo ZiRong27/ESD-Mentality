@@ -1,4 +1,8 @@
-#!/usr/bin/env python3
+from flask import Flask, request, jsonify
+from flask_sqlalchemy import SQLAlchemy
+from flask_cors import CORS
+from os import environ #For docker use
+import threading
 
 import sys
 import os
@@ -10,56 +14,109 @@ import json
 # External API used
 from twilio.rest import Client
 
+
+# Flask and database settings
+app = Flask(__name__)
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:root@localhost:8889/esd_notification'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://admin:IloveESMandPaul!<3@esd.cemjatk2jkn2.ap-southeast-1.rds.amazonaws.com/esd_notification'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+db = SQLAlchemy(app)
+CORS(app)
+
+class Notification(db.Model):
+    __tablename__ = 'notification'
+    patient_id = db.Column(db.Integer, primary_key=True)
+    correlation_id = db.Column(db.String, nullable=False)
+    message = db.Column(db.String, nullable=False)
+
+    def __init__(self, patient_id, correlation_id, message):
+        # sets the properties (of itself when created)
+        self.patient_id = patient_id
+        self.correlation_id = correlation_id
+        self.message = message
+
+    def json(self):
+        dto = {
+            'patient_id': self.patient_id, 
+            'correlation_id': self.correlation_id,
+            'message' : self.message ,
+        }
+        return dto  
+
 def receivePatientPhone():
     # channel settings
     url = 'amqp://xhnawuvi:znFCiYKqjzNmdGBNLdzTJ07R25lNOCr_@vulture.rmq.cloudamqp.com/xhnawuvi'
     params = pika.URLParameters(url)
     connection = pika.BlockingConnection(params)
+    # hostname = "localhost" # default hostname
+    # port = 5672 # default port
+    # connection = pika.BlockingConnection(pika.ConnectionParameters(host=hostname, port=port))
     channel = connection.channel()
 
     # set up the exchange if the exchange doesn't exist
-    exchangename="patient_details"
+    exchangename="mentality"
     channel.exchange_declare(exchange=exchangename, exchange_type='topic')
-    channel.queue_declare(queue='patient', durable=True) # make sure the queue used by Shipping exist and durable
-    channel.queue_bind(exchange=exchangename, queue='patient', routing_key='notification.reply.phone_number') # make sure the queue is bound to the exchange
+    channel.queue_declare(queue='notification', durable=True) # make sure the queue used by Shipping exist and durable
+    channel.queue_bind(exchange=exchangename, queue='notification', routing_key='notification.reply.phoneNumber') # make sure the queue is bound to the exchange
     
     # set up a consumer and start to wait for coming messages
     channel.basic_qos(prefetch_count=1) # The "Quality of Service" setting makes the broker distribute only one message to a consumer if the consumer is available (i.e., having finished processing and acknowledged all previous messages that it receives)
-    channel.basic_consume(queue='patient',
+    channel.basic_consume(queue='notification',
             on_message_callback=reply_callback, # set up the function called by the broker to process a received message
     ) # prepare the reply_to receiver
     channel.start_consuming() # an implicit loop waiting to receive messages; it doesn't exit by default. Use Ctrl+C in the command window to terminate it.
 
 def reply_callback(channel, method, properties, body): # required signature for a callback; no return
     """processing function called by the broker when a message is received"""
-    # Load correlations for existing created orders from a file.
-    # - In practice, using DB (as part of the order DB) is a better choice than using a file.
-    rows = []
-    with open("corrids.csv", 'r', newline='') as corrid_file: # 'with' statement in python auto-closes the file when the block of code finishes, even if some exception happens in the middle
-        csvreader = csv.DictReader(corrid_file)
-        for row in csvreader:
-            rows.append(row)
-    # Check if the reply message contains a valid correlation id recorded in the file.
-    # - Assume each line in the file is in this CSV format: <order_id>, <correlation_id>, <status>, ...
-    matched = False
-    for row in rows:
-        if not 'correlation_id' in row:
-            print('Warning for corrids.csv: no "correlation_id" for an order:', row)
-            continue
-        corrid = row['correlation_id']
-        if corrid == properties.correlation_id: # check if the reply message matches one request message based on the correlation id
-            print("--Matched reply message with a correlation ID: " + corrid)
-            # Can do anything needed for the scenario here, e.g., may update the 'status', or inform UI or other applications/services.
-            result = json.loads(body) 
+    
+    notification = Notification.query.filter_by(correlation_id=properties.correlation_id).first()
+
+    if notification:
+        result = json.loads(body)
+        print (result)
+        try:
             phone_no = result["phone"]
             phone_no = "+65" + phone_no
-            # delete the data from database
-            send_sms(row["message"], phone_no)
-            matched = True
-            break
-    if not matched:
-        print("--Wrong reply correlation ID: No match of " + properties.correlation_id)
-        print()
+            send_sms(notification.message, phone_no)
+
+            # delete correlation id from the database
+            db.session.delete(notification)
+        except:
+            print ("There is an error in message data")
+
+    else:
+        print ("no matching correlation id")
+
+    
+    # # Load correlations for existing created orders from a file.
+    # # - In practice, using DB (as part of the order DB) is a better choice than using a file.
+    # rows = []
+    # with open("corrids.csv", 'r', newline='') as corrid_file: # 'with' statement in python auto-closes the file when the block of code finishes, even if some exception happens in the middle
+    #     csvreader = csv.DictReader(corrid_file)
+    #     for row in csvreader:
+    #         rows.append(row)
+    # # Check if the reply message contains a valid correlation id recorded in the file.
+    # # - Assume each line in the file is in this CSV format: <order_id>, <correlation_id>, <status>, ...
+    # matched = False
+    # for row in rows:
+    #     if not 'correlation_id' in row:
+    #         print('Warning for corrids.csv: no "correlation_id" for an order:', row)
+    #         continue
+    #     corrid = row['correlation_id']
+    #     if corrid == properties.correlation_id: # check if the reply message matches one request message based on the correlation id
+    #         print("--Matched reply message with a correlation ID: " + corrid)
+    #         # Can do anything needed for the scenario here, e.g., may update the 'status', or inform UI or other applications/services.
+    #         result = json.loads(body) 
+    #         phone_no = result["phone"]
+    #         phone_no = "+65" + phone_no
+    #         # delete the data from database
+    #         send_sms(row["message"], phone_no)
+    #         matched = True
+    #         break
+    # if not matched:
+    #     print("--Wrong reply correlation ID: No match of " + properties.correlation_id)
+    #     print()
 
     # acknowledge to the broker that the processing of the message is completed
     channel.basic_ack(delivery_tag=method.delivery_tag)
@@ -89,6 +146,10 @@ def send_sms (message_org, to_phone_no):
 
 
 # Execute this program if it is run as a main script (not by 'import')
-if __name__ == "__main__":
-    print("This is " + os.path.basename(__file__) + ": listening for a reply from shipping for an order...")
-    receivePatientPhone()
+if __name__ == '__main__':
+    
+    # create a seperate thread to run receive patient details which is an infinite loop
+    t1 = threading.Thread(target=receivePatientPhone)
+    t1.start()
+
+    app.run(host='0.0.0.0', port=5007, debug=True)
