@@ -78,7 +78,7 @@ INSERT INTO `patient` (`patient_id`, `name`, `gender`, `dob`, `phone`, `salutati
 
 DROP TABLE IF EXISTS `patient_allergies`;
 CREATE TABLE IF NOT EXISTS `patient_allergies` (
-  `patient_id` varchar(11) NOT NULL,
+  `patient_id` int(11) NOT NULL,
   `allergies` varchar(1000) NOT NULL DEFAULT 'NIL',
   PRIMARY KEY (`patient_id`,`allergies`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -88,16 +88,16 @@ CREATE TABLE IF NOT EXISTS `patient_allergies` (
 --
 
 INSERT INTO `patient_allergies` (`patient_id`, `allergies`) VALUES
-('1', 'NIL'),
-('10', 'NIL'),
-('2', 'paracetamol'),
-('3', 'sertraline, escitalopram'),
-('4', 'paracetamol, fluoxetine'),
-('5', 'NIL'),
-('6', 'paracetamol'),
-('7', 'NIL'),
-('8', 'NIL'),
-('9', 'NIL');
+(1, 'NIL'),
+(10, 'NIL'),
+(2, 'paracetamol'),
+(3, 'sertraline, escitalopram'),
+(4, 'paracetamol, fluoxetine'),
+(5, 'NIL'),
+(6, 'paracetamol'),
+(7, 'NIL'),
+(8, 'NIL'),
+(9, 'NIL');
 
 -- --------------------------------------------------------
 
@@ -107,7 +107,7 @@ INSERT INTO `patient_allergies` (`patient_id`, `allergies`) VALUES
 
 DROP TABLE IF EXISTS `patient_medical_history`;
 CREATE TABLE IF NOT EXISTS `patient_medical_history` (
-  `patient_id` varchar(11) NOT NULL,
+  `patient_id` int(11) NOT NULL,
   `medical_history` varchar(1000) NOT NULL DEFAULT 'NIL',
   PRIMARY KEY (`patient_id`),
   UNIQUE KEY `diagnosis` (`medical_history`)
@@ -118,16 +118,16 @@ CREATE TABLE IF NOT EXISTS `patient_medical_history` (
 --
 
 INSERT INTO `patient_medical_history` (`patient_id`, `medical_history`) VALUES
-('3', 'Anemia'),
-('6', 'Asthma'),
-('5', 'Eczema'),
-('4', 'High Blood Pressure'),
-('10', 'Low white blood cell count'),
-('9', 'Minor heart defect'),
-('1', 'NIL'),
-('8', 'Thalassemia'),
-('2', 'Type 1 Diabetes'),
-('7', 'Weak heart condition');
+(3, 'Anemia'),
+(6, 'Asthma'),
+(5, 'Eczema'),
+(4, 'High Blood Pressure'),
+(10, 'Low white blood cell count'),
+(9, 'Minor heart defect'),
+(1, 'NIL'),
+(8, 'Thalassemia'),
+(2, 'Type 1 Diabetes'),
+(7, 'Weak heart condition');
 COMMIT;
 
 --

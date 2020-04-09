@@ -242,7 +242,7 @@ def checkout():
 def add_appointment(appointment_info):
     try:
         #CHANGE appointmentip here!!yh56y56y56y56y65yrgrgrgVERYYYYYYYY IMPORTANT
-        url = "http://" + appointment_ip + "/create-appointment"
+        url = "http://" + "13.229.77.62" + "/create-appointment"
         response = requests.post(url, json=appointment_info)
         json_response = response.json()
         return json_response

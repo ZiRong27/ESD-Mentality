@@ -24,7 +24,7 @@ DROP TABLE IF EXISTS `appointment`;
 CREATE TABLE `appointment` (
   `appointment_id` int(11) NOT NULL,
   `doctor_id` varchar(11) NOT NULL,
-  `patient_id` varchar(11) NOT NULL,
+  `patient_id` int(11) NOT NULL,
   `date` varchar(15) NOT NULL,
   `time` varchar(12) NOT NULL,
   `payment_id` int(11) NOT NULL
@@ -35,12 +35,12 @@ CREATE TABLE `appointment` (
 --
 
 INSERT INTO `appointment` (`appointment_id`, `doctor_id`, `patient_id`, `date`, `time`, `payment_id`) VALUES
-(19, '2', '1', '2020-04-04', '10:00 AM', 41),
-(20, '3', '2', '2020-04-04', '11:00 AM', 30),
-(21, '2', '3', '2020-04-04', '12:00 PM', 41),
-(22, '1', '1', '2020-04-04', '14:00 PM', 20),
-(23, '2', '2', '2020-04-04', '08:00 AM', 41),
-(24, '2', '1', '2020-04-04', '09:00 AM', 41);
+(19, '2', 1, '2020-04-04', '10:00 AM', 41),
+(20, '3', 2, '2020-04-04', '11:00 AM', 30),
+(21, '2', 3, '2020-04-04', '12:00 PM', 41),
+(22, '1', 1, '2020-04-04', '14:00 PM', 20),
+(23, '2', 2, '2020-04-04', '08:00 AM', 41),
+(24, '2', 1, '2020-04-04', '09:00 AM', 41);
 
 --
 -- Indexes for dumped tables
@@ -67,16 +67,16 @@ DROP TABLE IF EXISTS `history`;
 CREATE TABLE `history` (
   `appointment_id` int(11) NOT NULL,
   `doctor_id` varchar(11) NOT NULL,
-  `patient_id` varchar(11) NOT NULL,
+  `patient_id` int(11) NOT NULL,
   `date` varchar(15) NOT NULL,
   `time` varchar(12) NOT NULL,
   `payment_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 INSERT INTO `history` (`appointment_id`, `doctor_id`, `patient_id`, `date`, `time`, `payment_id`) VALUES
-(119, '2', '1', '2020-04-04', '10:00 AM', 41),
-(210, '3', '2', '2020-04-04', '11:00 AM', 30),
-(211, '2', '3', '2020-04-04', '12:00 PM', 41),
-(212, '1', '1', '2020-04-04', '14:00 PM', 20),
-(213, '2', '2', '2020-04-04', '08:00 AM', 41),
-(214, '2', '1', '2020-04-04', '09:00 AM', 41);
+(119, '2', 1, '2020-04-04', '10:00 AM', 41),
+(210, '3', 2, '2020-04-04', '11:00 AM', 30),
+(211, '2', 3, '2020-04-04', '12:00 PM', 41),
+(212, '1', 1, '2020-04-04', '14:00 PM', 20),
+(213, '2', 2, '2020-04-04', '08:00 AM', 41),
+(214, '2', 1, '2020-04-04', '09:00 AM', 41);

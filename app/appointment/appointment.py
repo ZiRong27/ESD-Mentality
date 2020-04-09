@@ -16,10 +16,10 @@ import pika, os
 
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:root@localhost:8889/esd_appointment'
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root@localhost:3306/esd_appointment'
+#app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:root@localhost:8889/esd_appointment'
+#app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root@localhost:3306/esd_appointment'
 #app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('dbURL')
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://admin:IloveESMandPaul!<3@esd.cemjatk2jkn2.ap-southeast-1.rds.amazonaws.com/esd_appointment'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://admin:IloveESMandPaul!<3@esd.cemjatk2jkn2.ap-southeast-1.rds.amazonaws.com/esd_appointment'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
  
 db = SQLAlchemy(app)
@@ -45,7 +45,7 @@ class Appointment(db.Model):
  
     appointment_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     doctor_id = db.Column(db.String,nullable=False)
-    patient_id = db.Column(db.String, nullable=False)
+    patient_id = db.Column(db.Integer, nullable=False)
     date = db.Column(db.String, nullable=False)
     time = db.Column(db.String, nullable=False)
     payment_id = db.Column(db.Integer, nullable=False)
@@ -241,7 +241,7 @@ class History(db.Model):
     __tablename__ = 'history'
     appointment_id = db.Column(db.Integer, primary_key=True)
     doctor_id = db.Column(db.String,nullable=False)
-    patient_id = db.Column(db.String, nullable=False)
+    patient_id = db.Column(db.Integer, nullable=False)
     date = db.Column(db.String, nullable=False)
     time = db.Column(db.String, nullable=False)
     payment_id = db.Column(db.Integer, nullable=False)
