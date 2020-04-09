@@ -30,7 +30,7 @@
     <script>
       //Sets the IP addresses of ALL microservices here!!
       //All these are working! Uncomment to try them, you will NOT need to run any of these microservices yourself
-      patientip = "54.255.217.186:5001";
+      patientip = "52.221.199.182:5001";
       doctorip = "54.179.180.226:5002";
       appointmentip = "54.255.163.159:5003";
       consultationip = "18.136.105.106:5004";
