@@ -6,6 +6,8 @@ from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 from os import environ #For docker use
+from datetime import datetime, timedelta
+from pytz import timezone
 
 import json
 import sys
@@ -14,7 +16,7 @@ import pika, os
 
 
 app = Flask(__name__)
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:root@localhost:8889/esd_appointment'
+#app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:root@localhost:8889/esd_appointment'
 #app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root@localhost:3306/esd_appointment'
 #app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('dbURL')
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://admin:IloveESMandPaul!<3@esd.cemjatk2jkn2.ap-southeast-1.rds.amazonaws.com/esd_appointment'
@@ -23,23 +25,17 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 CORS(app)
 
-
-hostname = "localhost" # default hostname
-port = 5672 # default port
-# publish.py
-import pika, os
 # Access the CLODUAMQP_URL environment variable and parse it (fallback to localhost)
-url = os.environ.get('CLOUDAMQP_URL', 'amqp://xhnawuvi:znFCiYKqjzNmdGBNLdzTJ07R25lNOCr_@vulture.rmq.cloudamqp.com/xhnawuvi/%2f')
+url = 'amqp://xhnawuvi:znFCiYKqjzNmdGBNLdzTJ07R25lNOCr_@vulture.rmq.cloudamqp.com/xhnawuvi'
 params = pika.URLParameters(url)
 connection = pika.BlockingConnection(params)
-
-# connect to the broker and set up a communication channel in the connection
-#connection = pika.BlockingConnection(pika.ConnectionParameters(host=hostname, port=port))
-    # Note: various network firewalls, filters, gateways (e.g., SMU VPN on wifi), may hinder the connections;
-    # If "pika.exceptions.AMQPConnectionError" happens, may try again after disconnecting the wifi and/or disabling firewalls
+#Set up rabbitmq for payment to send a message to notification.py upon successful payment
+hostname = "localhost" # default hostname
+port = 5672 # default port
+# connection = pika.BlockingConnection(pika.ConnectionParameters(host=hostname, port=port))
 channel = connection.channel()
 # set up the exchange if the exchange doesn't exist
-exchangename="patient_details"
+exchangename="appointment_topic"
 channel.exchange_declare(exchange=exchangename, exchange_type='topic')
 
 
@@ -49,7 +45,7 @@ class Appointment(db.Model):
  
     appointment_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     doctor_id = db.Column(db.String,nullable=False)
-    patient_id = db.Column(db.String, nullable=False)
+    patient_id = db.Column(db.Integer, nullable=False)
     date = db.Column(db.String, nullable=False)
     time = db.Column(db.String, nullable=False)
     payment_id = db.Column(db.Integer, nullable=False)
@@ -79,6 +75,64 @@ class Appointment(db.Model):
         print ("pid", self.patient_id, "date", self.date, "did", self.doctor_id, "time", self.time, "paymentid", self.payment_id)
 
 
+def send_appointment_reminder(message, patient_id, appointment_date, appointment_time):
+
+    # set delay for messaget
+    # reminder to be sent at 6pm the day before
+    datetime_object = datetime.strptime(appointment_date, '%Y-%m-%d')
+    datetime_object = datetime_object - timedelta(days=1)
+    datetime_object = datetime_object.replace(hour=18)
+
+    singapore = timezone('Asia/Singapore')
+    now = datetime.now(singapore)
+    now = now.replace(tzinfo=None)
+
+    # set delay time in milliseconds
+    diff = datetime_object - now
+    delay_duration = diff.total_seconds() * 1000
+
+    if delay_duration < 0:
+        delay_duration = 5
+
+    
+    channel = connection.channel()
+    routing_key = "appointment.message"
+    message = {"message": message, "patient_id": patient_id}
+    message=json.dumps(message, default=str)
+    # channel.basic_publish(exchange=exchangename, routing_key="appointment.message", body=message,
+    # properties=pika.BasicProperties(delivery_mode = 2))# make message persistent within the matching queues until it is received by some receiver (the matching queues have to exist and be durable and bound to the exchange, which are ensured by the previous two api calls)
+
+    print (delay_duration)
+    hold_queue = "delay.{0}.{1}.{2}".format(
+        delay_duration, exchangename, routing_key)
+    hold_queue_arguments = {
+        # Exchange where to send messages after TTL expiration.
+        "x-dead-letter-exchange": exchangename,
+        # Routing key which use when resending expired messages.
+        "x-dead-letter-routing-key": routing_key,
+        # Time in milliseconds
+        # after that message will expire and be sent to destination.
+        "x-message-ttl": delay_duration
+        # # Time after that the queue will be deleted.
+        # "x-expires": delay_duration * 2
+    }
+
+    # It's necessary to redeclare the queue each time
+    #  (to zero its TTL timer).
+    channel.queue_declare(queue=hold_queue,
+                          durable=True,
+                          exclusive=False,
+                          arguments=hold_queue_arguments)
+    channel.basic_publish(
+        exchange=exchangename,  # Publish to the default exchange.
+        routing_key=hold_queue, body=message,
+        # Make the message persistent.
+        properties=pika.BasicProperties(delivery_mode=2,)
+    )
+    print (message)
+    # The channel is expendable.
+    channel.close()
+
 @app.route("/appointments-by-doctor/<string:doctor_id>")
 def get_all_appointment_by_doctor(doctor_id):
     return jsonify([appointment.json() for appointment in Appointment.query.filter(Appointment.doctor_id.endswith(doctor_id)).all()])
@@ -107,28 +161,32 @@ def find_by_date_and_doctorid(date,doctor_id):
 
 @app.route("/create-appointment", methods=['POST'])
 def create_appointment():
-    print('hi')
     data = request.get_json()
     print (data)
     appointment = Appointment(**data)
+    print (data["date"])
 
-    #Checks if a timeslot is booked already by another user
-    if (Appointment.query.filter_by(doctor_id=data["doctor_id"],date=data["date"],time=data["time"]).first()):
-        return jsonify({"message": "The timeslot is already booked by another user."}), 400
-    #Ensures that duplicate appointment is not created given a payment id
-    elif (Appointment.query.filter_by(doctor_id=data["doctor_id"],date=data["date"],time=data["time"], payment_id=data["payment_id"]).first()):
-        return jsonify(appointment.json()), 201
+    # #Checks if a timeslot is booked already by another user
+    # if (Appointment.query.filter_by(doctor_id=data["doctor_id"],date=data["date"],time=data["time"]).first()):
+    #     return jsonify({"message": "The timeslot is already booked by another user."}), 400
+    # #Ensures that duplicate appointment is not created given a payment id
+    # elif (Appointment.query.filter_by(doctor_id=data["doctor_id"],date=data["date"],time=data["time"], payment_id=data["payment_id"]).first()):
+    #     return jsonify(appointment.json()), 201
     
     try:
-        db.session.add(appointment)
-        db.session.commit()
+        # db.session.add(appointment)
+        # db.session.commit()
+        message = "Please be reminded that you have an upcoming appointment on " + data["date"] + " at " + data["time"] + "."
+        send_appointment_reminder(message, data["patient_id"], data["date"], data["time"])
+        return jsonify(appointment.json()), 201
     except:
         return jsonify({"message": "An error occurred creating the appointment."}), 500
  
-    return jsonify(appointment.json()), 201
+
     
 
 #FUNCTION: Delete by Appointment
+'''
 @app.route("/delete-appointment/<string:appointment_id>", methods=['POST'])
 def delete_appointment(appointment_id):
     data = Appointment.query.filter_by(appointment_id=appointment_id).first()
@@ -139,7 +197,20 @@ def delete_appointment(appointment_id):
         return jsonify({"message": "An error occurred while deleting the appointment."}), 500
  
     return jsonify(appointment.json()), 201
-   
+'''
+
+@app.route("/delete-appointment", methods=['POST'])
+def delete_appointment():
+    data = request.get_json()
+    appointment = Appointment.query.filter_by(appointment_id=data["appointment_id"]).first()
+    try:
+        db.session.delete(appointment)
+        db.session.commit()
+    except:
+        return jsonify({"message": "An error occurred while deleting the appointment."}), 500
+    return jsonify(history.json()), 201
+
+
 
 # @app.route("/update-appointment", methods=['POST'])
 # #Updates a specific appointment details
@@ -169,7 +240,7 @@ class History(db.Model):
     __tablename__ = 'history'
     appointment_id = db.Column(db.Integer, primary_key=True)
     doctor_id = db.Column(db.String,nullable=False)
-    patient_id = db.Column(db.String, nullable=False)
+    patient_id = db.Column(db.Integer, nullable=False)
     date = db.Column(db.String, nullable=False)
     time = db.Column(db.String, nullable=False)
     payment_id = db.Column(db.Integer, nullable=False)

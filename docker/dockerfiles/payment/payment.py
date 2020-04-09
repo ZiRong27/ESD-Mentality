@@ -19,18 +19,29 @@ import pika
 url = 'amqp://xhnawuvi:znFCiYKqjzNmdGBNLdzTJ07R25lNOCr_@vulture.rmq.cloudamqp.com/xhnawuvi'
 params = pika.URLParameters(url)
 connection = pika.BlockingConnection(params)
+channel = connection.channel()
+
+# set up the exchange if the exchange doesn't exist
+exchangename="appointment_topic"
+channel.exchange_declare(exchange=exchangename, exchange_type='topic')
+channel.queue_declare(queue='notification', durable=True) # make sure the queue used by Shipping exist and durable
+channel.queue_bind(exchange=exchangename, queue='notification', routing_key='paymentSuccess.message') # make sure the queue is bound to the exchange
+
+
+#ip address
+appointment_ip = "localhost:5003"
 
 #Set up rabbitmq for payment to send a message to notification.py upon successful payment
-hostname = "localhost" # default hostname
-port = 5672 # default port
+# hostname = "localhost" # default hostname
+# port = 5672 # default port
 # connect to the broker and set up a communication channel in the connection
 #connection = pika.BlockingConnection(pika.ConnectionParameters(host=hostname, port=port))
 # Note: various network firewalls, filters, gateways (e.g., SMU VPN on wifi), may hinder the connections;
 # If "pika.exceptions.AMQPConnectionError" happens, may try again after disconnecting the wifi and/or disabling firewalls
-channel = connection.channel()
+# channel = connection.channel()
 # set up the exchange if the exchange doesn't exist
-exchangename="appointment_topic"
-channel.exchange_declare(exchange=exchangename, exchange_type='topic')
+# exchangename="appointment_topic"
+# channel.exchange_declare(exchange=exchangename, exchange_type='topic')
 app = Flask(__name__)
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:root@localhost:8889/esd_payment'
 #app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root@localhost:3306/esd_payment'
@@ -121,17 +132,14 @@ def success(session_id):
         response = add_appointment(appointment_info)
         
         #Upon successful payment and appointment creation, notify the payment!
-        for_patient_message = "An amount of $" + str(amount) + " has been successfully charged to your bank account for your appointment on " + str(appointment_info["date"]) + " at " + str(appointment_info["time"])
-        phone = "+6597632174"
-        result = {"phone": phone, "message": for_patient_message}
-        print("Added appt successfully")
+        for_patient_message = "An amount of $" + str(amount/100) + " has been successfully charged to your bank account for your appointment on " + str(appointment_info["date"]) + " at " + str(appointment_info["time"])
+        result = {"patient_id": appointment_info['patient_id'], "message": for_patient_message}
         message = json.dumps(result, default=str)
+        print ("book", message)
         channel.basic_publish(exchange=exchangename, routing_key="paymentSuccess.message", body=message,
             properties=pika.BasicProperties(delivery_mode = 2))# make message persistent within the matching queues until it is received by some receiver (the matching queues have to exist and be durable and bound to the exchange, which are ensured by the previous two api calls)
-        print("Sent to notification.py this message: " + for_patient_message)
         return jsonify({"appointment": appointment_info}), 200
     except Exception as e:
-        print("OH NO", e)
         return jsonify({"appointment": appointment_info}), 200
         #return jsonify({"message": e}), 500
     
@@ -230,7 +238,8 @@ def checkout():
 def add_appointment(appointment_info):
     try:
         #CHANGE appointmentip here!!yh56y56y56y56y65yrgrgrgVERYYYYYYYY IMPORTANT
-        response = requests.post("http://54.255.163.159:5003/create-appointment", json=appointment_info)
+        url = "http://" + "13.229.77.62" + "/create-appointment"
+        response = requests.post(url, json=appointment_info)
         json_response = response.json()
         return json_response
     except HTTPError as http_err:
