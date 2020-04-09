@@ -15,9 +15,9 @@ import pika
 # If see errors like "ModuleNotFoundError: No module named 'pika'", need to
 # make sure the 'pip' version used to install 'pika' matches the python version used.
 
-def send_order():
+def send_order(message):
     phone_number = '+6591131622'
-    message = 'yo this is workinggg'
+
 
 
     """inform Shipping/Monitoring/Error as needed"""
@@ -34,10 +34,10 @@ def send_order():
     exchangename="appointment_topic"
     channel.exchange_declare(exchange=exchangename, exchange_type='topic')
 
-    to_send = {"phone_no": phone_number, "message": message }
+    to_send = {"phone": phone_number, "message": message }
 
     # prepare the message body content
-    message = json.dumps(to_send, default=str) # convert a JSON object to a string
+    message = json.dumps(to_send) # convert a JSON object to a string
     print(message)
     # inform Shipping and exit
         # prepare the channel and send a message to Shipping
@@ -51,7 +51,14 @@ def send_order():
     connection.close()
 
 
+
 # Execute this program if it is run as a main script (not by 'import')
 if __name__ == "__main__":
     print("This is " + os.path.basename(__file__) + ": creating an order...")
-    send_order()
+    # message = 'An amount of $95 ' +  "has been successfully charged to your bank account for your appointment on 02/04/2020."
+    # send_order(message)
+
+
+    message = "Dear Mr Chris Poskitt, please be informed that you have an upcoming appointment with Rosa Fernandez on 02/04/2020 at 11:00AM."
+    send_order(message)
+
