@@ -103,7 +103,7 @@ def callback(channel, method, properties, body): # required signature for the ca
 
         
         channel.queue_declare(queue='notification', durable=True) # make sure the queue used by Shipping exist and durable
-        channel.queue_bind(exchange=exchangename, queue='notification', routing_key='notification.reply.phone_number') # make sure the queue is bound to the exchange
+        channel.queue_bind(exchange=exchangename, queue='notification', routing_key='notification.reply.phoneNumber') # make sure the queue is bound to the exchange
         channel.basic_publish(exchange=exchangename,
             routing_key=properties.reply_to, # use the reply queue set in the request message as the routing key for reply messages
             body=message, 
