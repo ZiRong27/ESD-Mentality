@@ -1,6 +1,7 @@
 Mentality
 ======
 Mentality is a booking enterprise solution where patients can book consultations with the therapists at our therapy booking web application. It is an online website that easily and conveniently connects people with our therapists based on their needs, with our doctors’ details such as specialisations and fees explicitly stated on the website. 
+
 The solution consists of 6 microservices - Patient, Doctor, Notification, Appointment, Consultation, Payment Payment Microservice uses Stripe External API and Notification Microservice uses Twilio External API. 
 
 
@@ -56,7 +57,7 @@ The solution consists of 6 microservices - Patient, Doctor, Notification, Appoin
 
    - Login. The tables are in ESD, namely esd_appointment, esd_consultation, esd_doctor, esd_notification, esd_patient, esd_payment
 
-7.  Alternatively, you can login using these account details
+7. Alternatively, you can login using these account details
 
    - Patient - Username: **sophieng** Password: **sn1**
    - Patient - Username: **zoeytan** Password: **zt1**
