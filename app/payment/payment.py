@@ -27,7 +27,7 @@ channel.exchange_declare(exchange=exchangename, exchange_type='topic')
 
 
 #ip address
-appointment_ip = "13.229.73.225"
+appointment_ip = "54.255.201.27:5003"
 
 app = Flask(__name__)
 #app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root@localhost:3306/esd_payment'

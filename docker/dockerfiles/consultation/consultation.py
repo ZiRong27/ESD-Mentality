@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
-# The above shebang (#!) operator tells Unix-like environments
-# to run this file as a python3 script
+
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
@@ -9,10 +8,7 @@ from sqlalchemy import func
 import json
 import sys
 import os
-import random
-import datetime
 import pika
-
 
 
 app = Flask(__name__)
@@ -22,40 +18,6 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
  
 db = SQLAlchemy(app)
 CORS(app)
-
-'''
-class Consultation(db.Model):
-    __tablename__ = 'consultation'
-
-    consultation_id = db.Column(db.Integer, primary_key=True)
-    appointment_id = db.Column(db.String, nullable=False)
-    doctor_id = db.Column(db.String, nullable=False)
-    patient_id = db.Column(db.String, nullable=False)
-    diagnosis = db.Column(db.String, nullable=False)
-    prescription = db.Column(db.String, nullable=False)
-    notes = db.Column(db.String, nullable=False)
-
-    def __init__(self, consultation_id, appointment_id, doctor_id, patient_id, diagnosis, prescription, notes):
-        self.consultation_id = consultation_id
-        self.appointment_id = appointment_id
-        self.doctor_id = doctor_id
-        self.patient_id = patient_id
-        self.diagnosis = diagnosis
-        self.prescription = prescription
-        self.notes = notes
-
-    def json(self):
-        return 
-        {
-            "consultation_id": self.consultation_id, 
-            "appointment_id": self.appointment_id, 
-            "doctor_id": self.doctor_id, 
-            "patient_id": self.patient_id,
-            "diagnosis": self.diagnosis, 
-            "prescription": self.prescription, 
-            "notes": self.notes
-        }
-'''
 
 class Consultation(db.Model):
     __tablename__ = 'consultation'
@@ -96,17 +58,10 @@ def find_by_appointment_id(consultation_id):
 @app.route("/consultation-by-doctor/<string:doctor_id>")
 def get_all_consultation_by_doctor(doctor_id):
     return jsonify([consultation.json() for consultation in Consultation.query.filter(Consultation.doctor_id.endswith(doctor_id)).all()])
-    data = []
-    for consultation in Consultation.query.filter(Consultation.patient_id.endswith(patient_id)).all():
-        data.append(consultation.json())
-    if data:
-        return jsonify(data)
-    return jsonify({"message": "consultation by doctor id not found."}), 404
 
 #Function: Get all consultation by Patient_id -> For Patient to view
 @app.route("/consultation-by-patient/<string:patient_id>")
 def get_all_consultation_by_patient(patient_id):
-    #return jsonify([consultation.json() for consultation in Consultation.query.filter(Consultation.patient_id.endswith(patient_id)).all()])
     data = []
     for consultation in Consultation.query.filter(Consultation.patient_id.endswith(patient_id)).all():
         data.append(consultation.json())

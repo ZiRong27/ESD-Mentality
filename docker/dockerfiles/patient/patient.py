@@ -3,7 +3,6 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 from os import environ #For docker use
 
-from datetime import datetime
 import json
 import pika
 import os
@@ -40,6 +39,7 @@ class Patient(db.Model):
             'password' : self.password 
         }
         return dto  
+
 #Note that post does not have anything in the url. Its all in the body of the request
 #@app.route("/login-process/<string:username>&<string:password>", methods=['POST'])
 @app.route("/login-process", methods=['POST'])
@@ -56,10 +56,10 @@ def register():
     #Checks if there exists another patient with the same username
     if (Patient.query.filter_by(username=data["username"]).first()):
         return jsonify({"message": "A patient with username '{}' already exists.".format(data['username'])}), 400
-    #I changed everything to string in sql database as there will be error if you submit a string to a column defined as integer
+
     data = request.get_json()
-    #We use **data to retrieve all the info in the data array, which includes username, password, salutation, name, dob etc
     patient = Patient(**data)
+
     try:
         db.session.add(patient)
         db.session.commit()
@@ -87,11 +87,9 @@ def updatePatient():
     patientdata = patient.json()
     if (data["checkpassword"] != patientdata["password"]):
         return jsonify({"message": "The provided password is wrong."}), 400
-    #Checkpassword is only used to check whether the user provided the correct oldpassword. After checking we need to delete it
-    #as we do not want it in sql database. The newpassword is already stored in password
-    #del data["checkpassword"]
-    #We use **data to retrieve all the info in the data array, which includes username, password, salutation, name, dob etc
-    #patient = Patient(**data)
+    # Checkpassword is only used to check whether the user provided the correct oldpassword. After checking we need to delete it
+    # as we do not want it in sql database. The newpassword is already stored in password
+    # del data["checkpassword"]
     try:
         setattr(patient, 'name', data["name"])
         setattr(patient, 'gender', data["gender"])
@@ -104,13 +102,6 @@ def updatePatient():
         return jsonify({"message": "An error occurred updating details of the patient."}), 500
  
     return jsonify(patient.json()), 201
-
-# Function (KIV): return all patient, with all data which is bad practice
-'''
-@app.route("/view-all-patients") 
-def get_all():
-    return jsonify([patient.json() for patient in Patient.query.all()])
-'''
 
 # Function: return all patient, without the unnecessary data -> username, password, dob, 
 @app.route("/view-all-patients") 
@@ -131,16 +122,6 @@ def get_all():
         return jsonify(data)
     return jsonify({"message": "Error retriving all patients."}), 404
 
-
-# Function (KIV): Search patient by id, with all data which is bad practice
-'''
-@app.route("/patient/<string:patient_id>")
-def find_by_patientid(patient_id):
-    patient = Patient.query.filter_by(patient_id=patient_id).first()
-    if patient:
-        return jsonify(patient.json())
-    return jsonify({"message": "Patient not found."}), 404
-'''
 
 @app.route("/patient/<string:patient_id>")
 def find_by_patientid(patient_id):
@@ -213,46 +194,6 @@ def history(patient_id):
     if history:
         return jsonify(history.json())
     return jsonify({"message": "patient history data missing."}), 404
-
-# AMQP
-# send patient details (phone number, name, patient_id) to appointment microservice
-def send_patient_details(patient):
-
-    # default username / password to the borker are both 'guest'
-    hostname = "localhost" # default broker hostname. Web management interface default at http://localhost:15672
-    port = 5672 # default messaging port.
-    # connect to the broker and set up a communication channel in the connection
-    connection = pika.BlockingConnection(pika.ConnectionParameters(host=hostname, port=port))
-        # Note: various network firewalls, filters, gateways (e.g., SMU VPN on wifi), may hinder the connections;
-        # If "pika.exceptions.AMQPConnectionError" happens, may try again after disconnecting the wifi and/or disabling firewalls
-    channel = connection.channel()
-
-    # set up the exchange if the exchange doesn't exist
-    exchangename="patient_details"
-    channel.exchange_declare(exchange=exchangename, exchange_type='topic')
-
-    # prepare the message body content
-    message = json.dumps(patient, default=str) # convert a JSON object to a string
-
-    channel.queue_declare(queue='patient', durable=True) # make sure the queue used by Shipping exist and durable
-    channel.queue_bind(exchange=exchangename, queue='patient', routing_key='*.details') # make sure the queue is bound to the exchange
-    channel.basic_publish(exchange=exchangename, routing_key="patient.details", body=message, properties=pika.BasicProperties(delivery_mode = 2)) # make message persistent within the matching queues until it is received by some receiver (the matching queues have to exist and be durable and bound to the exchange, which are ensured by the previous two api calls)
-        
-    print("Patient details sent to appointment.")
-    # close the connection to the broker
-    connection.close()
-
-# execute this program for AMQP - talking to appointment.py
-# if __name__ == "__main__":  # execute this program only if it is run as a script (not by 'import')
-#     print("This is " + os.path.basename(__file__) + ": sending patient details...")
-#     patient = {
-#             'patient_id': 20, 
-#             'phone' : '+6591131622'
-#         }
-#     print(patient)
-#     send_patient_details(patient)
-   
-
 
 #This is for flask app
 if __name__ == '__main__':

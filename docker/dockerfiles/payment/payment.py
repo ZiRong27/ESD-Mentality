@@ -19,10 +19,6 @@ import pika
 url = 'amqp://xhnawuvi:znFCiYKqjzNmdGBNLdzTJ07R25lNOCr_@vulture.rmq.cloudamqp.com/xhnawuvi'
 params = pika.URLParameters(url)
 connection = pika.BlockingConnection(params)
-# hostname = "localhost" # default hostname
-# port = 5672 # default port
-# connection = pika.BlockingConnection(pika.ConnectionParameters(host=hostname, port=port))
-
 channel = connection.channel()
 
 # set up the exchange if the exchange doesn't exist
@@ -31,23 +27,10 @@ channel.exchange_declare(exchange=exchangename, exchange_type='topic')
 
 
 #ip address
-appointment_ip = "localhost:5003"
+appointment_ip = "54.255.201.27:5003"
 
-#Set up rabbitmq for payment to send a message to notification.py upon successful payment
-# hostname = "localhost" # default hostname
-# port = 5672 # default port
-# connect to the broker and set up a communication channel in the connection
-#connection = pika.BlockingConnection(pika.ConnectionParameters(host=hostname, port=port))
-# Note: various network firewalls, filters, gateways (e.g., SMU VPN on wifi), may hinder the connections;
-# If "pika.exceptions.AMQPConnectionError" happens, may try again after disconnecting the wifi and/or disabling firewalls
-# channel = connection.channel()
-# set up the exchange if the exchange doesn't exist
-# exchangename="appointment_topic"
-# channel.exchange_declare(exchange=exchangename, exchange_type='topic')
 app = Flask(__name__)
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:root@localhost:8889/esd_payment'
 #app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root@localhost:3306/esd_payment'
-# app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('dbURL')
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://admin:IloveESMandPaul!<3@esd.cemjatk2jkn2.ap-southeast-1.rds.amazonaws.com/esd_payment'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
  
@@ -103,8 +86,6 @@ def index():
 @app.route('/success/<string:session_id>')
 def success(session_id):
 
-    # session_id = session_id.split('=')[1]
-
     # Check if payment is confirmed
     events = stripe.Event.list(
     type='checkout.session.completed',
@@ -145,9 +126,6 @@ def success(session_id):
         return jsonify({"appointment": appointment_info}), 200
     except Exception as e:
         return jsonify({"appointment": appointment_info}), 200
-        #return jsonify({"message": e}), 500
-    
-    # return render_template('success.html', pub_key = pub_key)
 
 def add_to_transaction_history(amount, appointment_info):
     data = {
@@ -157,7 +135,6 @@ def add_to_transaction_history(amount, appointment_info):
 
     payment = Payment(**data)
     payment.print_q()
-
 
     try:
         db.session.add(payment)
@@ -218,9 +195,7 @@ def checkout():
             session = stripe.checkout.Session.create(
                 payment_method_types=['card'],
                 line_items=line_items,
-                # success_url='http://" + paymentip + "/success/session_id={CHECKOUT_SESSION_ID}',
                 success_url = 'http://localhost:80/ESD-ClinicAppointmentServices/app/ui/patient/patientUpdateAppts.php?session_id={CHECKOUT_SESSION_ID}',
-                #success_url = 'http://localhost:8898/ESD-ClinicAppointmentServices/app/patient/patientUpdateAppts.php?session_id={CHECKOUT_SESSION_ID}',
                 cancel_url='http://localhost:80/ESD-ClinicAppointmentServices/app/ui/patient/patientViewAllDoctors.php',
                 metadata = appointment_info
             )
@@ -228,7 +203,7 @@ def checkout():
             checkout_session_id = session.id
             
             return jsonify({'CHECKOUT_SESSION_ID': checkout_session_id, 'pub_key':pub_key  }), 200 
-        # return render_template('checkout.html', pub_key = pub_key,CHECKOUT_SESSION_ID = checkout_session_id)
+
         except KeyError:
             return jsonify({"message": "Invalid data parsed. Check required data needed."}), 400
         except stripe.error.InvalidRequestError:
@@ -241,8 +216,7 @@ def checkout():
 
 def add_appointment(appointment_info):
     try:
-        #CHANGE appointmentip here!!yh56y56y56y56y65yrgrgrgVERYYYYYYYY IMPORTANT
-        url = "http://" + "13.229.73.225" + "/create-appointment"
+        url = "http://" + appointment_ip + "/create-appointment"
         response = requests.post(url, json=appointment_info)
         json_response = response.json()
         return json_response
@@ -250,39 +224,6 @@ def add_appointment(appointment_info):
         return 'HTTP error occurred: {http_err}'  
     except Exception as err:
         return 'Other error occurred: {err}' 
-
-
-
-
-# # AMQP
-# # Should change this to reply format if have time
-# def add_appointment(appointment_info):
-
-#     # default username / password to the borker are both 'guest'
-#     hostname = "localhost" # default broker hostname. Web management interface default at http://localhost:15672
-#     port = 5672 # default messaging port.
-#     # connect to the broker and set up a communication channel in the connection
-#     connection = pika.BlockingConnection(pika.ConnectionParameters(host=hostname, port=port))
-#         # Note: various network firewalls, filters, gateways (e.g., SMU VPN on wifi), may hinder the connections;
-#         # If "pika.exceptions.AMQPConnectionError" happens, may try again after disconnecting the wifi and/or disabling firewalls
-#     channel = connection.channel()
-
-#     # set up the exchange if the exchange doesn't exist
-#     exchangename="patient_details"
-#     channel.exchange_declare(exchange=exchangename, exchange_type='topic')
-
-#     # # prepare the message body content
-#     message = json.dumps(appointment_info, default=str) # convert a JSON object to a string
-
-#         # prepare the channel and send a message to Shipping
-#     channel.queue_declare(queue='appointment', durable=True) # make sure the queue used by Shipping exist and durable
-#     channel.queue_bind(exchange=exchangename, queue='appointment', routing_key='*.appointment.add') # make sure the queue is bound to the exchange
-#     channel.basic_publish(exchange=exchangename, routing_key="*.appointment.add", body=message,
-#         properties=pika.BasicProperties(delivery_mode = 2, # make message persistent within the matching queues until it is received by some receiver (the matching queues have to exist and be durable and bound to the exchange, which are ensured by the previous two api calls)
-#         )
-#     )
-#     # close the connection to the broker
-#     connection.close()
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5005, debug = True)
