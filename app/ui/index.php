@@ -47,8 +47,6 @@
 
 
 <script>    
-    //IMPORTANT Set AWS IP address for each microservices here
-    //Retrieve with patientip
     // Helper function to display error message
     function showError(message) {
         console.log('Error logged')
@@ -61,14 +59,9 @@
         var username = $('#username').val();
         var password = $('#password').val();
         //This is the url found above the login function in patient.py. Basically you are trying to send data(username and password) to that url using post and receive its response
-        //The response you get is found is sent by the json function of the Patient class in patient.py
-        //var serviceURL = "http://" + patientip + "/login-process";
-        //var serviceURL = "http://" + patientip + "/login-process";
         var serviceURL = "http://" + patientip + "/login-process";
 
         try {
-                //console.log("PO")
-                //console.log(JSON.stringify({ username: username, password: password,}))
                 const response = await fetch(serviceURL,{method: 'POST',
                                             headers: { "Content-Type": "application/json" },
                                             body: JSON.stringify
@@ -80,8 +73,6 @@
                 if (data['message']) {
                     showError(data['message'])
                 } else {
-                    //alert("Successfully logged in!")
-                    //Comment this line if you want to debug the response using console.log(JSON.stringify({ title: title, price: price,availability: availability })) 
                     //Set the session to username so it wont log the user out.
                     sessionStorage.setItem('username', data['username'])
                     sessionStorage.setItem('patient_id', data['patient_id'])
