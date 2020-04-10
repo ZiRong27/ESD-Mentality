@@ -86,7 +86,6 @@ if (isset($_GET['session_id'])){
             doctor[doctor_id] = [obj["name"],obj["price"]];
         }
       
-      console.log(doctor);
       return doctor;
 
     } catch (error) {
@@ -117,7 +116,6 @@ if (isset($_GET['session_id'])){
             if (data['message']){
                 showError(data['message']);
             }else{
-                console.log(data['appointment']);
                 $('#appointmentSuccess').append(
                     '<div class="alert alert-success" role="alert">Appointment added successfully: <b>' +
                     data['appointment']['date'] + 
@@ -143,7 +141,6 @@ if (isset($_GET['session_id'])){
                    serviceURL, { method: 'GET' }
                 );
                 const data = await response.json();
-                console.log(data);
                 //The error message is stored in the data array sent by patient.py! If there is a message variable, it means there is an error
                 if (data['message']) {
                     showError(data['message']);

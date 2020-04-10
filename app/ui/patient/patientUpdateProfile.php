@@ -119,7 +119,6 @@ require_once '../include/protect.php';
                                             ({ username: username})
                                             });
                 const data = await response.json();
-                console.log(data)
                 //The error message is stored in the data array sent by patient.py! If there is a message variable, it means there is an error
                 if (data['message']) {
                     showError(data['message'])
@@ -178,7 +177,6 @@ require_once '../include/protect.php';
                                                 ({ name: name, gender: gender, dob: dob, phone: phone, salutation: salutation, username: username, password: newpassword, checkpassword: password})
                                                 });
                     const data = await response.json();
-                    console.log(data)
                     //The error message is stored in the data array sent by patient.py! If there is a message variable, it means there is an error
                     if (data['message']) {
                         showError(data['message'])

@@ -85,7 +85,7 @@
 <script>    
     // Helper function to display error message
     function showError(message) {
-        console.log('Error logged')
+        console.log('Error logged');
         // Display an error under the signup/login form
         $('.index-errormsg').html(message);
     }
@@ -112,7 +112,6 @@
                                             ({ name: name, gender: gender, dob: dob, phone: phone, salutation: salutation, username: username, password: password})
                                             });
                 const data = await response.json();
-                console.log(data)
                 //The error message is stored in the data array sent by patient.py! If there is a message variable, it means there is an error
                 if (data['message']) {
                     showError(data['message'])

@@ -142,12 +142,7 @@ function showError(message)
             console.log("Error in connecting to Mircoservice!");
         }
     }
-/*
-    sessionStorage.setItem('patientip', "" + patientip + " ")
-    sessionStorage.setItem('doctorip', ""  + doctorip + "  ")
-    sessionStorage.setItem('appointmentip', "" + appointmentip + " ")   
-    sessionStorage.setItem('consultationip', "" + consultationip + " ")   
-*/
+
   });
 </script>
 </body>
