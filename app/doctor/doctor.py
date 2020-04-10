@@ -66,30 +66,6 @@ def login():
         return jsonify(doctor.json())
     return jsonify({'message': 'Wrong username/password! '}), 404   
 
-@app.route("/register-process-doctor", methods=['POST'])
-def register():
-    data = request.get_json()
-    #Checks if there exists another patient with the same username
-    if (Doctor.query.filter_by(username=data["username"]).first()):
-        return jsonify({"message": "A doctor with username '{}' already exists.".format(data['username'])}), 400
-    #I changed everything to string in sql database as there will be error if you submit a string to a column defined as integer
-    data = request.get_json()
-    #We use **data to retrieve all the info in the data array, which includes username, password, salutation, name, dob etc
-    doctor = Doctor(**data)
-    try:
-        db.session.add(doctor)
-        db.session.commit()
-    except:
-        return jsonify({"message": "An error occurred creating the doctor."}), 500
- 
-    return jsonify(doctor.json()), 201
-
-@app.route("/view-specific-doctor/<string:username>") 
-def get_specific_doctor(username):
-    doctor = Doctor.query.filter_by(username=username).first()
-    if doctor:
-        return jsonify(doctor.json_no_password())
-    return jsonify({"message": "Doctor not found."}), 404
 
 @app.route("/price/<string:username>") 
 def get_price(username):

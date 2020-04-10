@@ -134,9 +134,6 @@ def send_appointment_reminder(message, patient_id, appointment_date, appointment
     # The channel is expendable.
     channel.close()
 
-@app.route("/appointments-by-doctor/<string:doctor_id>")
-def get_all_appointment_by_doctor(doctor_id):
-    return jsonify([appointment.json() for appointment in Appointment.query.filter(Appointment.doctor_id.endswith(doctor_id)).all()])
 
 @app.route("/appointment/<string:doctor_id>")
 def find_by_doctor_id(doctor_id):
