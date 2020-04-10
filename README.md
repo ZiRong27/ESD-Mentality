@@ -44,6 +44,7 @@ The solution consists of 6 microservices - Patient, Doctor, Notification, Appoin
    - Insert the following code at the very bottom, one line before ?>
 
      ```sql
+
 	$i++;
 	$cfg['Servers'][$i]['verbose'] = 'ESD';
 	$cfg['Servers'][$i]['host'] = 'esd.cemjatk2jkn2.ap-southeast-1.rds.amazonaws.com';
@@ -57,6 +58,7 @@ The solution consists of 6 microservices - Patient, Doctor, Notification, Appoin
 	$cfg['Servers'][$i]['auth_type'] = 'config';
 	$cfg['Servers'][$i]['user'] = 'admin';
 	$cfg['Servers'][$i]['password'] = 'IloveESMandPaul!<3';
+
      ```
 
    - Go to http://localhost/phpmyadmin/index.php
