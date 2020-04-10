@@ -23,10 +23,10 @@ The solution consists of 6 microservices - Patient, Doctor, Notification, Appoin
     Appointment: ESD-ClinicAppointmentServices\docker\appointment
     Consultation: ESD-ClinicAppointmentServices\docker\consultation
     Payment: ESD-ClinicAppointmentServices\docker\payment
-  Notification: ESD-ClinicAppointmentServices\docker\notification
-	  ```
+    Notification: ESD-ClinicAppointmentServices\docker\notification
+	 ```
 
-	  Then, go to C:\wamp64\www\ESD-ClinicAppointmentServices\app\ui\include\codeLinks.php, comment line 31-35 and uncomment line 37-41 to switch to localhost ip.
+- Then, go to C:\wamp64\www\ESD-ClinicAppointmentServices\app\ui\include\codeLinks.php, comment line 31-35 and uncomment line 37-41 to switch to localhost ip.
 	
 4. The database is also running on cloud, hence there is no need to import the database. (However, should you want to look into the database structure, you may look at the ESD-ClinicAppointmentServices/sql folder)
 
