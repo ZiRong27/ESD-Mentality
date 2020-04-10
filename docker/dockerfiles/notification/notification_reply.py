@@ -17,7 +17,7 @@ from twilio.rest import Client
 
 # Flask and database settings
 app = Flask(__name__)
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root@localhost:3306/esd_notification'
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:root@localhost:8889/esd_notification'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://admin:IloveESMandPaul!<3@esd.cemjatk2jkn2.ap-southeast-1.rds.amazonaws.com/esd_notification'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
@@ -49,6 +49,9 @@ def receivePatientPhone():
     url = 'amqp://xhnawuvi:znFCiYKqjzNmdGBNLdzTJ07R25lNOCr_@vulture.rmq.cloudamqp.com/xhnawuvi'
     params = pika.URLParameters(url)
     connection = pika.BlockingConnection(params)
+    # hostname = "localhost" # default hostname
+    # port = 5672 # default port
+    # connection = pika.BlockingConnection(pika.ConnectionParameters(host=hostname, port=port))
     channel = connection.channel()
 
     # set up the exchange if the exchange doesn't exist
@@ -84,6 +87,36 @@ def reply_callback(channel, method, properties, body): # required signature for 
 
     else:
         print ("no matching correlation id")
+
+    
+    # # Load correlations for existing created orders from a file.
+    # # - In practice, using DB (as part of the order DB) is a better choice than using a file.
+    # rows = []
+    # with open("corrids.csv", 'r', newline='') as corrid_file: # 'with' statement in python auto-closes the file when the block of code finishes, even if some exception happens in the middle
+    #     csvreader = csv.DictReader(corrid_file)
+    #     for row in csvreader:
+    #         rows.append(row)
+    # # Check if the reply message contains a valid correlation id recorded in the file.
+    # # - Assume each line in the file is in this CSV format: <order_id>, <correlation_id>, <status>, ...
+    # matched = False
+    # for row in rows:
+    #     if not 'correlation_id' in row:
+    #         print('Warning for corrids.csv: no "correlation_id" for an order:', row)
+    #         continue
+    #     corrid = row['correlation_id']
+    #     if corrid == properties.correlation_id: # check if the reply message matches one request message based on the correlation id
+    #         print("--Matched reply message with a correlation ID: " + corrid)
+    #         # Can do anything needed for the scenario here, e.g., may update the 'status', or inform UI or other applications/services.
+    #         result = json.loads(body) 
+    #         phone_no = result["phone"]
+    #         phone_no = "+65" + phone_no
+    #         # delete the data from database
+    #         send_sms(row["message"], phone_no)
+    #         matched = True
+    #         break
+    # if not matched:
+    #     print("--Wrong reply correlation ID: No match of " + properties.correlation_id)
+    #     print()
 
     # acknowledge to the broker that the processing of the message is completed
     channel.basic_ack(delivery_tag=method.delivery_tag)

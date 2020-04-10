@@ -11,16 +11,27 @@ import os
 
 app = Flask(__name__)
 #app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root@localhost:3306/esd_patient'
+#app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('dbURL')
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://admin:IloveESMandPaul!<3@esd.cemjatk2jkn2.ap-southeast-1.rds.amazonaws.com/esd_patient'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
  
 db = SQLAlchemy(app)
 CORS(app)
 
+hostname = "localhost" # default hostname
+port = 5672 # default port
+# connect to the broker and set up a communication channel in the connection
+# connection = pika.BlockingConnection(pika.ConnectionParameters(host=hostname, port=port))
+    # Note: various network firewalls, filters, gateways (e.g., SMU VPN on wifi), may hinder the connections;
+    # If "pika.exceptions.AMQPConnectionError" happens, may try again after disconnecting the wifi and/or disabling firewalls
+
 # channel settings
 url = 'amqp://xhnawuvi:znFCiYKqjzNmdGBNLdzTJ07R25lNOCr_@vulture.rmq.cloudamqp.com/xhnawuvi'
 params = pika.URLParameters(url)
 connection = pika.BlockingConnection(params)
+# hostname = "localhost" # default hostname
+# port = 5672 # default port
+# connection = pika.BlockingConnection(pika.ConnectionParameters(host=hostname, port=port))
 
 channel = connection.channel()
 
@@ -92,7 +103,7 @@ def callback(channel, method, properties, body): # required signature for the ca
 
         
         channel.queue_declare(queue='notification', durable=True) # make sure the queue used by Shipping exist and durable
-        channel.queue_bind(exchange=exchangename, queue='notification', routing_key='notification.reply.phoneNumber') # make sure the queue is bound to the exchange
+        channel.queue_bind(exchange=exchangename, queue='notification', routing_key='notification.reply.phone_number') # make sure the queue is bound to the exchange
         channel.basic_publish(exchange=exchangename,
             routing_key=properties.reply_to, # use the reply queue set in the request message as the routing key for reply messages
             body=message, 
