@@ -10,7 +10,15 @@ The solution consists of 6 microservices - Patient, Doctor, Notification, Appoin
 
 2. Connect your WAMP to the ESD-ClinicAppointmentServices folder by creating an alias
 
-3. All the microservices are running on cloud, hence there is no need to run it individually.
+3. All the microservices are running on cloud, hence there is no need to run it individually. (However, you may also choose to run it locally, but do take note that you are require to run the micro-services on your system.)  
+
+	If you choose to run locally the micro-services, they can be found at the following sub-folder.
+		
+		Doctor: ESD-ClinicAppointmentServices\app\doctor
+		Patient: ESD-ClinicAppointmentServices\app\patient
+		Appointment: ESD-ClinicAppointmentServices\app\appointment
+		Consultation: ESD-ClinicAppointmentServices\app\consultation
+		Payment: ESD-ClinicAppointmentServices\app\payment
 
 4. The database is also running on cloud, hence there is no need to import the database. (However, should you want to look into the database structure, you may look at the ESD-ClinicAppointmentServices/sql folder)
 
