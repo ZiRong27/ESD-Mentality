@@ -3,13 +3,11 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 from os import environ #For docker use
 
-from datetime import datetime
 import json
 import pika
 
 app = Flask(__name__)
 #app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root@localhost:3306/esd_doctor'
-#app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('dbURL')
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://admin:IloveESMandPaul!<3@esd.cemjatk2jkn2.ap-southeast-1.rds.amazonaws.com/esd_doctor'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
  
