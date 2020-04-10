@@ -12,24 +12,22 @@ The solution consists of 6 microservices - Patient, Doctor, Notification, Appoin
 2. Connect your WAMP to the ESD-ClinicAppointmentServices folder by creating an alias
 
 3. The following microservices (doctor, patient, appointment, consultation, payment) are running on cloud, hence there is no need to run it individually. 
-(However, you may also choose to run it locally, but do take note that you are require to run the micro-services on your system.) 
 
-  If you choose to run locally the micro-services, they can be found at the following sub-folder.
+- However, you may also choose to run it locally, but do take note that you are require to run the micro-services on your system. 
+  
+- If you choose to run locally the micro-services, they can be found at the following sub-folder.
+  
+    ```bash
+    Doctor: ESD-ClinicAppointmentServices\docker\doctor
+    Patient: ESD-ClinicAppointmentServices\docker\patient
+    Appointment: ESD-ClinicAppointmentServices\docker\appointment
+    Consultation: ESD-ClinicAppointmentServices\docker\consultation
+    Payment: ESD-ClinicAppointmentServices\docker\payment
+  Notification: ESD-ClinicAppointmentServices\docker\notification
+	  ```
 
-  	Doctor: ESD-ClinicAppointmentServices\docker\doctor
-  	Patient: ESD-ClinicAppointmentServices\docker\patient
-  	Appointment: ESD-ClinicAppointmentServices\docker\appointment
-  	Consultation: ESD-ClinicAppointmentServices\docker\consultation
-  	Payment: ESD-ClinicAppointmentServices\docker\payment
-  	Notification: ESD-ClinicAppointmentServices\docker\notification
-  Then, go to C:\wamp64\www\ESD-ClinicAppointmentServices\app\ui\include\codeLinks.php, comment line 31-35 and uncomment line 37-41 to switch to localhost ip 
-
-	The following files are required to be run locally, and can be found at the following sub-folder.
-
-		notification: ESD-ClinicAppointmentServices\app\notification
-		notification_reply: ESD-ClinicAppointmentServices\app\notification	
-		patient_amqp: ESD-ClinicAppointmentServices\app\patient
-
+	  Then, go to C:\wamp64\www\ESD-ClinicAppointmentServices\app\ui\include\codeLinks.php, comment line 31-35 and uncomment line 37-41 to switch to localhost ip.
+	
 4. The database is also running on cloud, hence there is no need to import the database. (However, should you want to look into the database structure, you may look at the ESD-ClinicAppointmentServices/sql folder)
 
 5. To access the web application you may go to the following link
