@@ -13,13 +13,15 @@ The solution consists of 6 microservices - Patient, Doctor, Notification, Appoin
 
 3. All the microservices are running on cloud, hence there is no need to run it individually. (However, you may also choose to run it locally, but do take note that you are require to run the micro-services on your system.)  
 
-	If you choose to run locally the micro-services, they can be found at the following sub-folder.
-		
-		Doctor: ESD-ClinicAppointmentServices\app\doctor
-		Patient: ESD-ClinicAppointmentServices\app\patient
-		Appointment: ESD-ClinicAppointmentServices\app\appointment
-		Consultation: ESD-ClinicAppointmentServices\app\consultation
-		Payment: ESD-ClinicAppointmentServices\app\payment
+  If you choose to run locally the micro-services, they can be found at the following sub-folder.
+
+  	Doctor: ESD-ClinicAppointmentServices\docker\doctor
+  	Patient: ESD-ClinicAppointmentServices\docker\patient
+  	Appointment: ESD-ClinicAppointmentServices\docker\appointment
+  	Consultation: ESD-ClinicAppointmentServices\docker\consultation
+  	Payment: ESD-ClinicAppointmentServices\docker\payment
+  	Notification: ESD-ClinicAppointmentServices\docker\notification
+  Then, go to C:\wamp64\www\ESD-ClinicAppointmentServices\app\ui\include\codeLinks.php, comment line 31-35 and uncomment line 37-41 to switch to localhost ip 
 
 4. The database is also running on cloud, hence there is no need to import the database. (However, should you want to look into the database structure, you may look at the ESD-ClinicAppointmentServices/sql folder)
 
