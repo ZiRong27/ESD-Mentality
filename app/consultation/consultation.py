@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
-# The above shebang (#!) operator tells Unix-like environments
-# to run this file as a python3 script
+
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
@@ -9,10 +8,7 @@ from sqlalchemy import func
 import json
 import sys
 import os
-import random
-import datetime
 import pika
-
 
 
 app = Flask(__name__)
@@ -22,40 +18,6 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
  
 db = SQLAlchemy(app)
 CORS(app)
-
-'''
-class Consultation(db.Model):
-    __tablename__ = 'consultation'
-
-    consultation_id = db.Column(db.Integer, primary_key=True)
-    appointment_id = db.Column(db.String, nullable=False)
-    doctor_id = db.Column(db.String, nullable=False)
-    patient_id = db.Column(db.String, nullable=False)
-    diagnosis = db.Column(db.String, nullable=False)
-    prescription = db.Column(db.String, nullable=False)
-    notes = db.Column(db.String, nullable=False)
-
-    def __init__(self, consultation_id, appointment_id, doctor_id, patient_id, diagnosis, prescription, notes):
-        self.consultation_id = consultation_id
-        self.appointment_id = appointment_id
-        self.doctor_id = doctor_id
-        self.patient_id = patient_id
-        self.diagnosis = diagnosis
-        self.prescription = prescription
-        self.notes = notes
-
-    def json(self):
-        return 
-        {
-            "consultation_id": self.consultation_id, 
-            "appointment_id": self.appointment_id, 
-            "doctor_id": self.doctor_id, 
-            "patient_id": self.patient_id,
-            "diagnosis": self.diagnosis, 
-            "prescription": self.prescription, 
-            "notes": self.notes
-        }
-'''
 
 class Consultation(db.Model):
     __tablename__ = 'consultation'
