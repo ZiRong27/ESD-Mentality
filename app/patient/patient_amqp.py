@@ -11,27 +11,16 @@ import os
 
 app = Flask(__name__)
 #app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root@localhost:3306/esd_patient'
-#app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('dbURL')
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://admin:IloveESMandPaul!<3@esd.cemjatk2jkn2.ap-southeast-1.rds.amazonaws.com/esd_patient'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
  
 db = SQLAlchemy(app)
 CORS(app)
 
-hostname = "localhost" # default hostname
-port = 5672 # default port
-# connect to the broker and set up a communication channel in the connection
-# connection = pika.BlockingConnection(pika.ConnectionParameters(host=hostname, port=port))
-    # Note: various network firewalls, filters, gateways (e.g., SMU VPN on wifi), may hinder the connections;
-    # If "pika.exceptions.AMQPConnectionError" happens, may try again after disconnecting the wifi and/or disabling firewalls
-
 # channel settings
 url = 'amqp://xhnawuvi:znFCiYKqjzNmdGBNLdzTJ07R25lNOCr_@vulture.rmq.cloudamqp.com/xhnawuvi'
 params = pika.URLParameters(url)
 connection = pika.BlockingConnection(params)
-# hostname = "localhost" # default hostname
-# port = 5672 # default port
-# connection = pika.BlockingConnection(pika.ConnectionParameters(host=hostname, port=port))
 
 channel = connection.channel()
 
