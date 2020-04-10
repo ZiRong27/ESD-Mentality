@@ -221,7 +221,7 @@ def checkout():
                 # success_url='http://" + paymentip + "/success/session_id={CHECKOUT_SESSION_ID}',
                 success_url = 'http://localhost:80/ESD-ClinicAppointmentServices/app/ui/patient/patientUpdateAppts.php?session_id={CHECKOUT_SESSION_ID}',
                 #success_url = 'http://localhost:8898/ESD-ClinicAppointmentServices/app/patient/patientUpdateAppts.php?session_id={CHECKOUT_SESSION_ID}',
-                cancel_url='https://example.com/cancel',
+                cancel_url='http://localhost:80/ESD-ClinicAppointmentServices/app/ui/patient/patientViewAllDoctors.php',
                 metadata = appointment_info
             )
 
@@ -242,7 +242,7 @@ def checkout():
 def add_appointment(appointment_info):
     try:
         #CHANGE appointmentip here!!yh56y56y56y56y65yrgrgrgVERYYYYYYYY IMPORTANT
-        url = "http://" + "13.229.77.62" + "/create-appointment"
+        url = "http://" + "13.229.73.225" + "/create-appointment"
         response = requests.post(url, json=appointment_info)
         json_response = response.json()
         return json_response
