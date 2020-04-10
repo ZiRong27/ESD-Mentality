@@ -53,9 +53,9 @@ $( document ).ready(function()
 // Helper function to display error message
 function showError(message) 
 {
-    console.log('Error logged')
+    console.log('Error logged');
     // Display an error on top of the table
-    $('.index-errormsg').html(message)
+    $('.index-errormsg').html(message);
 }
 
 // Function: Get all consultation by patient_ID - Part A
@@ -68,7 +68,6 @@ function showError(message)
     // retrieve consultation data by patient
       const response_appointment = await fetch(serviceURL_appointment, { method: 'GET' });
       const data_appointment = await response_appointment.json(); 
-      console.log(data_appointment)
 
     // If retrieve data failed, result to no data
     if (!data_appointment || data_appointment["message"] == "history appointment by patient id not found.") 
@@ -88,9 +87,7 @@ function showError(message)
                 for (var ele in keys)
                 {
                     var obj = data_appointment[ele];
-                    console.log(obj);
                     var doctorName = await fetchData(obj["doctor_id"]);
-                    console.log(doctorName);
                     var row =
                     "<tbody><tr>" + 
                         "<td>" + obj["appointment_id"] + "</td>" + 
@@ -116,9 +113,6 @@ function showError(message)
         //var serviceURL_appointment = "http://" + appointmentip + "/appointment-by-id/" + appointment_id;
         var serviceURL_doctor = "http://" + doctorip + "/view-specific-doctor-by-id/" + doctor_id;
 
-        //console.log(serviceURL_appointment)
-        console.log(serviceURL_doctor)
-
         try 
         {
             // retrieve appointment by appointment ID
@@ -126,12 +120,6 @@ function showError(message)
             const data_doctor = await response_doctor.json(); 
             const doctorName = data_doctor["name"];
             console.log(doctorName);
-
-            //const response_appointment = await fetch(serviceURL_appointment, { method: 'GET' });
-            //const data_appointment = await response_appointment.json(); 
-            //console.log(data_appointment)
-            //const datetime = data_appointment["date"];
-            //console.log(datetime);
 
             return doctorName;
         }

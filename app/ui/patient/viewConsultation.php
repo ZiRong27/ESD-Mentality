@@ -39,9 +39,9 @@ $( document ).ready(function()
     // Helper function to display error message
     function showError(message) 
     {
-        console.log('Error logged')
+        console.log('Error logged');
         // Display an error on top of the table
-        $('.index-errormsg').html(message)
+        $('.index-errormsg').html(message);
     }
 // Function: Get all consultation by patient_ID - Part A
   $(async (event) =>
@@ -56,7 +56,6 @@ $( document ).ready(function()
     // retrieve consultation data by patient
       const response_consultation = await fetch(serviceURL_consultation, { method: 'GET' });
       const data_consultation = await response_consultation.json(); 
-      console.log(data_consultation)
 
     // If retrieve data failed, result to no data
       if (!data_consultation) 
@@ -66,8 +65,6 @@ $( document ).ready(function()
       // else display
       else
       {
-        console.log(data_consultation);
-        console.log(doctor_name);
         row = 
         "<tbody>" + 
             "<tr> <th> Doctor </th> <td>" + doctor_name +"</td> </tr>" + 

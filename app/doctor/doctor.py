@@ -76,7 +76,13 @@ def get_price(username):
 def get_all():
     return jsonify([doctor.json_no_password() for doctor in Doctor.query.all()])
 
-
+@app.route("/view-specific-doctor/<string:username>") 
+def get_specific_doctor(username):
+    doctor = Doctor.query.filter_by(username=username).first()
+    if doctor:
+        return jsonify(doctor.json_no_password())
+    return jsonify({"message": "Doctor not found."}), 404
+    
 #Function: Get consultation by consultation Id -> For Doctor & Patient to View
 @app.route("/view-specific-doctor-by-id/<string:doctor_id>")
 def find_by_doctor_id(doctor_id):

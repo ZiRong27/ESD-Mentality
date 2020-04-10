@@ -46,9 +46,9 @@ require_once '../include/protect.php';
 
     // Helper function to display error message
     function showError(message) {
-        console.log('Error logged')
+        console.log('Error logged');
         // Display an error on top of the table
-        $('.index-errormsg').html(message)
+        $('.index-errormsg').html(message);
     }
     //This is the form id, not the submit button id!
     $(async() => { 
@@ -63,7 +63,6 @@ require_once '../include/protect.php';
                    serviceURL, { method: 'GET' }
                 );
                 const data = await response.json();
-                console.log(data)
                 //The error message is stored in the data array sent by patient.py! If there is a message variable, it means there is an error
                 if (data['message']) {
                     showError(data['message'])

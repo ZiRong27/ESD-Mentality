@@ -60,9 +60,7 @@ require_once '../include/protect.php';
   $(async (event) =>
   {
     var doctor_id = sessionStorage.getItem("doctor_id");
-    //var serviceURL_consultation = "http://" + consultationip + "/consultation-by-doctor/" + doctor_id;
     var serviceURL_consultation = "http://" + consultationip + "/consultation-by-doctor/" + doctor_id;
-    //var serviceURL_patients = "http://" + patientip + "/view-all-patients";
     var serviceURL_patients = "http://" + patientip + "/view-all-patients";
     try 
     {
@@ -129,7 +127,6 @@ require_once '../include/protect.php';
       catch (error) 
       {
          console.log("Unable to connect to Appointment History to retrive Date");
-        //return false;
        }
     }
 
@@ -145,7 +142,6 @@ require_once '../include/protect.php';
       catch (error) 
       {
          console.log("Unable to connect to Appointment History to retrive Date");
-        //return false;
        }
     }
 

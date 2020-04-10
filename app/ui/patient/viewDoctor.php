@@ -137,7 +137,6 @@ require_once '../include/protect.php';
                     //Split the dob, first element is year, 2nd is month, 3rd is day
                     dobarr = data.dob.split("-") ;
                     age =  currentyear - dobarr[0];
-                    console.log(age,currentmonth, currentday, dobarr[1], dobarr[2]);
                     //If havent past birthday yet, deduct age by one
                     if ( (currentmonth < dobarr[1]) || (currentmonth == dobarr[1] && currentday < dobarr[2]) ) {
                         age = age - 1;
@@ -241,11 +240,6 @@ require_once '../include/protect.php';
             var serviceURL = "http://" + paymentip + "/checkout";
             // var serviceURL = "http://" + appointmentip + "/create-appointment";
             try {
-                console.log(JSON.stringify({ doctor_id: doctor_id,
-                                            patient_id: patient_id,
-                                            price: price,
-                                            date: booking_date,
-                                            time: booking_time}))
                 const response = await fetch(serviceURL,{method: 'POST',
                                             headers: { "Content-Type": "application/json" },
                                             body: JSON.stringify

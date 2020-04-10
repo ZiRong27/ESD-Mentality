@@ -159,7 +159,6 @@ $(document).ready(function()
     {
       const response = await fetch(patientallergiesURL, { method: 'GET' });
       const data = await response.json(); 
-      console.log(data)
 
       if (!data || data.message == "allergies data missing error.") 
       {
@@ -187,7 +186,6 @@ async function fetchpatientmedicalhistoryURLs(patient_id)
     {
       const response = await fetch(medicalhistoryURL, { method: 'GET' });
       const data = await response.json(); 
-      console.log(data)
 
       if (!data || data.message == "patient history data missing.") 
       {
@@ -211,11 +209,9 @@ async function fetchpatientmedicalhistoryURLs(patient_id)
         event.preventDefault(); 
         let params = new URLSearchParams(location.search);
         var appointment_id = params.get("appointmentid");
-        console.log(appointment_id);
         var patient_id = params.get("patientid");
         var doctor_id = sessionStorage.getItem("doctor_id");
         var data = await fetchURLs(appointment_id, patient_id); 
-        console.log(data);
     
         var patient_information = data[0];
         var appointment_information = data[1];
@@ -226,9 +222,7 @@ async function fetchpatientmedicalhistoryURLs(patient_id)
 
         var appointment_id = appointment_information["appointment_id"];
         var date = appointment_information["date"];
-        console.log("Test" + date);
         var time = appointment_information["time"];
-        console.log("Test" + time);
         var payment_id = appointment_information["payment_id"];
         var doctor_id = doctor_id;
         var patient_id = patient_information["patient_id"];
@@ -248,7 +242,6 @@ async function fetchpatientmedicalhistoryURLs(patient_id)
             prescription: prescription_information,
             notes: notes_information
         }   
-        console.log(requestBody_consultation);
         // Appointment History -> create appointment history 
         var serviceURL_appointment  = "http://" + appointmentip + "/appointment-history";
         var requestBody_appointment = 
@@ -260,7 +253,6 @@ async function fetchpatientmedicalhistoryURLs(patient_id)
             time: time,
             payment_id: payment_id
         }  
-        console.log(requestBody_appointment);
         
         await postDataConsultation(serviceURL_consultation, requestBody_consultation) 
         await postDataAppointmentHistory(serviceURL_appointment, requestBody_appointment)
@@ -280,7 +272,6 @@ async function fetchpatientmedicalhistoryURLs(patient_id)
         {
             const response_consultation = await fetch(serviceURL_consultation, requestParam_consultation);
             data_consultation = await response_consultation.json();               
-            console.log("consultation created!:" + data_consultation);
             return true;
         }       
         catch (error) 
