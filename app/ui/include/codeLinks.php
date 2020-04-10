@@ -28,13 +28,12 @@
     integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
     crossorigin="anonymous"></script>
     <script>
-      //Sets the IP addresses of ALL microservices here!!
-      //All these are working! Uncomment to try them, you will NOT need to run any of these microservices yourself
       patientip = "13.250.51.59:5001";
       doctorip = "54.179.180.84:5002";
       appointmentip = "54.255.201.27:5003";
       consultationip = "13.229.134.116:5004";
       paymentip = "54.251.165.232:5005";
+      //Uncomment the ip addresses here to run the microservices locally instead.
       //patientip = "localhost:5001";
       //doctorip = "localhost:5002";
       //appointmentip = "localhost:5003";
