@@ -16,7 +16,7 @@ The solution consists of 6 microservices - Patient, Doctor, Notification, Appoin
 
 5. To access the web application you may go to the following link
 
-   - **Mentality Landing Page****: localhost:80/ESD-ClinicAppointmentServices/app/ui/landing 
+   - **Mentality Landing Page**: localhost:80/ESD-ClinicAppointmentServices/app/ui/landing 
    - **Mentality Patient Portal**: localhost:80/ESD-ClinicAppointmentServices/app/ui
    - **Mentality Doctor Portal**: localhost:80/ESD-ClinicAppointmentServices/app/ui/doctor/doctorLogin.php
 
@@ -51,9 +51,9 @@ The solution consists of 6 microservices - Patient, Doctor, Notification, Appoin
 7.  Alternatively, you can login using these account details
 
    - Patient - Username: **sophieng** Password: **sn1**
-   - Patient - Username: zoeytan Password: zt1
+   - Patient - Username: **zoeytan** Password: **zt1**
    - Doctor - Username: **johnsmith** Password: **js1**
-   - Doctor - Username: rosafernandez Password: rf1
+   - Doctor - Username: **rosafernandez** Password: **rf1**
 
 You can now access our web application :)
 
@@ -61,14 +61,22 @@ Note: We have deployed all our microservice on AWS ECS and used Cloud RabbitMQ f
 
 
 
+## Guide
+
+* see [SETUP CLOUD RABBITMQ](https://github.com/username/sw-name/blob/master/SETUP CLOUD RABBITMQ.md) file
+
+* see [SETUP DOCKER CLOUD](https://github.com/username/sw-name/blob/master/SETUP DOCKER CLOUD.md) file
+
+  
+
 ## Contributors
 
 ### Contributors on GitHub
 * [Syafiqah](https://github.com/syafiqahmr)
 * [Zi Rong](https://github.com/ZiRong27)
-
-
+* [Sheng Qin](https://github.com//simshengqin)
+* [Rachel](https://github.com/racheltoh)
+* [Vittorio](https://github.com/[VittorioWeiLong](https://github.com/VittorioWeiLong))
 
 ## Version 
 * Version 1.0
-
