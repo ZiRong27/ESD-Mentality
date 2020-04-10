@@ -19,13 +19,15 @@ import pika
 url = 'amqp://xhnawuvi:znFCiYKqjzNmdGBNLdzTJ07R25lNOCr_@vulture.rmq.cloudamqp.com/xhnawuvi'
 params = pika.URLParameters(url)
 connection = pika.BlockingConnection(params)
+# hostname = "localhost" # default hostname
+# port = 5672 # default port
+# connection = pika.BlockingConnection(pika.ConnectionParameters(host=hostname, port=port))
+
 channel = connection.channel()
 
 # set up the exchange if the exchange doesn't exist
-exchangename="appointment_topic"
+exchangename="mentality"
 channel.exchange_declare(exchange=exchangename, exchange_type='topic')
-channel.queue_declare(queue='notification', durable=True) # make sure the queue used by Shipping exist and durable
-channel.queue_bind(exchange=exchangename, queue='notification', routing_key='paymentSuccess.message') # make sure the queue is bound to the exchange
 
 
 #ip address
@@ -136,6 +138,8 @@ def success(session_id):
         result = {"patient_id": appointment_info['patient_id'], "message": for_patient_message}
         message = json.dumps(result, default=str)
         print ("book", message)
+        channel.queue_declare(queue='notification', durable=True) # make sure the queue used by Shipping exist and durable
+        channel.queue_bind(exchange=exchangename, queue='notification', routing_key='paymentSuccess.message') # make sure the queue is bound to the exchange    
         channel.basic_publish(exchange=exchangename, routing_key="paymentSuccess.message", body=message,
             properties=pika.BasicProperties(delivery_mode = 2))# make message persistent within the matching queues until it is received by some receiver (the matching queues have to exist and be durable and bound to the exchange, which are ensured by the previous two api calls)
         return jsonify({"appointment": appointment_info}), 200
@@ -217,7 +221,7 @@ def checkout():
                 # success_url='http://" + paymentip + "/success/session_id={CHECKOUT_SESSION_ID}',
                 success_url = 'http://localhost:80/ESD-ClinicAppointmentServices/app/ui/patient/patientUpdateAppts.php?session_id={CHECKOUT_SESSION_ID}',
                 #success_url = 'http://localhost:8898/ESD-ClinicAppointmentServices/app/patient/patientUpdateAppts.php?session_id={CHECKOUT_SESSION_ID}',
-                cancel_url='https://example.com/cancel',
+                cancel_url='http://localhost:80/ESD-ClinicAppointmentServices/app/ui/patient/patientViewAllDoctors.php',
                 metadata = appointment_info
             )
 
@@ -238,7 +242,7 @@ def checkout():
 def add_appointment(appointment_info):
     try:
         #CHANGE appointmentip here!!yh56y56y56y56y65yrgrgrgVERYYYYYYYY IMPORTANT
-        url = "http://" + "13.229.77.62" + "/create-appointment"
+        url = "http://" + "13.229.73.225" + "/create-appointment"
         response = requests.post(url, json=appointment_info)
         json_response = response.json()
         return json_response
