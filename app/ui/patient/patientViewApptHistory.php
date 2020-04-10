@@ -31,7 +31,7 @@
             <th scope="col"> Doctor </th>
             <th scope="col"> Date </th>
             <th scope="col"> Time </th>
-            <th scope="col"> Paid Amount </th>
+            <!-- <th scope="col"> Paid Amount </th> -->
         </tr>
     </thead>
     </table>  
@@ -98,7 +98,7 @@ function showError(message)
                         "<td>" + doctorName + "</td>" + 
                         "<td>" + obj["date"] + "</td>" + 
                         "<td>" + obj["time"] + "</td>" + 
-                        "<td>" + obj["payment_id"] +
+                        //"<td>" + obj["payment_id"] +
                     "</tr></tbody>";
                     $('#apptHisTable').append(row);
                 } // End of for loop
