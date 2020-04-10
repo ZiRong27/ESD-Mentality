@@ -71,9 +71,9 @@ Note: We have deployed all our microservice on AWS ECS and used Cloud RabbitMQ f
 
 ## Guide
 
-* see [SETUP CLOUD RABBITMQ](https://github.com/username/sw-name/blob/master/SETUP_CLOUDRABBITMQ.md) file
+* see [SETUP CLOUD RABBITMQ](https://github.com/syafiqahmr/ESD-ClinicAppointmentServices/blob/master/SETUP_CLOUDRABBITMQ.md) file
 
-* see [SETUP DOCKER CLOUD](https://github.com/username/sw-name/blob/master/SETUP_DOCKERCLOUD.md) file
+* see [SETUP DOCKER CLOUD](https://github.com/syafiqahmr/ESD-ClinicAppointmentServices/blob/master/SETUP_DOCKERCLOUD.md) file
 
   
 
