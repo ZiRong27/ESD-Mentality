@@ -44,7 +44,6 @@ The solution consists of 6 microservices - Patient, Doctor, Notification, Appoin
    - Insert the following code at the very bottom, one line before ?>
 
      ```sql
-
 	$i++;
 	$cfg['Servers'][$i]['verbose'] = 'ESD';
 	$cfg['Servers'][$i]['host'] = 'esd.cemjatk2jkn2.ap-southeast-1.rds.amazonaws.com';
@@ -165,7 +164,7 @@ Note: We have deployed all our microservice on AWS ECS and used Cloud RabbitMQ f
 
 6. Click create repository => Name it as g6t8/patient
 
-7. Repeat previous step for the 5 other microservices: g6t8/doctor, g6t8/appointment, g6t8/consultation, g6t8/notification, g6t8/payment
+7. Repeat previous step for the 7 other microservices: g6t8/doctor, g6t8/appointment, g6t8/consultation, g6t8/notification, g6t8/payment, g6t8/patient_amqp, g6t8/notification_reply.
 
 8. Click on patient repository => View push command
 
@@ -247,7 +246,7 @@ Note: We have deployed all our microservice on AWS ECS and used Cloud RabbitMQ f
 
 31. Copy the public IP. This will be the IP you use to connect to this patient microservice. 
 
-32. Repeat step 14 to 31 for all the other 5 repositories (each for 1 microservice)
+32. Repeat step 14 to 31 for all the other 7 repositories (each for 1 microservice)
 
 ## Contributors
 
