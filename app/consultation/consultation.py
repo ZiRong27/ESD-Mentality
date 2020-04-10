@@ -12,8 +12,8 @@ import pika
 
 
 app = Flask(__name__)
-#app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root@localhost:3306/esd_consultation'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://admin:IloveESMandPaul!<3@esd.cemjatk2jkn2.ap-southeast-1.rds.amazonaws.com/esd_consultation'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root@localhost:3306/esd_consultation'
+#app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://admin:IloveESMandPaul!<3@esd.cemjatk2jkn2.ap-southeast-1.rds.amazonaws.com/esd_consultation'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
  
 db = SQLAlchemy(app)
@@ -58,17 +58,10 @@ def find_by_appointment_id(consultation_id):
 @app.route("/consultation-by-doctor/<string:doctor_id>")
 def get_all_consultation_by_doctor(doctor_id):
     return jsonify([consultation.json() for consultation in Consultation.query.filter(Consultation.doctor_id.endswith(doctor_id)).all()])
-    data = []
-    for consultation in Consultation.query.filter(Consultation.patient_id.endswith(patient_id)).all():
-        data.append(consultation.json())
-    if data:
-        return jsonify(data)
-    return jsonify({"message": "consultation by doctor id not found."}), 404
 
 #Function: Get all consultation by Patient_id -> For Patient to view
 @app.route("/consultation-by-patient/<string:patient_id>")
 def get_all_consultation_by_patient(patient_id):
-    #return jsonify([consultation.json() for consultation in Consultation.query.filter(Consultation.patient_id.endswith(patient_id)).all()])
     data = []
     for consultation in Consultation.query.filter(Consultation.patient_id.endswith(patient_id)).all():
         data.append(consultation.json())

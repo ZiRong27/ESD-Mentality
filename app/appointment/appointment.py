@@ -13,8 +13,8 @@ import pika, os
 # Flask and DB Settings 
 app = Flask(__name__)
 
-#app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root@localhost:3306/esd_appointment'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://admin:IloveESMandPaul!<3@esd.cemjatk2jkn2.ap-southeast-1.rds.amazonaws.com/esd_appointment'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root@localhost:3306/esd_appointment'
+#app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://admin:IloveESMandPaul!<3@esd.cemjatk2jkn2.ap-southeast-1.rds.amazonaws.com/esd_appointment'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
  
 db = SQLAlchemy(app)
@@ -118,6 +118,9 @@ def send_appointment_reminder(message, patient_id, appointment_date, appointment
     # The channel is expendable.
     channel.close()
 
+@app.route("/appointments-by-doctor/<string:doctor_id>")
+def get_all_appointment_by_doctor(doctor_id):
+    return jsonify([appointment.json() for appointment in Appointment.query.filter(Appointment.doctor_id.endswith(doctor_id)).all()])
 
 @app.route("/appointment/<string:doctor_id>")
 def find_by_doctor_id(doctor_id):

@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS `consultation` (
   `consultation_id` int(11) NOT NULL AUTO_INCREMENT,
   `appointment_id` varchar(11) NOT NULL,
   `doctor_id` varchar(11) NOT NULL,
-  `patient_id` varchar(11) NOT NULL,
+  `patient_id` int(11) NOT NULL,
   `diagnosis` varchar(1000),
   `prescription` varchar(1000),
   `notes` varchar(1000),
@@ -46,12 +46,12 @@ CREATE TABLE IF NOT EXISTS `consultation` (
 --
 
 INSERT INTO `consultation` (`consultation_id`, `appointment_id`, `doctor_id`, `patient_id`, `diagnosis`, `prescription`, `notes`) VALUES
-(119, '119', '2', '1','Bipolar Disorder, Anxiety', 'Zoloft: 35mg', 'Patient is starting to display worsening symptoms of anxiety'),
-(210, '210', '3', '2','Obsessive-Compulsive Disorder', 'Prozac: 60mg', 'Patient is responding well to the new round of medication'),
-(211, '211', '2', '3','Anxiety Disorder', 'Xanax: 7mg', 'Patient\s insomnia is getting worse, started to experience an increase in sleepless nights'),
-(212, '212', '1', '1', 'Anxiety Disorder', 'Xanax: 5mg', 'NA'),
-(213, '213', '2', '2', 'Bipolar Disorder', 'Zoloft: 30mg', 'NA'),
-(214, '214', '2', '1', 'Depression, Panic Disorder', 'Xanax: 7mg', 'Patient reacting well to the change in antidepressant from Prozac to Xanax');
+(119, '119', '2', 1,'Bipolar Disorder, Anxiety', 'Zoloft: 35mg', 'Patient is starting to display worsening symptoms of anxiety'),
+(210, '210', '3', 2,'Obsessive-Compulsive Disorder', 'Prozac: 60mg', 'Patient is responding well to the new round of medication'),
+(211, '211', '2', 3,'Anxiety Disorder', 'Xanax: 7mg', 'Patient\s insomnia is getting worse, started to experience an increase in sleepless nights'),
+(212, '212', '1', 1, 'Anxiety Disorder', 'Xanax: 5mg', 'NA'),
+(213, '213', '2', 2, 'Bipolar Disorder', 'Zoloft: 30mg', 'NA'),
+(214, '214', '2', 1, 'Depression, Panic Disorder', 'Xanax: 7mg', 'Patient reacting well to the change in antidepressant from Prozac to Xanax');
 /*
 (1, '1', '2', '1', 'Bipolar Disorder, Anxiety', 'Zoloft: 35mg', 'Patient is starting to display worsening symptoms of anxiety'),
 (10, '10', '1', '5', 'Obsessive-Compulsive Disorder', 'Prozac: 60mg', 'Patient is responding well to the new round of medication'),
