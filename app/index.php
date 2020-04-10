@@ -28,16 +28,13 @@
                 </div>
 
                 </br>
-               <!-- <a class = "whitetext" href="doctor/doctorLogin.php" style="color:#505050;"> Or login as a doctor</a> -->
+
                 <div class="text-right">
-                    <!-- The button type has to be submit for the below async functions to work!-->
-                    <!--<button type="button" class="btn btn-primary btn-lg" id="signup"> Sign Up </button>-->
-                        &nbsp;
-                        &nbsp;
-                        <button type="submit" class="btn btn-primary btn-lg" id="loginBtn" style="width:180px; height:45px;"> Login </button>
+                    &nbsp;
+                    &nbsp;
+                    <button type="submit" class="btn btn-primary btn-lg" id="loginBtn" style="width:180px; height:45px;"> Login </button>
                 </div>
                 <br>
-                <!-- <a class = "whitetext" href="doctor/doctorLogin.php" style="color:black; font-size:15px;"> Login as a doctor</a> -->
                 <div class="text-right">
                     <a class = "whitetext" href="patient/register.php" style="color:black; font-size:15px;"> No account? Sign up now!</a>
                     <br>

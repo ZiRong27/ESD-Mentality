@@ -13,10 +13,6 @@ if (isset($_GET['session_id'])){
 <head>
     <!--Install jquery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <style>
-        /*.table-bordered th, .table-bordered td { border: 2px solid #ddd!important }*/
-
-    </style>
 </head>
 <header>
     <?php include '../include/codeLinks.php';?>

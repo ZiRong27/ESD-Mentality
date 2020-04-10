@@ -1,5 +1,3 @@
-
-
 <?php
 require_once '../include/common.php';
 
@@ -109,20 +107,14 @@ require_once '../include/protect.php';
   </div>
 
 </div>
-
-    <!-- /.row -->
-
-  </div>
-  <!-- /.container -->
-
-<!-- Import footer -->
+</div>
 
 <script>
   $(() => {
     $("#home").addClass("active");
   });
 </script>
-</body>
 
+</body>
 </html>
 

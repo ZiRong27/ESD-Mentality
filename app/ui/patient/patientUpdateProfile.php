@@ -19,11 +19,7 @@ require_once '../include/protect.php';
 <!-- Import navigation bar -->
 <?php include '../include/patientNavbar.php';?>
 <div id="main-container" class="container">
-        <!-- <div class="text-center">
-            <img src="../images/logo.png" height="200" width="300"> 
-        </div> --> 
         <br> <br> 
-<!-- <div id=whole style="border:1px solid #696969; border-radius:20px; padding:20px; box-shadow: 2px 3px #989898; background:white;"> -->
 <div class="row d-flex justify-content-center">
         <form id ="loginForm" class="col-12 justify-content-center" >
         <div class="my-2">
@@ -83,11 +79,9 @@ require_once '../include/protect.php';
         </div>
         </br>
         <div class="text-right">               
-            <!-- The button type has to be submit for the below async functions to work!-->
-            <!--<button type="button" class="btn btn-primary btn-lg" id="signup"> Sign Up </button>-->
-                &nbsp;
-                &nbsp;
-                <button type="submit" class="btn btn-primary btn-lg" id="registerBtn" style="height:40px; width:160px; padding:1px;"> Update details </button>
+            &nbsp;
+            &nbsp;
+            <button type="submit" class="btn btn-primary btn-lg" id="registerBtn" style="height:40px; width:160px; padding:1px;"> Update details </button>
         </div>
     </form>
     <div class ="index-errormsg"></div>

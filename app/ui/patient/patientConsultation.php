@@ -1,4 +1,3 @@
-
 <html>
 <header>
     <?php 
@@ -143,7 +142,6 @@ function showError(message)
             console.log("Error in connecting to Mircoservice!");
         }
     }
-
 /*
     sessionStorage.setItem('patientip', "" + patientip + " ")
     sessionStorage.setItem('doctorip', ""  + doctorip + "  ")
@@ -152,11 +150,5 @@ function showError(message)
 */
   });
 </script>
-
-
-
-
-
 </body>
-
 </html>

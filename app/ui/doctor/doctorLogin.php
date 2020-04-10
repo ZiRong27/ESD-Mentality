@@ -53,7 +53,7 @@
 <script>    
     //IMPORTANT Set AWS IP address for each microservices here
     //Retrieve with doctorip
-    // Helper function to display error message
+    //Helper function to display error message
     function showError(message) {
         console.log('Error logged')
         // Display an error under the signup/login form

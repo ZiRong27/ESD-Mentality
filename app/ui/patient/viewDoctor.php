@@ -9,12 +9,10 @@ require_once '../include/protect.php';
     <!--Install jquery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <style>
-        /*.table-bordered th, .table-bordered td { border: 2px solid #ddd!important }*/
         #doctorPicture {
             display: block;
             margin: 0 auto;
         }
-
         #doctorName {
             text-align: center;
         }
@@ -38,9 +36,7 @@ require_once '../include/protect.php';
 <div class="container">
 
 <!-- Page Heading -->
-<h1 class="my-4">Book an Appointment
-  <!-- <small>with our therapists</small> -->
-</h1>
+<h1 class="my-4">Book an Appointment</h1>
 
 <!-- Doctor Summary -->
 <div class="row">

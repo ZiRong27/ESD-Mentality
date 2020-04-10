@@ -1,5 +1,3 @@
-
-
 <?php
 require_once '../include/common.php';
 
@@ -61,23 +59,7 @@ require_once '../include/protect.php';
 <br>
 
 <div class="row justify-content-center">
-  <!--
-  <div class="col-lg-3 col-md-6 mb-4">
-    <div class="card h-100">
-      <img class="card-img-top" src="../images/docwithpatient.jpg" height="180" width="250">
-      <div class="card-body">
-        <h4 class="card-title" style="text-align:center;"> Patients </h4>
-        <p class="card-text" style="text-align:center;">View your patients.</p>
-      </div>
-      <div class="card-footer" style="background-color:white;">
-        <div class="row justify-content-center">
-        <a href="viewPatient.php" class="btn btn-primary"> View Patients </a>
-        </div>
-      </div>
-    </div>
-  </div>
-  -->
-<!-- Card 2 --->
+<!-- Card 1 --->
 <div class="col-lg-3 col-md-6 mb-4">
   <div class="card h-100">
     <img class="card-img-top" src="../images/viewappointment.jpg" height="180" width="250">
@@ -93,7 +75,7 @@ require_once '../include/protect.php';
   </div>
 </div>
 
-<!-- Card 3 --->
+<!-- Card 2 --->
   <div class="col-lg-3 col-md-6 mb-4">
     <div class="card h-100">
       <img class="card-img-top" src="../images/consulthistory.jpg" height="180" width="250">

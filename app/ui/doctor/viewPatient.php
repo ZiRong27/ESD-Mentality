@@ -266,33 +266,6 @@ async function fetchpatientmedicalhistoryURLs(patient_id)
         await postDataAppointmentHistory(serviceURL_appointment, requestBody_appointment)
         await postDataDeleteHistory(appointment_id)
         window.location.replace("doctorConsultation.php");
-        /*
-        if (r1 == true && r2 == true && r3 == true)
-        {
-            window.location.replace("doctorConsultation.php");
-        }
-        else
-        {
-            console.log("cannot go next page!")
-        }
-        */
-
-        /* triple checklist 
-        var r3 = await postDataDeleteHistory(appointment_id)
-        if(r3 == true) // if true, create the consultation
-        {
-          var r1 = await postDataConsultation(serviceURL_consultation, requestBody_consultation)
-          if(r1 == true) // if true, create appointment history
-          {
-            var r2 = await postDataAppointmentHistory(serviceURL_appointment, requestBody_appointment)
-            if(r2 == true) // if true, go to conultation page
-            {
-              window.location.replace("doctorConsultation.php");
-            }
-          }
-        }
-      // End of if statement.
-      */
     });
     // FUNCTION: create consultation - Part B
     async function postDataConsultation(serviceURL_consultation, requestBody_consultation) 
@@ -369,23 +342,6 @@ async function fetchpatientmedicalhistoryURLs(patient_id)
         //return false;
       }
       //var appointment_serviceURL = "http://" + appointmentip + "/delete-appointment/" + appointment_id;
-
-      /*
-      console.log(appointment_serviceURL);
-      try
-      {
-          const appointment_response = await fetch(appointment_serviceURL, { method: 'POST' });
-          const appointment_data = await appointment_response.json(); 
-          // window.location.replace("doctorConsultation.php");
-          //return true;
-      }
-      catch(error)
-      {
-            console.log("Unable to connect to appointment");
-            // window.location.replace("doctorConsultation.php"); // This is a temporary solution
-            return false;
-      }
-      */
     }
     // End of Function 
 });

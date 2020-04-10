@@ -8,9 +8,6 @@ require_once '../include/protect.php';
 <head>
     <!--Install jquery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <style>
-        /*.table-bordered th, .table-bordered td { border: 2px solid #ddd!important }*/
-    </style>
 </head>
 <header>
     <?php include '../include/codeLinks.php';?>
@@ -56,40 +53,6 @@ require_once '../include/protect.php';
         // Display an error on top of the table
         $('.index-errormsg').html(message)
     }
-
-/*
-    async function fetchURLs() {
-    try {
-      // Promise.all() lets us coalesce multiple promises into a single super-promise
-      var data = await Promise.all([
-        //fetch("http://"  + doctorip + "  /view-all-doctors").then((response) => response.json()),
-        //fetch("http://" + patientip + "/view-all-patients").then((response) => response.json())
-        fetch("http://" + doctorip + "/view-all-doctors").then((response) => response.json()),
-        fetch("http://" + patientip + "/view-all-patients").then((response) => response.json())
-      ]);
-      doctor = {}
-      
-        for (var obj of data[0]) {
-            doctor_id = obj["doctor_id"];
-            doctor[doctor_id] = obj["price"];
-        }
-
-      patient = {}
-     
-        for (var obj of data[1]) {
-            patient_id = obj["patient_id"];
-            patient[patient_id] = obj["name"];
-        }
-      
-      console.log(patient);
-      console.log(doctor);
-      return doctor, patient;
-
-    } catch (error) {
-      console.log(error);
-    }
-  }
-  */
 
   // This function here show all appointments by doctor_ID
   $(async (event) =>
