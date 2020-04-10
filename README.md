@@ -10,21 +10,29 @@ The solution consists of 6 microservices - Patient, Doctor, Notification, Appoin
 
 2. Connect your WAMP to the ESD-ClinicAppointmentServices folder by creating an alias
 
-3. All the microservices are running on cloud, hence there is no need to run it individually. (However, you may also choose to run it locally, but do take note that you are require to run the micro-services on your system.)  
+3. The following microservices (doctor, patient, appointment, consultation, payment) are running on cloud, hence there is no need to run it individually. 
+(However, you may also choose to run it locally, but do take note that you are require to run the micro-services on your system.) 
 
 	If you choose to run locally the micro-services, they can be found at the following sub-folder.
 		
-		Doctor: ESD-ClinicAppointmentServices\app\doctor
-		Patient: ESD-ClinicAppointmentServices\app\patient
-		Appointment: ESD-ClinicAppointmentServices\app\appointment
-		Consultation: ESD-ClinicAppointmentServices\app\consultation
+		Doctor: ESD-ClinicAppointmentServices\app\doctor.py
+		Patient: ESD-ClinicAppointmentServices\app\patient.py
+		Appointment: ESD-ClinicAppointmentServices\app\appointment.py
+		Consultation: ESD-ClinicAppointmentServices\app\consultation.py
 		Payment: ESD-ClinicAppointmentServices\app\payment
+
+	The following files are required to be run locally, and can be found at the following sub-folder.
+
+		notification: ESD-ClinicAppointmentServices\app\notification
+		notification_reply: ESD-ClinicAppointmentServices\app\notification	
+		patient_amqp: ESD-ClinicAppointmentServices\app\patient
 
 4. The database is also running on cloud, hence there is no need to import the database. (However, should you want to look into the database structure, you may look at the ESD-ClinicAppointmentServices/sql folder)
 
 5. To access the web application you may go to the following link
 
    - **Mentality Landing Page**: localhost:80/ESD-ClinicAppointmentServices/app/ui/landing 
+   - **Mentality Landing Page**: localhost:80/ESD-ClinicAppointmentServices/app/ui/landing/index.php
    - **Mentality Patient Portal**: localhost:80/ESD-ClinicAppointmentServices/app/ui
    - **Mentality Doctor Portal**: localhost:80/ESD-ClinicAppointmentServices/app/ui/doctor/doctorLogin.php
 
