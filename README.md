@@ -44,19 +44,19 @@ The solution consists of 6 microservices - Patient, Doctor, Notification, Appoin
    - Insert the following code at the very bottom, one line before ?>
 
      ```sql
-     $i++;
-     $cfg['Servers'][$i]['verbose'] = 'Production OS_ticket';
-     $cfg['Servers'][$i]['host'] = 'g2t1.cxwx5nwwwt9h.ap-southeast-1.rds.amazonaws.com';
-     $cfg['Servers'][$i]['port'] = '3306';
-     $cfg['Servers'][$i]['socket'] = '';
-     $cfg['Servers'][$i]['connect_type'] = 'tcp';
-     $cfg['Servers'][$i]['extension'] = 'mysql';
-     $cfg['Servers'][$i]['compress'] = TRUE;
-     $cfg['Servers'][$i]['auth_type'] = 'cookie';
-     
-     $cfg['Servers'][$i]['auth_type'] = 'config';
-     $cfg['Servers'][$i]['user'] = 'admin';
-     $cfg['Servers'][$i]['password'] = 'IloveESMandPaul!<3';
+	$i++;
+	$cfg['Servers'][$i]['verbose'] = 'ESD';
+	$cfg['Servers'][$i]['host'] = 'esd.cemjatk2jkn2.ap-southeast-1.rds.amazonaws.com';
+	$cfg['Servers'][$i]['port'] = '3306';
+	$cfg['Servers'][$i]['socket'] = '';
+	$cfg['Servers'][$i]['connect_type'] = 'tcp';
+	$cfg['Servers'][$i]['extension'] = 'mysql';
+	$cfg['Servers'][$i]['compress'] = TRUE;
+	$cfg['Servers'][$i]['auth_type'] = 'cookie';
+
+	$cfg['Servers'][$i]['auth_type'] = 'config';
+	$cfg['Servers'][$i]['user'] = 'admin';
+	$cfg['Servers'][$i]['password'] = 'IloveESMandPaul!<3';
      ```
 
    - Go to http://localhost/phpmyadmin/index.php
