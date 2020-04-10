@@ -85,7 +85,7 @@ def find_by_doctor_id(doctor_id):
         return jsonify(doctor.json_no_password())
     return jsonify({"message": "Doctor not found."}), 404
 
-#THis is for flask ap
-#NOTE THAT ALL MICROSERVICES must use different ports if you want to run them simultaneously!
+# This is for flask ap
+# NOTE THAT ALL MICROSERVICES must use different ports if you want to run them simultaneously!
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=5002, debug=True)

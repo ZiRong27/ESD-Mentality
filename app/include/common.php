@@ -1,35 +1,8 @@
 <?php
 
-// this will autoload the class that we need in our code
-spl_autoload_register(function($class) {
- 
-    // we are assuming that it is in the same directory as common.php
-    // otherwise we have to do
-    // $path = 'path/to/' . $class . ".php"    
-    require_once "$class.php"; 
-  
-});
-
-
 // session related stuff
 
 session_start();
-
-/*
-function printErrors() {
-    if(isset($_SESSION['errors'])){
-        echo "<ul id='errors' style='color:red;'>";
-        
-        foreach ($_SESSION['errors'] as $value) {
-            echo "<li>" . $value . "</li>";
-        }
-        
-        echo "</ul>";   
-        unset($_SESSION['errors']);
-    }    
-}
-*/
-
 
 function isMissingOrEmpty($name) {
     if (!isset($_REQUEST[$name])) {
