@@ -1,7 +1,7 @@
 Mentality
 ======
-https://github.com/ZiRong27/ESD-Mentality
-======
+Link: https://github.com/ZiRong27/ESD-Mentality
+
 Mentality is a booking enterprise solution where patients can book consultations with the therapists at our therapy booking web application. It is an online website that easily and conveniently connects people with our therapists based on their needs, with our doctors’ details such as specialisations and fees explicitly stated on the website. 
 
 The solution consists of 6 microservices - Patient, Doctor, Notification, Appointment, Consultation, Payment Payment Microservice uses Stripe External API and Notification Microservice uses Twilio External API. 
