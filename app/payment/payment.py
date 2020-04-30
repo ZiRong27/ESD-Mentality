@@ -65,9 +65,9 @@ class Payment(db.Model):
         # for debugging
         print ("pateitn", self.patient_id, "date", self.date)
 
-
-pub_key = 'pk_test_RTVKG6eUSKaY6R0IJvaK2Yp900zQwhahx5'
-stripe.api_key = 'sk_test_Jv4rWn5PYDRId7XNFssqQTS600rcH2uAbV'
+### generate access key
+pub_key = 'pub_key'
+stripe.api_key = 'api_key'
 
 @app.route('/transactionhistory-by-id/<string:patient_id>')
 def get_all_payment_by_patientid(patient_id):
